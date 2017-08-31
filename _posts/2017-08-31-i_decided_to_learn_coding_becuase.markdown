@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "I Decided To Learn Coding Becuase:"
-date:   2017-08-31 03:45:32 +0000
+date:   2017-08-30 23:45:33 -0400
 ---
 
 I decided to learn coding because I don't like looking at my computer as though it's a strictly a digital consumption device.  My background in electronic music has taught me that using a computer is artisically empowering and i want to be able to control it at the code level.  I have a hunger for information and my life has been filled with lots of quests for knowledge.  I taught myself electronics and some simple circuit design, but my knowledge was never enough.  It never is.  Constant learning is a way of life for me and I never tire from it.  Why be bored when there is information to gather.  After graduating from Rutgers University's Mason Gross School of the Arts I still practiced and played as much guitar as humanly possible, but i knew nothing about electronics.  It seemed hipocritical to be an electric guitar player and know nothing about electricity.  Afterall, Les Paul was an insane guitar player and also understood the foundations of electrical engineering.  Eventually I branched out to more modern forms of music and quickly found that my computer was my second instrument.
