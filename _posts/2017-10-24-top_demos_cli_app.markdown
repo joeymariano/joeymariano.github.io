@@ -103,6 +103,7 @@ When the controller class Controller.call is called the interface starts:
 The ask method sets off a chain of events to check for input after every action ie.  either listing the demos or getting more information:
 
 ```
+
   def ask
     puts "Type exit to leave."
     puts "Type list to list the demos again."
