@@ -103,33 +103,33 @@ When the controller class Controller.call is called the interface starts:
 The ask method sets off a chain of events to check for input after every action ie.  either listing the demos or getting more information:
 
 ```
-  def ask
-    puts "Type exit to leave."
-    puts "Type list to list the demos again."
-    puts "For more information type the demo's number."
+def ask
+  puts "Type exit to leave."
+  puts "Type list to list the demos again."
+  puts "For more information type the demo's number."
 
-    input = gets.strip
+  input = gets.strip
 
-    numbers = [*(1..10)]
-    numbers.collect! {|n| n.to_s}
+  numbers = [*(1..10)]
+  numbers.collect! {|n| n.to_s}
 
-    if !valid_input?(input, numbers)
-      puts " "
-      puts "Please enter a valid command."
-      puts " "
-      ask
-    elsif input == 'list'
-      list_demos
-      ask
-    elsif numbers.include?(input)
-      more_info(input)
-      ask
-    else
-      #exit program
-    end
+  if !valid_input?(input, numbers)
+    puts " "
+    puts "Please enter a valid command."
+    puts " "
+    ask
+  elsif input == 'list'
+    list_demos
+    ask
+  elsif numbers.include?(input)
+    more_info(input)
+    ask
+  else
+    #exit program
   end
-	```
-	
+end
+```
+
 
 
 
