@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Top Demos CLI APP"
-date:       2017-10-24 05:30:25 +0000
+date:       2017-10-24 01:30:25 -0400
 permalink:  top_demos_cli_app
 ---
 
