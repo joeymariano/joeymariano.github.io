@@ -50,3 +50,5 @@ After some thinking i realized that the use of single quotes inside single quote
 ```
 
 Now everything is working great and I'm excited to add some more details.
+
+Here is a walkthrough of the site:  [Sinatra Portfolio Project](https://youtu.be/goIcwZWfR7A)
