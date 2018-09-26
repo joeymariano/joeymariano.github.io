@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Javascript Context"
-date:       2018-09-26 16:00:46 +0000
+date:       2018-09-26 12:00:47 -0400
 permalink:  javascript_context
 ---
 
