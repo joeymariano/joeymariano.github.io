@@ -95,8 +95,14 @@ testFunct() // will return the Window object
 let surprize = testFunct() 
 
 surprize  // will return the Window object
+```
 
-let surprize = testFunct  // watch out if you don't specifically call the function
+Watch out if you don't specifically call the function!
+
+```
+function testFunct(){ return this }  
+
+let surprize = testFunct  // if you don't specifically call the function
 
 surprize  // returns the testFunct object
 ```
