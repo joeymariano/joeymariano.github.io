@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Sinatra Heroku Deployment Issues"
-date:       2018-12-23 23:47:34 +0000
+date:       2018-12-23 18:47:35 -0500
 permalink:  sinatra_heroku_deployment_issues
 ---
 
