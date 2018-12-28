@@ -2,12 +2,12 @@
 title: Joey Dev Dot Info
 header-img: img/home-bg.png
 email: joey.michalina.mariano@gmail.com
-copyright_name: nmlstyl
+copyright_name: joeymariano
 description: > # this means to ignore newlines until "baseurl:"
   A web development blog focusing on Rails and Javascript.
 baseurl: "" # the subpath of your site, e.g. /blog
-twitter_username: 
-github_username:  nmlstyl
+twitter_username:
+github_username:  joeymariano
 learn_profile: nmlstyl
 email_username: joey.michalina.mariano@gmail.com
 
