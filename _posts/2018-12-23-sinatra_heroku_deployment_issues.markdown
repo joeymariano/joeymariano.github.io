@@ -6,7 +6,7 @@ permalink:  sinatra_heroku_deployment_issues
 ---
 
 
-I created a simple website using the Ruby based Sinatra framework for my electronic music project.  I developed it around the same time I was learning the framework at Flatiron School.  To get started I had copy pasted a project that was working and used it as a template for my site.  Everything was fine when I first deployed it to Heroku.  At that time i used and embedded iframe to display my upcoming concerts.  I always hated not being able to control the CSS of the iframe in an easy manner.  I created a hack to try an interject some css in the songkick.com widget:
+I created a simple website using the Ruby based Sinatra framework for my electronic music project.  I developed it around the same time I was learning the framework at Flatiron School.  To get started I had copy pasted a project that was working and used it as a template for my site.  Everything was fine when I first deployed it to Heroku.  At that time i embedded an iframe to display my upcoming concerts.  I always hated not being able to control the CSS of the iframe in an easy manner.  I created a hack to try an interject some css in the songkick.com widget:
 
 ```
 <a href="https://www.songkick.com/artists/8980439" class="songkick-widget" data-theme="light" data-detect-style="true"  data-background-color="transparent">Nmlstyl tour dates</a>
