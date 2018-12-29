@@ -27,12 +27,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{{ site.baseurl }}/"><span style="background-color:black;">Home</span></a>
+                    <a href="{{ site.baseurl }}/">Home</a>
                 </li>
                 {% for page in site.pages %}{% if page.title %}
 				{% if page.url != '/404.html' %}
                 <li>
-                    <a href="{{ page.url | prepend: site.baseurl }}"><span style="background-color:black;">{{ page.title }}</span></a>
+                    <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
                 </li>
 				{% endif %}
                 {% endif %}{% endfor %}
