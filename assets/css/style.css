@@ -3,3 +3,18 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* Initial state */
+#menu {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/* Shown menu styles */
+#menu.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
