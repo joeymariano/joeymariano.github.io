@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => menu.classList.add('visible'), 10); // Short delay to trigger transition
     } else {
       menu.classList.remove('visible');
-      setTimeout(() => menu.classList.add('hidden'), 300); // Matches transition duration
+      setTimeout(() => menu.classList.add('hidden'), 500); // Matches transition duration
     }
   });
 });
