@@ -2,11 +2,12 @@
 <html lang="en">
   {% include head.html %}
 
-  {% include header.html %}
-<body>
-   <main class="max-w-7xl mx-auto p-6">
-    {{ content }}
-    </main>
-  {% include footer.html %}
-</body>
+  <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
+    {% include header.html %}
+      <main class="max-w-7xl mx-auto p-6">
+        {{ content }}
+      </main>
+    {% include footer.html %}
+  </body>
+
 </html>
