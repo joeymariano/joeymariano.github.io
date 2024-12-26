@@ -4,17 +4,20 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* Initial state */
-#menu {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
-}
 
-/* Shown menu styles */
-#menu.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+@media (max-width: 768px) {
+/* Initial state */
+  #menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity .8s ease, transform 0.3s ease, visibility 0.3s;
+  }
+
+  /* Shown menu styles */
+  #menu.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 }
