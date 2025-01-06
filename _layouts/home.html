@@ -4,9 +4,12 @@
 
   <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
     {% include header.html %}
-      <main class="max-w-7xl mx-auto p-6">
-        {{ content }}
-      </main>
+    <div class="grid grid-col-2 gap-1">
+      <div><img src="/assets/img/joey-profile.jpg" alt="Profile Picture" class="rounded scale-50"></div>
+      <div>
+        <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
+      </div>
+    </div>
     {% include footer.html %}
   </body>
 
