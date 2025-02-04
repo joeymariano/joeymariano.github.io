@@ -3,36 +3,41 @@
 
 {% include head.html %}
 
-<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
+<body class="bg-gray-100 text-gray-900 dark:bg-gradient-to-tl from-zinc-700 to-stone-900  dark:text-white">
 
 {% include header.html %}
 
 <!-- cards
-profile rounded pic:
-<div class="basis-1/4">
-    <div class="rounded-3xl bg-black p-4">
-        <p><img src="{{ img_url }}" alt="{{ img_alt }}" class="rounded-full"></p>
-        &nbsp;
-        <p class="text-justify p-4 rounded-3xl bg-black">{{ content }}</p>
-    </div>
-</div>
 
-square profile pic
-<div class="basis-1/4">
-    <div class="rounded-3xl bg-black p-4">
-        <p><img src="{{ img_url }}" alt="{{ img_alt_txt }}" class="rounded-3xl"></p>
-        &nbsp;
-        <p class=" text-justify p-3 rounded-3xl">{{ content }}</p>
-    </div>
-</div>
+held within this div => =>
 
-long horizontal:
+<div class="flex flex-col lg:flex-row gap-12 p-4">
+    profile rounded pic:
+    <div class="basis-1/4">
+        <div class="rounded-3xl bg-black p-4">
+            <p><img src="{{ img_url }}" alt="{{ img_alt }}" class="rounded-full"></p>
+            &nbsp;
+            <p class="text-justify p-4 rounded-3xl bg-black">{{ content }}</p>
+        </div>
+    </div>
+
+    square profile pic
+    <div class="basis-1/4">
+        <div class="rounded-3xl bg-black p-4">
+            <p><img src="{{ img_url }}" alt="{{ img_alt_txt }}" class="rounded-3xl"></p>
+            &nbsp;
+            <p class=" text-justify p-3 rounded-3xl">{{ content }}</p>
+        </div>
+    </div>
+
+    long horizontal:
     <div class="basis-2/4">
         <div class="rounded-3xl bg-black p-4">
             <p><img src="{{ img_url }}" alt="{{ img_alt_txt }}" class="rounded-tr-3xl rounded-tl-3xl"></p>
             <p class="text-justify p-4 rounded">{{ content }} </p>
         </div>
     </div>
+</div>
 -->
 
 <div class="flex flex-col lg:flex-row gap-12 p-4">
