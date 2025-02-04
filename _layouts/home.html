@@ -9,23 +9,30 @@
 
 <!-- cards
 profile rounded pic:
-<div class="flex flex-col lg:flex-row gap-12 px-6">
-<div class="basis-1/4 p-4 rounded-3xl bg-black">
- <p><img src="{ url }" alt="{ alt text }" class="rounded-full"></p>&nbsp;
- <p class="text-justify p-4 rounded-3xl bg-black">{ content }</p>
+<div class="basis-1/4">
+    <div class="rounded-3xl bg-black p-4">
+        <p><img src="{{ img_url }}" alt="{{ img_alt }}" class="rounded-full"></p>
+        &nbsp;
+        <p class="text-justify p-4 rounded-3xl bg-black">{{ content }}</p>
+    </div>
 </div>
 
 square profile pic
-<div class="basis-1/4 p-4 rounded-3xl bg-black">
-  <p><img src="{ image url }" alt="{ image alt text }" class="rounded-3xl"></p> &nbsp;
-  <p class=" text-justify p-3 rounded-3xl">{ content }</p>
+<div class="basis-1/4">
+    <div class="rounded-3xl bg-black p-4">
+        <p><img src="{{ img_url }}" alt="{{ img_alt_txt }}" class="rounded-3xl"></p>
+        &nbsp;
+        <p class=" text-justify p-3 rounded-3xl">{{ content }}</p>
+    </div>
 </div>
 
 long horizontal:
-<div class="basis-2/4 rounded-3xl bg-black">
-  <p><img src="{ img url }" alt="{ img alt text }" class="rounded-tr-3xl rounded-tl-3xl"></p>
-  <p class="text-justify p-4 rounded">{ content }</p>
-</div>
+    <div class="basis-2/4">
+        <div class="rounded-3xl bg-black p-4">
+            <p><img src="{{ img_url }}" alt="{{ img_alt_txt }}" class="rounded-tr-3xl rounded-tl-3xl"></p>
+            <p class="text-justify p-4 rounded">{{ content }} </p>
+        </div>
+    </div>
 -->
 
 <div class="flex flex-col lg:flex-row gap-12 p-4">
@@ -52,7 +59,7 @@ long horizontal:
     </div>
 
     <div class="basis-1/4">
-       <div class="rounded-3xl bg-black p-4">
+        <div class="rounded-3xl bg-black p-4">
             <p><img src="/assets/img/4gize-teletext.svg" alt="nmlstyl sp33k album cover" class="rounded-3xl"></p>
             &nbsp;
             <p class=" text-justify p-3 rounded-3xl">
@@ -84,11 +91,11 @@ long horizontal:
     </div>
 
     <div class="basis-1/4">
-       <div class="rounded-3xl bg-black p-4">
-        <p><img src="/assets/img/juvenile-amplifier-little.jpg" alt="Juvenile Amplifier Installation"
-                class="rounded-3xl"></p>
-        &nbsp
-        <p class="text-justify p-4 rounded-3xl bg-black">Juvenile Amplifier installation</p>
+        <div class="rounded-3xl bg-black p-4">
+            <p><img src="/assets/img/juvenile-amplifier-little.jpg" alt="Juvenile Amplifier Installation"
+                    class="rounded-3xl"></p>
+            &nbsp
+            <p class="text-justify p-4 rounded-3xl bg-black">Juvenile Amplifier installation</p>
         </div>
     </div>
 </div>
