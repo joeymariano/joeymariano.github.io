@@ -4,7 +4,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-
 @media (max-width: 768px) {
 /* Initial state */
   #menu {
