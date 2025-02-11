@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-stone-900 text-gray-900 dark:bg-gradient-to-br from-stone-900 via-stone-900 to-gray-600
+<html lang="en" class="bg-black text-gray-900 dark:bg-gradient-to-br from-stone-900 via-stone-900 to-gray-600
  dark:text-white">
 
 {% include head.html %}
@@ -41,12 +41,13 @@ held within this div => =>
 </div>
 -->
 
-<div class="px-4">
-    <div class="flex flex-col lg:flex-row gap-8">
-        <div class="basis-1/4">
-            <div class="rounded-3xl bg-black p-4"> <!-- card wrapper gets p4-->
+<div class="p-8"> <!-- container for cards -->
+    <div class="flex flex-col lg:flex-row gap-4">  <!-- flexbox for cards -->
+        <div class="basis-1/4">  <!-- small card ○ photo -->
+            <div class="rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                <!-- round ○ photo -->
                 <p><img src="/assets/img/joey-profile.jpg" alt="Profile Picture" class="rounded-full"></p>
-                &nbsp;
+                <!-- text paragraph-->
                 <p class="text-justify p-4 rounded-3xl bg-black">
                     Artist and educator with over 26 years of experience integrating
                     traditional music instruction and cutting-edge technology. Seeking collaborative opportunities to blend
@@ -54,9 +55,11 @@ held within this div => =>
             </div>
         </div>
 
-        <div class="basis-2/4">
-            <div class="rounded-3xl bg-black p-4">
+        <div class="basis-2/4"> <!-- big card □ photo -->
+            <div class="rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                <!-- □ photo -->
                 <p><img src="/assets/img/onStage.jpeg" alt="Stage Picture" class="rounded-tr-3xl rounded-tl-3xl"></p>
+                <!-- text paragraph-->
                 <p class="text-justify p-4 rounded">
                     On stage at <a href="https://super.magfest.org">MAGfest</a> 2025. Appearing at the same show as
                     Bit Brigade, Master Boot Record, Bit Shifter, Cybertronic Spree, Super Strikers and more. Joey is
@@ -65,10 +68,11 @@ held within this div => =>
             </div>
         </div>
 
-        <div class="basis-1/4">
-            <div class="rounded-3xl bg-black p-4">
+        <div class="basis-1/4"> <!-- small card □ photo -->
+            <div class="rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                <!-- □ photo -->
                 <p><img src="/assets/img/4gize-teletext.svg" alt="nmlstyl sp33k album cover" class="rounded-3xl"></p>
-                &nbsp;
+                <!-- text paragraph-->
                 <p class=" text-justify p-3 rounded-3xl">
                     Latest album release: Joey Mariano on guitar and Yusef Kelliebrew on Drums.
                     Other instruments provided by => SNES samples ripped from the terminal, m8 tricks,
@@ -80,7 +84,7 @@ held within this div => =>
 
     <br>
 
-    <div class="flex flex-col lg:flex-row gap-12 px-4">
+    <div class="flex flex-col lg:flex-row gap-4">
         <div class="basis-2/4">
             <div class="rounded-3xl bg-black p-4">
                 <p><img src="/assets/img/8static-screenshot.png" alt="8static Logo" class="rounded-1xl"></p>
