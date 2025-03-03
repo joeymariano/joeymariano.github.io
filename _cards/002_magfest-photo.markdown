@@ -1,7 +1,7 @@
 ---
 image: /assets/img/onStage.jpeg
 round_image: false
-category: home
+category: home music
 size: 2x
 ---
 On stage at <a href="https://super.magfest.org">MAGfest</a> 2025. Appearing at the same show as

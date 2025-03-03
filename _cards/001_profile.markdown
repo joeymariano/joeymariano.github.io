@@ -1,7 +1,7 @@
 ---
 image: /assets/img/joey-profile.jpg
 round_image: true
-category: home
+category: home profile
 size: 1x
 ---
 Artist and educator with over 26 years of experience integrating
