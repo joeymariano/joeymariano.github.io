@@ -29,7 +29,7 @@ url: https://joeymariano.github.io
 github_username: joeymariano
 
 # Build settings
-theme: joeystyl
+theme:
 plugins:
   - jekyll-feed
   - jekyll-postcss
