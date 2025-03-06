@@ -10,8 +10,4 @@ module.exports = {
     "./assets/js/scripts.js",   // Target your JS files
     // You can add more paths like this if needed
   ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
 };
