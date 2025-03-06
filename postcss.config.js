@@ -2,6 +2,7 @@ module.exports = {
   plugins: [
     require('postcss-import'),
     require('tailwindcss'),
+    require('@tailwindcss/postcss')
   ]
 };
 
@@ -9,4 +10,3 @@ module.exports = {
 // ...(process.env.JEKYLL_ENV == "production"
 //    ? [require('cssnano')({ preset: 'default' })]
 //    : [])
-
