@@ -1,5 +1,8 @@
 name: Build and deploy this site to GitHub Pages
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -32,10 +35,9 @@ jobs:
         with:
           enable_cache: true
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Ensure GITHUB_TOKEN is used correctly
-          publish_branch: gh-pages
-          publish_dir: ./public  # or wherever your build output is
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
 
