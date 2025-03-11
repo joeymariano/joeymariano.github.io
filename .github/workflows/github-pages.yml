@@ -9,22 +9,32 @@ jobs:
   github-pages:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
+      # Checkout repository
+      - uses: actions/checkout@v3
+
+      # Setup Ruby
+      - uses: ruby/setup-ruby@v2
         with:
           ruby-version: 3.3.5
           bundler-cache: true
-      - name: Setup Node
-        uses: actions/setup-node@v2
+
+      # Setup Node.js
+      - uses: actions/setup-node@v3
         with:
           node-version: 23.4.0
+
+      # Install dependencies for Node.js
       - run: npm install
+
+      # Build the site
       - name: Build site
         uses: limjh16/jekyll-action-ts@v2
         with:
           enable_cache: true
+
+      # Deploy to GitHub Pages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: $
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use the secret GITHUB_TOKEN
           publish_dir: ./_site
