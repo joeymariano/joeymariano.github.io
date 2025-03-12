@@ -21,6 +21,7 @@ jobs:
           ruby-version: 3.3.5
           bundler-cache: true
 
+      - run: gem install jekyll
       - run: bundle install
 
       # Setup Node.js
