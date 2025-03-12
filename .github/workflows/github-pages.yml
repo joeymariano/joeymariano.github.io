@@ -21,6 +21,8 @@ jobs:
           ruby-version: 3.3.5
           bundler-cache: true
 
+      - run: bundle install
+
       # Setup Node.js
       - uses: actions/setup-node@v3
         with:
