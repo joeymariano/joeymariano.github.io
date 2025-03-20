@@ -9,11 +9,11 @@
 {% include header.html %}
 
 <div class="p-8"> <!-- container for cards -->
-    <div class="grid lg:grid-cols-4 gap-8 grid-flow-row-dense">
+    <div class="grid sm:grid-col-1 md:grid-col-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
         {% for item in site.cards %}
             {% if item.category contains 'home' %}
                 <!-- card size -->
-                <div class="{% if item.size == '1x' %}col-span-1{% elsif item.size == '2x' %}col-span-2{% endif %}">
+                <div class="{% if item.size == '1x' %}col-span-1{% elsif item.size == '2x' %}lg:col-span-2{% endif %}">
                     <!-- container w/ drop shadow -->
                     <div class="rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
                         <p> <!-- round or square image -->
