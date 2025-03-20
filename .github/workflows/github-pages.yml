@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  github-pages:
+  build-deploy:
     runs-on: macos-15
     steps:
       # Checkout repository
