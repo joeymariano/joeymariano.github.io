@@ -9,7 +9,7 @@
 {% include header.html %}
 
 <div class="p-8"> <!-- container for cards -->
-    <div class="grid lg:grid-cols-4 gap-4">
+    <div class="grid lg:grid-cols-4 gap-8 grid-flow-row-dense">
         {% for item in site.cards %}
             {% if item.category contains 'home' %}
                 <!-- card size -->
