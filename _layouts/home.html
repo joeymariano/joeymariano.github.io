@@ -11,20 +11,22 @@
 <div class="p-8"> <!-- container for cards -->
     <div class="grid lg:grid-cols-4 gap-4">
         {% for item in site.cards %}
-            <!-- card size -->
-            <div class="{% if item.size == '1x' %}col-span-1{% elsif item.size == '2x' %}col-span-2{% endif %}">
-                <!-- container w/ drop shadow -->
-                <div class="rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
-                    <p> <!-- round or square image -->
-                        <img src="{{ item.image }}" alt="title" class="{% if item.round_image == true %}rounded-full{% elsif item.round_image == false %}rounded-3xl{% endif %}">
-                    </p>
+            {% if item.category contains 'home' %}
+                <!-- card size -->
+                <div class="{% if item.size == '1x' %}col-span-1{% elsif item.size == '2x' %}col-span-2{% endif %}">
+                    <!-- container w/ drop shadow -->
+                    <div class="rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                        <p> <!-- round or square image -->
+                            <img src="{{ item.image }}" alt="title" class="{% if item.round_image == true %}rounded-full{% elsif item.round_image == false %}rounded-3xl{% endif %}">
+                        </p>
 
-                    <!-- text paragraph-->
-                    <p class="text-justify p-4 rounded-3xl bg-black">
-                        {{ item.content }}
-                    </p>
-                </div> <!-- end card -->
-            </div>
+                        <!-- text paragraph-->
+                        <p class="text-justify p-4 rounded-3xl bg-black">
+                            {{ item.content }}
+                        </p>
+                    </div> <!-- end card -->
+                </div>
+            {% endif %}
         {% endfor %}
   </div>
 </div>
