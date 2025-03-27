@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Front End Developer"
 date: 2001-01-01
 tags: [developer, front end, Sinatra, Bootstrap, Songkick API]

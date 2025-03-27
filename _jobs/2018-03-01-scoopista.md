@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Scoopista"
 date: 2018-03-01
 tags: [ice cream, customer service]

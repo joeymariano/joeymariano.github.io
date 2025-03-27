@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Computer Repair Technician"
 date: 2017-03-01
 tags: [IT, repair, Apple, Windows, Linux]

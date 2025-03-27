@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Freelance Front End Developer"
 date: 2019-05-01
 tags: [front end, developer, HTML, Javascript, SASS, JSON, SquareSpace]

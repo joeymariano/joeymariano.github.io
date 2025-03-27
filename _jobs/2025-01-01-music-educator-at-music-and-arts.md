@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Music Educator at Music & Arts"
 date: 2025-01-01
 tags: [music, educator, teaching, guitar, bass, piano]

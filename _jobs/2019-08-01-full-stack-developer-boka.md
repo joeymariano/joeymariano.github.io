@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Full Stack Developer"
 date: 2019-08-01
 tags: [developer, full stack, Ruby on Rails, content management, Graybits]

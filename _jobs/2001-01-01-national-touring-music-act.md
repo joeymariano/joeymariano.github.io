@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "National Touring Music Act"
 date: 2001-01-01
 tags: [touring, music, performance, events, management]

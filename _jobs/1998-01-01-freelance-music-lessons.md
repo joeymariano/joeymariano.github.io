@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Freelance Music Lessons"
 date: 1998-01-01
 tags: [freelance, music, guitar, bass, piano, lessons]

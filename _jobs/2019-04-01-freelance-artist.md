@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Freelance Artist"
 date: 2019-04-01
 tags: [artist, installation, Gameboy]

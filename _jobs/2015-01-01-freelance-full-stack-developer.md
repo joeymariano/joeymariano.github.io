@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Freelance Full Stack Developer"
 date: 2015-01-01
 tags: [developer, full stack, CSS, HTML, Javascript]

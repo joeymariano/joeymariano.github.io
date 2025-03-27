@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Freelance Composer"
 date: 2019-04-01
 tags: [composer, music, TwilioQuest]
