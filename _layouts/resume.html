@@ -8,11 +8,12 @@
 
 {% include header.html %}
 
-<div class="p-8"> <!-- container for cards -->
+<div class="p-8"> <!-- container for content -->
 
-  <p class="pb-8 text-2xl">EXPERIENCE</p>
+  <p class="pb-8 text-3xl">EXPERIENCE</p>
 
-    <ol class="w-max items-top sm:flex">
+  <div class="overflow-x-scroll"><!-- scrollable wrapper  -->
+    <ol class="w-max items-top sm:flex ">
       {% assign rev-job = site.jobs | reverse %}
       {% for item in rev-job %}
         <li class="relative mb-6 sm:mb-0">
@@ -32,6 +33,10 @@
         </li>
       {% endfor %}
     </ol>
+  </div>
+
+  <p class="pb-8 pt-8 text-3xl">EDUCATION</p>
+  <p class="pb-8 pt-8 text-3xl">SKILLS</p>
 
 </div>
 
