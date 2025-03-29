@@ -67,6 +67,13 @@
 
   <div>
   <p class="pb-8 pt-8 text-3xl">SKILLS</p>
+    <div class="grid grid-cols-8 gap-4">
+      {% for item in page.skills %}
+        <div class="dark:bg-[#0a0a0a] drop-shadow-[10px_10px_4px_rgba(38,38,38)] p-2 text-center rounded-lg">
+          {{ item }}
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 
