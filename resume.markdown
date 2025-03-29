@@ -1,7 +1,4 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: resume
 skills:
   - "Concerts"
@@ -65,6 +62,8 @@ skills:
   - "Object-Relational Mapping (ORM)"
   - "RESTful architecture"
   - "Pixel Art"
+  - "Jekyll"
+  - "TailwindCSS"
   - "Electronic Music"
   - "Game Music"
   - "Heroku"
@@ -73,5 +72,4 @@ skills:
   - "Creative Coding"
   - "Lua"
   - "Computer Programming"
-
 ---
