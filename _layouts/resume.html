@@ -12,11 +12,11 @@
 
   <span class="inline-flex">
     <p class="mb-8 text-3xl">EXPERIENCE</p>
-    <button class="hover:bg-gray-600 bg-black text-white font-bold px-4 mb-8 rounded-full ml-6"> <-- </button>&nbsp;
-    <button class="hover:bg-gray-500 bg-black text-white font-bold px-4 mb-8 rounded-full ml-2"> --> </button>
+    <button id="job-btn-back" class="hover:bg-gray-500 text-white font-bold px-4 mb-8 rounded-full ml-6"> << </button>&nbsp;
+    <button id="job-btn-forward" class="hover:bg-gray-500 text-white font-bold px-4 mb-8 rounded-full ml-2"> >> </button>
   </span>
 
-    <div class="overflow-x-scroll"><!-- scrollable wrapper  -->
+    <div id='job-scroller' class="overflow-x-scroll"><!-- scrollable wrapper  -->
         <ol class="w-max items-top sm:flex ">
             {% assign rev-job = site.jobs | reverse %}
             {% for item in rev-job %}
