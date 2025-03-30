@@ -2,145 +2,145 @@
 layout: resume
 skills:
   - name: "Concerts"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Event Management"
-    color: "#FFEB33"  # Yellow
+    color: "#FCD34D"  # Yellow
   - name: "Bass"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Piano"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Talent Booking"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Marketing"
-    color: "#FFEB33"  # Yellow
+    color: "#FCD34D"  # Yellow
   - name: "Social Promotion"
-    color: "#FFEB33"  # Yellow
+    color: "#FCD34D"  # Yellow
   - name: "Live Sound"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Sound Reinforcement"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Management"
-    color: "#FFEB33"  # Yellow
+    color: "#FCD34D"  # Yellow
   - name: "Live Visuals"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Music Composition"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Music Production"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Rock Music"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Music Performance"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Music Licensing"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Original Music"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Music Technology"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Music History"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Music"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Guitar"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Art"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Visual Arts"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Music Education"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Music Theory"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Illustration"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Image Editing"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Web Design"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Web Development"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "JavaScript"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Ruby"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "AJAX"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Bootstrap"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "HTML"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "jQuery"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "PostgreSQL"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "CSS"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "SQL"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "HTML5"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "React.js"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Ruby on Rails"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Arduino"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Git"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Redux"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Redux.js"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "GitHub"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "AWS"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Amazon S3"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "SASS"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Linux"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "GraphQL"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "bcrypt"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "SQLite"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Squarespace"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "REST API"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "CMS"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Teaching"
-    color: "#FFEB33"  # Yellow
+    color: "#FCD34D"  # Yellow
   - name: "Customer Service"
-    color: "#FFEB33"  # Yellow
+    color: "#FCD34D"  # Yellow
   - name: "ORM"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "REST"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Pixel Art"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Jekyll"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "TailwindCSS"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Electronic Music"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Game Music"
-    color: "#FF5733"  # Red
+    color: "#EF4444"  # Red
   - name: "Heroku"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Sinatra"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Rack"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Creative Coding"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Lua"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
   - name: "Programming"
-    color: "#33A1FF"  # Blue
+    color: "#3B82F6"  # Blue
 ---

@@ -8,17 +8,17 @@
 
 {% include header.html %}
 
-<div class="p-8"> <!-- container for content -->
+<div class="p-8 pt-16"> <!-- container for content -->
 
     <div class="grid grid-cols-3 gap-4">
         <div>
-            <span class="inline-flex"><p class="mb-8 text-4xl">EXPERIENCE</p></span>
+            <span class="inline-flex"><p class="mb-8 text-4xl">E X P E R I E N C E</p></span>
         </div>
-        <div class="text-center">
-            <button id="job-btn-back" class="ring-2 ring-gray-300 hover:ring-red-600 text-white font-bold px-4 mb-8 rounded-full ml-6">
+        <div class="text-center pt-2">
+            <button id="job-btn-back" class="ring-2 hover:ring-white ring-blue-500 text-white font-bold px-4 mb-8 rounded-full ml-6">
                 <--
             </button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button id="job-btn-forward" class="ring-2 ring-gray-300 hover:ring-red-600 text-white font-bold px-4 mb-8 rounded-full ml-2">
+            <button id="job-btn-forward" class="ring-2 hover:ring-white ring-yellow-300 text-white font-bold px-4 mb-8 rounded-full ml-2">
                 -->
             </button>
         </div>
@@ -56,7 +56,7 @@
         </ol>
     </div>
 
-    <p class="pb-8 pt-8 text-4xl ">EDUCATION</p>
+    <p class="pb-8 pt-16 text-4xl ">E D U C A T I O N</p>
     <div class="grid grid-cols-2 gap-4">
         <div>
             <div class=" flex items-center justify-center w-8 h-8">
@@ -88,16 +88,16 @@
         </div>
     </div>
 
-    <div class="pt-8">
+    <div class="pt-16">
         <div class="grid grid-cols-3 gap-4 pb-8">
             <div>
-                <p class="pb-8 text-4xl">SKILLS</p>
+                <p class="pb-8 text-4xl">S K I L L S</p>
             </div>
             <div>
                 <p class="text-md text-left">
-                    <button class="mr-4 bg-[#FFEB33] p-2 rounded-xl text-black">MANAGERIAL</button>
-                    <button class="mr-4 bg-[#FF5733] p-2 rounded-xl">ARTS AND MUSIC</button>
-                    <button class="bg-[#33A1FF] p-2 rounded-xl">TECH</button>
+                    <button class="mr-4 ring-2 bg-black ring-yellow-300 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">MANAGERIAL</button>
+                    <button class="mr-4 ring-2 bg-black ring-red-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">ARTS AND MUSIC</button>
+                    <button class="ring-2 bg-black ring-blue-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">TECH</button>
                 </p>
             </div>
             <div>
@@ -107,8 +107,9 @@
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {% for item in page.skills %}
+            <!-- interpolate color -->
             <div class="dark:bg-[#0a0a0a] p-2 text-left rounded-lg"
-            style="filter: drop-shadow(-1px -1px 2px {{ item.color }});">
+            style="filter: drop-shadow(-3px -3px 0px {{ item.color }});">
                 {{ item.name }}
             </div>
             {% endfor %}
