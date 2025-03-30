@@ -10,11 +10,23 @@
 
 <div class="p-8"> <!-- container for content -->
 
-  <span class="inline-flex">
-    <p class="mb-8 text-3xl">EXPERIENCE</p>
-    <button id="job-btn-back" class="hover:bg-gray-500 text-white font-bold px-4 mb-8 rounded-full ml-6"> << </button>&nbsp;
-    <button id="job-btn-forward" class="hover:bg-gray-500 text-white font-bold px-4 mb-8 rounded-full ml-2"> >> </button>
-  </span>
+    <div class="grid grid-cols-3 gap-4">
+        <div>
+            <span class="inline-flex"><p class="mb-8 text-3xl">EXPERIENCE</p></span>
+        </div>
+        <div class="text-center">
+            <button id="job-btn-back" class="ring-2 ring-gray-300 hover:ring-red-600 text-white font-bold px-4 mb-8 rounded-full ml-6">
+                <--
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="job-btn-forward" class="ring-2 ring-gray-300 hover:ring-red-600 text-white font-bold px-4 mb-8 rounded-full ml-2">
+                -->
+            </button>
+        </div>
+        <div>
+            <!-- buttons for sorting -->
+        </div>
+    </div
+    >
 
     <div id='job-scroller' class="overflow-x-scroll"><!-- scrollable wrapper  -->
         <ol class="w-max items-top sm:flex ">
@@ -35,8 +47,8 @@
                 </div>
                 <div class="mt-3 sm:pe-8">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ item.title }}</h3>
-                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">{{
-                        item.date }}
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
+                        {{ item.date | date: "%B %Y" }}
                     </time>
                     <p class="text-base font-normal text-gray-500 dark:text-gray-400">{{ item.content }}</p>
                 </div>
@@ -79,7 +91,7 @@
 
     <div>
         <p class="pb-8 pt-8 text-3xl">SKILLS</p>
-        <div class="grid grid-cols-8 gap-4">
+        <div class="grid grid-cols-2 lg:grid-cols-6 gap-4">
             {% for item in page.skills %}
             <div class="dark:bg-[#0a0a0a] drop-shadow-[10px_10px_4px_rgba(38,38,38)] p-2 text-center rounded-lg">
                 {{ item }}
