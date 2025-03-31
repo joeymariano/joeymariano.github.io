@@ -15,10 +15,12 @@
             <span class="inline-flex"><p class="mb-8 text-4xl">E X P E R I E N C E</p></span>
         </div>
         <div class="text-center pt-2">
-            <button id="job-btn-back" class="ring-2 hover:ring-white ring-blue-500 text-white font-bold px-4 mb-8 rounded-full ml-6">
+            <button id="job-btn-back"
+                    class="drop-shadow-[10px_10px_4px_rgba(38,38,38)] ring-2 bg-black hover:ring-white ring-blue-500 text-white font-bold px-4 mb-8 rounded-full pt-2 pb-2 ml-6">
                 <--
             </button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button id="job-btn-forward" class="ring-2 hover:ring-white ring-yellow-300 text-white font-bold px-4 mb-8 rounded-full ml-2">
+            <button id="job-btn-forward"
+                    class="drop-shadow-[10px_10px_4px_rgba(38,38,38)] ring-2 bg-black hover:ring-white ring-yellow-300 text-white font-bold px-4 mb-8 rounded-full pt-2 pb-2 ml-2">
                 -->
             </button>
         </div>
@@ -28,12 +30,12 @@
     </div>
 
     <div id='job-scroller' class="overflow-x-scroll"><!-- scrollable wrapper  -->
-        <ol class="w-max items-top sm:flex ">
+        <ol class="w-max items-top sm:flex p-1 ">
             {% assign rev-job = site.jobs | reverse %}
             {% for item in rev-job %}
             <li class="relative w-96 mb-6 sm:mb-0">
                 <div class="flex items-center">
-                    <div class="justify-center w-8 h-8 dark:bg-[#0a0a0a] mr-4">
+                    <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
                             <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                             <path stroke="#ffffff"
@@ -59,7 +61,7 @@
     <p class="pb-8 pt-16 text-4xl ">E D U C A T I O N</p>
     <div class="grid grid-cols-2 gap-4">
         <div>
-            <div class=" flex items-center justify-center w-8 h-8">
+            <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                     <path stroke="#ffffff"
@@ -73,7 +75,7 @@
             <p> + studied Jazz Guitar performance at Mason Gross School of the Arts within Rutgers University</p>
         </div>
         <div>
-            <div class="flex items-center justify-center w-8 h-8">
+            <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2 rounded-xl p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                     <path stroke="#ffffff"
@@ -95,9 +97,15 @@
             </div>
             <div>
                 <p class="text-md text-left">
-                    <button class="mr-4 ring-2 bg-black ring-yellow-300 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">MANAGERIAL</button>
-                    <button class="mr-4 ring-2 bg-black ring-red-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">ARTS AND MUSIC</button>
-                    <button class="ring-2 bg-black ring-blue-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">TECH</button>
+                    <button class="mr-4 ring-2 bg-black hover:ring-white ring-yellow-300 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
+                        MANAGERIAL
+                    </button>
+                    <button class="mr-4 ring-2 bg-black hover:ring-white ring-red-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                        ARTS AND MUSIC
+                    </button>
+                    <button class="ring-2 bg-black hover:ring-white ring-blue-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                        TECH
+                    </button>
                 </p>
             </div>
             <div>
@@ -109,7 +117,7 @@
             {% for item in page.skills %}
             <!-- interpolate color -->
             <div class="dark:bg-[#0a0a0a] p-2 text-left rounded-lg"
-            style="filter: drop-shadow(-3px -3px 0px {{ item.color }});">
+                 style="filter: drop-shadow(-2px -2px 0px {{ item.color }});">
                 {{ item.name }}
             </div>
             {% endfor %}
