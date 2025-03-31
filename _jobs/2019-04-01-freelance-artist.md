@@ -1,7 +1,7 @@
 ---
 title: "Freelance Artist"
 date: 2019-04-01
-tags: [artist, installation, Gameboy]
+tags: [artist, installation, Gameboy, art]
 ---
 
 **Position:** Freelance Artist  

@@ -1,7 +1,7 @@
 ---
 title: "Full Stack Developer"
 date: 2018-09-01
-tags: [developer, full stack, Ruby on Rails, Mailgun, Bootstrap]
+tags: [developer, full stack, Ruby on Rails, Mailgun, Bootstrap, tech]
 ---
 
 **Position:** Full Stack Developer  

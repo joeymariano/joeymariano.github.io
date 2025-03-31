@@ -1,7 +1,7 @@
 ---
 title: "Freelance Full Stack Developer"
 date: 2015-01-01
-tags: [developer, full stack, CSS, HTML, Javascript]
+tags: [developer, full stack, CSS, HTML, Javascript, tech]
 ---
 
 **Position:** Freelance Full Stack Developer  

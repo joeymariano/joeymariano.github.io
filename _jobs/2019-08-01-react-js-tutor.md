@@ -1,7 +1,7 @@
 ---
 title: "React JS Tutor"
 date: 2019-08-01
-tags: [React JS, tutor, education, programming]
+tags: [React JS, tutor, education, programming, tech]
 ---
 
 **Position:** React JS Tutor  

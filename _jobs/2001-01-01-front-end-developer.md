@@ -1,7 +1,7 @@
 ---
 title: "Front End Developer"
 date: 2001-01-01
-tags: [developer, front end, Sinatra, Bootstrap, Songkick API]
+tags: [developer, front end, Sinatra, Bootstrap, Songkick API, tech]
 ---
 
 **Position:** Front End Developer  

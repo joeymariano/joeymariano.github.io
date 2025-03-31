@@ -1,7 +1,7 @@
 ---
 title: "Tech Assembly"
 date: 2025-02-01
-tags: [soldering, interactive sculptures, troubleshooting, assembly]
+tags: [soldering, interactive sculptures, troubleshooting, assembly, tech]
 ---
 
 **Position:** Tech Assembly  

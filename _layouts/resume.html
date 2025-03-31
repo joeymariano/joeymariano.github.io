@@ -35,7 +35,13 @@
             {% for item in rev-job %}
             <li class="relative w-96 mb-6 sm:mb-0">
                 <div class="flex items-center">
+                {% if item.tags contains "music" or item.tags contains "art" %}
                     <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
+                {% elsif item.tags contains "tech"%}
+                    <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2 rounded-xl p-2">
+                {% else %}
+                    <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2 rounded-xl p-2">
+                {% endif %}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
                             <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                             <path stroke="#ffffff"
