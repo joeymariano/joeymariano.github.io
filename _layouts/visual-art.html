@@ -3,8 +3,28 @@
 {% include head.html %}
 <body class="bg-grid min-h-screen flex flex-col">
 {% include header.html %}
-<div class="p-8">
-    <!-- container for cards -->
+<div class="p-8"> <!-- container for cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
+        {% for item in site.cards %}
+        {% if item.category contains 'art' or item.category contains 'design' %}
+        <!-- card size -->
+        <div class="{% if item.size == '1x' %}col-span-1{% elsif item.size == '2x' %}lg:col-span-2{% endif %}">
+            <!-- container w/ drop shadow -->
+            <div class="h-full rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                <p> <!-- round or square image -->
+                    <img src="{{ item.image }}" alt="{{ item.image }}"
+                         class="{% if item.round_image == true %}rounded-full{% elsif item.round_image == false %}rounded-3xl{% endif %}">
+                </p>
+
+                <!-- text paragraph-->
+                <p class="text-justify p-4 rounded-3xl bg-black">
+                    {{ item.content }}
+                </p>
+            </div> <!-- end card -->
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
 </div>
 {% include footer.html %}
 </body>

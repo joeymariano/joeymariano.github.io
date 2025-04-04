@@ -1,7 +1,7 @@
 ---
 image: /assets/img/4gize-teletext.svg
 round_image: false
-category: home music
+category: home music art
 size: 1x
 ---
 Latest album release: Joey Mariano on guitar and Yusef Kelliebrew on Drums.
