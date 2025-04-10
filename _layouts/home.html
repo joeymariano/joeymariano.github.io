@@ -17,7 +17,7 @@
             <!-- container w/ drop shadow -->
             <div class="h-full rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
                 <p> <!-- round or square image -->
-                    <img src="{{ item.image }}" alt="{{ item.image }}"
+                    <img src="/assets/img/{{ item.image }}" alt="{{ item.image }}"
                          class="{% if item.round_image == true %}rounded-full{% elsif item.round_image == false %}rounded-3xl{% endif %}">
                 </p>
 

@@ -1,5 +1,5 @@
 ---
-image: /assets/img/4gize-teletext.svg
+image: 4gize-teletext.svg
 round_image: false
 category: home music art
 size: 1x

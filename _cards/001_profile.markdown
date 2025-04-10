@@ -1,5 +1,5 @@
 ---
-image: /assets/img/joey-profile.jpg
+image: joey-profile.jpg
 round_image: true
 category: home profile
 size: 1x

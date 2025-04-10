@@ -1,5 +1,5 @@
 ---
-image: /assets/img/onStage.jpeg
+image: onStage.jpeg
 round_image: false
 category: home music
 size: 2x

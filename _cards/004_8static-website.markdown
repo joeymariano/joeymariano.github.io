@@ -1,5 +1,5 @@
 ---
-image: /assets/img/8static-screenshot.png
+image: 8static-screenshot.png
 round_image: false
 category: home design code art
 size: 2x

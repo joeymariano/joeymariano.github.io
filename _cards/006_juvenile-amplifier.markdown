@@ -1,5 +1,5 @@
 ---
-image: /assets/img/juvenile-amplifier-little.jpg
+image: juvenile-amplifier-little.jpg
 round_image: false
 category: home art design
 size: 1x
