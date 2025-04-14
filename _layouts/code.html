@@ -6,13 +6,13 @@
 <div class="p-8"> <!-- container for cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
         {% for item in site.cards %}
-        {% if item.category contains 'code' %}
-        {% include _card.html
-        size=item.size
-        image=item.image
-        round_image=item.round_image
-        content=item.content %}
-        {% endif %}
+            {% if item.category contains 'code' %}
+                {% include _card.html
+                size=item.size
+                image=item.image
+                round_image=item.round_image
+                content=item.content %}
+            {% endif %}
         {% endfor %}
     </div>
 </div>
