@@ -1,4 +1,5 @@
 ---
+title: Joey Michalina Mariano
 image: joey-profile.jpg
 round_image: true
 category: home profile

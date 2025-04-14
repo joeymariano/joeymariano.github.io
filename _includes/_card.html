@@ -5,7 +5,10 @@
             <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
                  class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}rounded-3xl{% endif %}">
         </p>
-        <p class="text-justify p-4 rounded-3xl bg-black">
+        <h2 class="text-md font-semibold text-gray-400 pt-4">
+            {{ include.title }}
+        </h2>
+        <p class="text-justify pb-4 rounded-3xl bg-black">
             {{ include.content }}
         </p>
     </div>

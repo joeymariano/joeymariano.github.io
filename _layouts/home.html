@@ -8,6 +8,7 @@
         {% for item in site.cards %}
             {% if item.category contains 'home' %}
                 {% include _card.html
+                title=item.title
                 size=item.size
                 image=item.image
                 round_image=item.round_image
