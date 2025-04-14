@@ -1,14 +1,14 @@
-<div class="{% if size == '1x' %}col-span-1{% elsif size == '2x' %}lg:col-span-2{% endif %}">
-    <!-- container w/ drop shadow -->
+<!--{{ include | inspect }}-->
+<!--{% assign size = include.size | default: '1x' %}-->
+<div class="{% if size == '1x' %}col-span-1{% elsif size == '2x' %}col-span-2{% endif %}">
+    <!-- container with drop shadow -->
     <div class="h-full rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
-        <p> <!-- round or square image -->
-            <img src="/assets/img/{{ image }}" alt="{{ image }}"
-                 class="{% if round_image == true %}rounded-full{% elsif round_image == false %}rounded-3xl{% endif %}">
+        <p>
+            <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
+                 class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}rounded-3xl{% endif %}">
         </p>
-
-        <!-- text paragraph-->
         <p class="text-justify p-4 rounded-3xl bg-black">
-            {{ content }}
+            {{ include.content }}
         </p>
     </div>
 </div>
