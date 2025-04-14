@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full dark:text-white dark:bg-[#0a0a0a]">
-{% include _head.html %}
-<body class="bg-grid min-h-screen flex flex-col">
-{% include _header.html %}
-<div class="pl-8 pr-8">
-  <!-- container for cards -->
-</div>
-{% include _footer.html %}
-</body>
+    {% include _head.html %}
+    <body class="bg-grid min-h-screen flex flex-col">
+        {% include _header.html %}
+        <div class="pl-8 pr-8"> <!-- cards wrapper -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
+                {% for item in site.cards %}
+                  {% include _card.html
+                  title=item.title
+                  size=item.size
+                  image=item.image
+                  round_image=item.round_image
+                  content=item.content %}
+                {% endfor %}
+            </div>
+        </div>
+        {% include _footer.html %}
+    </body>
 </html>
