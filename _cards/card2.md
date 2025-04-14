@@ -1,4 +1,5 @@
 ---
+title: On Stage at MAGfest
 image: onStage.jpeg
 round_image: false
 category: home music

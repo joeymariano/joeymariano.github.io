@@ -1,4 +1,5 @@
 ---
+title: Fantasy Computer Demo
 image: pico8-pic.png
 round_image: false
 category: code art

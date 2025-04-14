@@ -1,4 +1,5 @@
 ---
+title: Art for 8bitPeoples
 image: doomcloud.jpg
 round_image: false
 category: home design art

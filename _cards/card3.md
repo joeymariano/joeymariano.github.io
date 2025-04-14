@@ -1,4 +1,5 @@
 ---
+title: Newest Album
 image: 4gize-teletext.svg
 round_image: false
 category: home music art
