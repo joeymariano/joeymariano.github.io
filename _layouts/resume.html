@@ -9,14 +9,13 @@
 {% include _header.html %}
 
 <div class="p-8 pt-16"> <!-- container for content -->
-
-    <div class="grid grid-cols-3 gap-4">
-        <div>
-            <span class="inline-flex"><p class="mb-8 text-4xl">E X P E R I E N C E</p></span>
+    <div class="grid grid-col-1 lg:grid-cols-3 gap-4">
+        <div class="col-span-1">
+            <span class="inline-flex"><p class="mb-8 text-3xl">E X P E R I E N C E</p></span>
         </div>
-        <div class="text-center pt-2">
+        <div class="col-span-1 text-left lg:text-center pt-2">
             <button id="job-btn-back"
-                    class="drop-shadow-[10px_10px_4px_rgba(38,38,38)] ring-2 bg-black hover:ring-white ring-blue-500 text-white font-bold px-4 mb-8 rounded-full pt-2 pb-2 ml-6">
+                    class="drop-shadow-[10px_10px_4px_rgba(38,38,38)] ring-2 bg-black hover:ring-white ring-blue-500 text-white font-bold px-4 mb-8 rounded-full pt-2 pb-2 lg:ml-6">
                 <--
             </button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button id="job-btn-forward"
@@ -24,7 +23,7 @@
                 -->
             </button>
         </div>
-        <div>
+        <div class="col-span-1">
             <!-- buttons for sorting -->
         </div>
     </div>
