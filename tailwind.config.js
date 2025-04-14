@@ -5,7 +5,9 @@ module.exports = {
     './**/*.html',           // Include all HTML files
   ],
   theme: {
-    extend: {},
+    extend: {
+      overscrollBehavior: ['none'],
+    },
   },
   plugins: [],
 };
