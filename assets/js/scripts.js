@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const jobBtnBack = document.getElementById('job-btn-back');
     const jobBtnForward = document.getElementById('job-btn-forward');
     const jobScroller = document.getElementById('job-scroller');
-
+    
     menuBtn.addEventListener('click', () => {
         if (menu.classList.contains('hidden')) {
             menu.classList.remove('hidden');
@@ -16,11 +16,27 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => menu.classList.add('hidden'), 500); // Matches transition duration
         }
     });
-
+    
     jobBtnBack.addEventListener('click', () => {
         jobScroller.scrollBy({ left: -384, behavior: 'smooth' });
     });
     jobBtnForward.addEventListener('click', () => {
         jobScroller.scrollBy({ left: 384, behavior: 'smooth' });
     });
+    
+    // Add fadeIn functionality
+    fadeIn();
 });
+
+function fadeIn() {
+    const fade = document.getElementById("body");
+    let opacity = 0;
+    const intervalID = setInterval(function() {
+        if (opacity < 1) {
+            opacity += 0.1;
+            fade.style.opacity = opacity;
+        } else {
+            clearInterval(intervalID);
+        }
+    }, 200);
+}
