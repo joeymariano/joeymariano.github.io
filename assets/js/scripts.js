@@ -49,7 +49,7 @@ function fadeIn() {
     if (!fade) return; // Exit if the element doesn't exist
     
     fade.style.opacity = 0; // Ensure opacity starts at 0
-    fade.style.transition = "opacity 1s ease-in-out"; // Longer duration and smoother easing
+    fade.style.transition = "opacity .4s ease-in-out"; // Longer duration and smoother easing
     
     // Delay to ensure the transition applies
     setTimeout(() => {
