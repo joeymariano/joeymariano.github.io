@@ -1,12 +1,10 @@
-// Navbar script
-
 document.addEventListener('DOMContentLoaded', () => {
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
     const jobBtnBack = document.getElementById('job-btn-back');
     const jobBtnForward = document.getElementById('job-btn-forward');
     const jobScroller = document.getElementById('job-scroller');
-    const fadeContent = document.getElementById('fadeContent');
+    const fadeContentElements = document.querySelectorAll('.fade-content'); // Only elements with fade-content class
     const firstBootFade = document.getElementById('firstBootFade');
     
     if (menuBtn && menu) {
@@ -39,12 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
         fadeIn(firstBootFade); // Special fade-in for first boot
         markFirstBootComplete(); // Mark the first boot as completed
     } else {
-        fadeIn(fadeContent); // Regular fade-in for content
+        fadeContentElements.forEach(fadeIn); // Regular fade-in for content
     }
     
     // Add fade-out functionality on page unload
     window.addEventListener('beforeunload', () => {
-        if (fadeContent) fadeContent.style.opacity = 0; // Fade out content before navigation
+        fadeContentElements.forEach((element) => {
+            element.style.opacity = 0; // Fade out content before navigation
+        });
     });
 });
 
@@ -63,7 +63,7 @@ function fadeIn(element) {
     if (!element) return; // Exit if the element doesn't exist
     
     element.style.opacity = 0; // Ensure opacity starts at 0
-    element.style.transition = "opacity .4s ease-in-out"; // Longer duration and smoother easing
+    element.style.transition = "opacity .6s ease-in-out"; // Longer duration and smoother easing
     
     // Delay to ensure the transition applies
     setTimeout(() => {
