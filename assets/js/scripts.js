@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const jobBtnBack = document.getElementById('job-btn-back');
     const jobBtnForward = document.getElementById('job-btn-forward');
     const jobScroller = document.getElementById('job-scroller');
+    const fadeContent = document.getElementById('fadeContent');
+    const firstBootFade = document.getElementById('firstBootFade');
     
     if (menuBtn && menu) {
         menuBtn.addEventListener('click', () => {
@@ -32,27 +34,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Add fadeIn functionality
-    fadeIn();
+    // Add fade effects based on first boot or subsequent page loads
+    if (isFirstBoot()) {
+        fadeIn(firstBootFade); // Special fade-in for first boot
+        markFirstBootComplete(); // Mark the first boot as completed
+    } else {
+        fadeIn(fadeContent); // Regular fade-in for content
+    }
     
-    // Add fadeOut functionality on page unload
+    // Add fade-out functionality on page unload
     window.addEventListener('beforeunload', () => {
-        const fade = document.getElementById("body");
-        if (fade) {
-            fade.style.opacity = 0; // Fade out before navigation
-        }
+        if (fadeContent) fadeContent.style.opacity = 0; // Fade out content before navigation
     });
 });
 
-function fadeIn() {
-    const fade = document.getElementById("body");
-    if (!fade) return; // Exit if the element doesn't exist
+// Function to check if it's the first boot of the app
+function isFirstBoot() {
+    return !localStorage.getItem('appHasBooted');
+}
+
+// Function to mark the first boot as completed
+function markFirstBootComplete() {
+    localStorage.setItem('appHasBooted', 'true');
+}
+
+// Function to handle fade-in effect
+function fadeIn(element) {
+    if (!element) return; // Exit if the element doesn't exist
     
-    fade.style.opacity = 0; // Ensure opacity starts at 0
-    fade.style.transition = "opacity .4s ease-in-out"; // Longer duration and smoother easing
+    element.style.opacity = 0; // Ensure opacity starts at 0
+    element.style.transition = "opacity .4s ease-in-out"; // Longer duration and smoother easing
     
     // Delay to ensure the transition applies
     setTimeout(() => {
-        fade.style.opacity = 1; // Fade to full opacity
+        element.style.opacity = 1; // Fade to full opacity
     }, 10);
 }
