@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="en" class="h-full dark:text-white dark:bg-[#0a0a0a]">
+    {% include _head.html %}
+    <!-- !! Include Script for Audio Player !! -->
+    ​​<script type="module" src="https://cdn.jsdelivr.net/npm/media-chrome@3/+esm"></script>
+
+    <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
+        {% include _header.html %}
+        <!-- grid container for cards-->
+        <div id="fadeContent" class="pl-8 pr-8">
+            
+             <!-- container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense pb-4">
+                <!-- Audio Players Go Here --> 
+                <media-controller audio>
+                <audio
+                    slot="media"
+                    src="https://stream.mux.com/O4h5z00885HEucNNa1rV02wZapcGp01FXXoJd35AHmGX7g/audio.m4a"
+                    crossorigin
+                ></audio>
+                <media-control-bar>
+                    <media-seek-backward-button></media-seek-backward-button>
+                    <media-play-button></media-play-button>
+                    <media-seek-forward-button></media-seek-forward-button>
+                    <media-time-display></media-time-display>
+                    <media-time-range></media-time-range>
+                    <media-duration-display></media-duration-display>
+                    <media-mute-button></media-mute-button>
+                </media-control-bar>
+                </media-controller>
+                <!-- Audio Players End -->
+            </div>
+            
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
+                {% for item in site.cards %}
+                    {% if item.category contains "music" or item.category contains "show" %}
+                        {% include _card.html
+                        size=item.size
+                        image=item.image
+                        round_image=item.round_image
+                        content=item.content
+                        title=item.title %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% include _footer.html %}
+    </body>
+</html>

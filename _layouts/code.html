@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full dark:text-white dark:bg-[#0a0a0a]">
+    {% include _head.html %}
+    <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
+        {% include _header.html %}
+        <div  id="fadeContent" class="pl-8 pr-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
+                {% for item in site.cards %}
+                    {% if item.category contains 'code' %}
+                        {% include _card.html
+                        size=item.size
+                        image=item.image
+                        round_image=item.round_image
+                        content=item.content
+                        title=item.title %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% include _footer.html %}
+    </body>
+</html>

@@ -1,0 +1,15 @@
+<div class="{% if include.size == '1x' %}col-span-1{% elsif include.size == '2x' %}md:col-span-2{% endif %}">
+    <!-- container with drop shadow -->
+    <div class="h-full rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+        <div>
+            <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
+                 class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}rounded-3xl{% endif %}">
+        </div>
+        <h2 class="text-left text-white underline underline-offset-8 font-semibold pt-4">
+            {{ include.title }}
+        </h2>
+        <div class="text-sm text-justify text-gray-400 font-semibold pb-4 pt-4 rounded-3xl bg-black">
+            {{ include.content }}
+        </div>
+    </div>
+</div>

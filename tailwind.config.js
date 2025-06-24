@@ -1,11 +1,13 @@
 module.exports = {
   content: [
-    "./**/*.html", // Target your HTML files
-    "./**/*.js",   // Target your JS files
-    // You can add more paths like this if needed
+    './_includes/**/*.html', // Include partials
+    './_layouts/**/*.html',  // Include layouts
+    './**/*.html',           // Include all HTML files
   ],
   theme: {
-    extend: {},
+    extend: {
+      overscrollBehavior: ['none'],
+    },
   },
   plugins: [],
 };
