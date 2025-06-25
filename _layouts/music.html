@@ -12,28 +12,28 @@
             <!-- container -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 grid-flow-row-dense pb-4">
                 <!-- Audio Player --> 
-                <media-controller audio class="w-full">
+                <media-controller audio class="w-full bg-transparent">
                     <audio
                         slot="media"
                         src="https://stream.mux.com/O4h5z00885HEucNNa1rV02wZapcGp01FXXoJd35AHmGX7g/audio.m4a" 
                         crossorigin>
                     </audio>
                     <media-control-bar>
-                        <media-seek-backward-button>
+                        <media-seek-backward-button class="bg-transparent">
                             <!-- Reference external SVG file -->
                             <img slot="icon" class="w-16 h-16" aria-hidden="true" class="fill-none stroke-white" src="/assets/icons/backward.svg" alt="Backward" />
                         </media-seek-backward-button>
-                        <media-play-button>
+                        <media-play-button class="bg-transparent">
                             <img slot="play" class="w-16 h-16" aria-hidden="true" src="/assets/icons/play.svg" alt="Play" />
                             <img slot="pause" class="w-16 h-16" aria-hidden="true" src="/assets/icons/pause.svg" alt="Pause" />
                         </media-play-button>
-                        <media-seek-forward-button>
+                        <media-seek-forward-button class="bg-transparent">
                             <img slot="icon" class="w-16 h-16" aria-hidden="true" class="fill-none stroke-white" src="/assets/icons/forward.svg" alt="Forward" />
                         </media-seek-forward-button>
-                        <media-time-display></media-time-display>
-                        <media-time-range></media-time-range>
-                        <media-duration-display></media-duration-display>
-                        <media-mute-button>
+                        <media-time-display class="bg-transparent"></media-time-display>
+                        <media-time-range class="w-64 h-24 bg-transparent"></media-time-range>
+                        <media-duration-display class="bg-transparent"></media-duration-display>
+                        <media-mute-button class="bg-transparent">
                             <img slot="high" class="w-16 h-16" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume High" />
                             <img slot="medium" class="w-16 h-16" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume Medium" />
                             <img slot="low" class="w-16 h-16" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume Low" />
