@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="en" class="h-full dark:text-white dark:bg-[#0a0a0a]">
     {% include _head.html %}
-    <!-- !! Include Script for Audio Player !! -->
-    ​​<script type="module" src="https://cdn.jsdelivr.net/npm/media-chrome@3/+esm"></script>
+
 
     <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
         {% include _header.html %}
+
         <!-- grid container for cards  -->
         <div id="fadeContent" class="pl-8 pr-8">
             <!-- container -->
@@ -21,23 +20,23 @@
                     <media-control-bar>
                         <media-seek-backward-button class="bg-transparent">
                             <!-- Reference external SVG file -->
-                            <img slot="icon" class="w-16 h-16" aria-hidden="true" class="fill-none stroke-white" src="/assets/icons/backward.svg" alt="Backward" />
+                            <img slot="icon" class="w-full" aria-hidden="true" class="fill-none stroke-white" src="/assets/icons/backward.svg" alt="Backward" />
                         </media-seek-backward-button>
                         <media-play-button class="bg-transparent">
-                            <img slot="play" class="w-16 h-16" aria-hidden="true" src="/assets/icons/play.svg" alt="Play" />
-                            <img slot="pause" class="w-16 h-16" aria-hidden="true" src="/assets/icons/pause.svg" alt="Pause" />
+                            <img slot="play" class="w-full" aria-hidden="true" src="/assets/icons/play.svg" alt="Play" />
+                            <img slot="pause" class="w-full" aria-hidden="true" src="/assets/icons/pause.svg" alt="Pause" />
                         </media-play-button>
                         <media-seek-forward-button class="bg-transparent">
-                            <img slot="icon" class="w-16 h-16" aria-hidden="true" class="fill-none stroke-white" src="/assets/icons/forward.svg" alt="Forward" />
+                            <img slot="icon" class="w-full" aria-hidden="true" class="fill-none stroke-white" src="/assets/icons/forward.svg" alt="Forward" />
                         </media-seek-forward-button>
                         <media-time-display class="bg-transparent"></media-time-display>
-                        <media-time-range class="w-64 h-24 bg-transparent"></media-time-range>
+                        <media-time-range class="w-full h-24 bg-transparent"></media-time-range>
                         <media-duration-display class="bg-transparent"></media-duration-display>
                         <media-mute-button class="bg-transparent">
-                            <img slot="high" class="w-16 h-16" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume High" />
-                            <img slot="medium" class="w-16 h-16" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume Medium" />
-                            <img slot="low" class="w-16 h-16" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume Low" />
-                            <img slot="off" class="w-16 h-16" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/off.svg" alt="Muted" />
+                            <img slot="high" class="w-full" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume High" />
+                            <img slot="medium" class="w-full" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume Medium" />
+                            <img slot="low" class="w-full" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/high.svg" alt="Volume Low" />
+                            <img slot="off" class="w-full" aria-hidden="true" class="fill-white stroke-white" src="/assets/icons/off.svg" alt="Muted" />
                         </media-mute-button>
                     </media-control-bar>
                 </media-controller>
