@@ -1,49 +1,26 @@
-
-
-
-
-
-<!--<media-controller audio class="bg-transparent">-->
-<!--    <audio-->
-<!--      slot="media"-->
-<!--      src="/assets/music/nmlstyl-sp33k.mp3"-->
-<!--      crossorigin-->
-<!--    ></audio>-->
-<!--    <media-control-bar>-->
-<!--      <media-seek-backward-button class="bg-transparent">-->
-<!--        <svg slot="icon" aria-hidden="true" class="w-7 h-7 fill-none stroke-white">-->
-<!--          <use href="#backward" />-->
-<!--        </svg>-->
-<!--      </media-seek-backward-button>-->
-<!--      <media-play-button class="bg-transparent">-->
-<!--        <svg slot="play" aria-hidden="true" class="w-7 h-7">-->
-<!--          <use href="#play" />-->
-<!--        </svg>-->
-<!--        <svg slot="pause" aria-hidden="true" class="w-7 h-7">-->
-<!--          <use href="#pause" />-->
-<!--        </svg>-->
-<!--      </media-play-button>-->
-<!--      <media-seek-forward-button class="bg-transparent">-->
-<!--        <svg slot="icon" aria-hidden="true" class="w-7 h-7 fill-none stroke-white">-->
-<!--          <use href="#forward" />-->
-<!--        </svg>-->
-<!--      </media-seek-forward-button>-->
-<!--      <media-time-display class="bg-transparent"></media-time-display>-->
-<!--      <media-time-range class="bg-transparent"></media-time-range>-->
-<!--      <media-duration-display class="bg-transparent"></media-duration-display>-->
-<!--      <media-mute-button class="bg-transparent">-->
-<!--        <svg slot="high" aria-hidden="true" class="h-5 w-5 fill-white stroke-white">-->
-<!--          <use href="#high" />-->
-<!--        </svg>-->
-<!--        <svg slot="medium" aria-hidden="true" class="h-5 w-5 fill-white stroke-white">-->
-<!--          <use href="#high" />-->
-<!--        </svg>-->
-<!--        <svg slot="low" aria-hidden="true" class="h-5 w-5 fill-white stroke-white">-->
-<!--          <use href="#high" />-->
-<!--        </svg>-->
-<!--        <svg slot="off" aria-hidden="true" class="h-5 w-5 fill-white stroke-white">-->
-<!--          <use href="#off" />-->
-<!--        </svg>-->
-<!--      </media-mute-button>-->
-<!--    </media-control-bar>-->
-<!--  </media-controller>-->
+<div class="max-w-md mx-auto p-4 flex items-center space-x-4 bg-transparent shadow-none rounded-none">
+    <button
+            id="playPause"
+            aria-label="Play"
+            class="bg-transparent hover:bg-gray-200 text-gray-800 font-bold p-2 rounded-full transition-colors duration-200 flex items-center justify-center"
+        <!-- Play Icon SVG (default) -->
+        <svg slot="play" aria-hidden="true" class="w-7 h-7">
+            <use href="#play"/>
+        </svg>
+        <!-- Pause Icon SVG (hidden by default) -->
+        <svg slot="pause" aria-hidden="true" class="w-7 h-7">
+            <use href="#pause"/>
+        </svg>
+    </button>
+    <input
+            id="seekbar"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            class="w-full"
+            aria-label="Seek"
+    />
+    <span id="currentTime" class="text-gray-700 text-sm">0:00</span>
+    <audio id="audio" src="/assets/music/nmlstyl-sp33k.mp3"></audio>
+</div>

@@ -1,4 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // audio player stuff
+    
+    const audio = document.getElementById('audio');
+    const playPause = document.getElementById('playPause');
+    const seekbar = document.getElementById('seekbar');
+    const currentTime = document.getElementById('currentTime');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    
+    playPause.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
+        }
+    });
+
+// Sync icon when play/pause state changes
+    audio.addEventListener('play', () => {
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+        playPause.setAttribute('aria-label', 'Pause');
+    });
+    audio.addEventListener('pause', () => {
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        playPause.setAttribute('aria-label', 'Play');
+    });
+    
+    audio.addEventListener('timeupdate', () => {
+        seekbar.value = (audio.currentTime / audio.duration) * 100 || 0;
+        let minutes = Math.floor(audio.currentTime / 60);
+        let seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+        currentTime.textContent = `${minutes}:${seconds}`;
+    });
+    
+    seekbar.addEventListener('input', () => {
+        audio.currentTime = (seekbar.value / 100) * audio.duration;
+    });
+    
+    // ui stuff
+    
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
     const jobBtnBack = document.getElementById('job-btn-back');
@@ -33,19 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Add fade effects based on first boot or subsequent page loads
-    if (isFirstBoot()) {
-        fadeIn(firstBootFade); // Special fade-in for first boot
-        markFirstBootComplete(); // Mark the first boot as completed
-    } else {
-        fadeContentElements.forEach(fadeIn); // Regular fade-in for content
-    }
+    // if (isFirstBoot()) {
+    //     fadeIn(firstBootFade); // Special fade-in for first boot
+    //     markFirstBootComplete(); // Mark the first boot as completed
+    // } else {
+    //     fadeContentElements.forEach(fadeIn); // Regular fade-in for content
+    // }
     
     // Add fade-out functionality on page unload
-    window.addEventListener('beforeunload', () => {
-        fadeContentElements.forEach((element) => {
-            element.style.opacity = 0; // Fade out content before navigation
-        });
-    });
+    // window.addEventListener('beforeunload', () => {
+    //     fadeContentElements.forEach((element) => {
+    //         element.style.opacity = 0; // Fade out content before navigation
+    //     });
+    // });
 });
 
 // Function to check if it's the first boot of the app
