@@ -3,34 +3,33 @@
 {% include _head.html %}
 
 <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
-    <!-- navigation bar  -->
-    {% include _header.html %}
+  <!-- navigation bar  -->
+  {% include _header.html %}
 
-    <!-- icons need to be in symbol format for media-controller to work properly
-     accessibility options are supported by the media-controller bc of this setup -->
-    {% include _svg-icons.html %}
+  <!-- this is not seen - its a way to load the svgs fast -->
+  {% include _svg-icons.html %}
 
-    <!-- content time! -->
-    <div id="fadeContent" class="pl-8 pr-8">
-        <!-- container for developing audio player-->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 grid-flow-row-dense pb-4">
-            {% include _media-controller.html %}
-        </div>
-        <!-- grid container for cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
-            {% for item in site.cards %}
-            {% if item.category contains "music" or item.category contains "show" %}
-            {% include _card.html
-            size=item.size
-            image=item.image
-            round_image=item.round_image
-            content=item.content
-            title=item.title %}
-            {% endif %}
-            {% endfor %}
-        </div>
+  <!-- content time! -->
+  <div id="fadeContent" class="pl-8 pr-8">
+    <!-- container for developing audio player-->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 grid-flow-row-dense pb-4">
+      <!-- media controller goes here -->
     </div>
-    {% include _footer.html %}
+    <!-- grid container for cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
+      {% for item in site.cards %}
+      {% if item.category contains "music" or item.category contains "show" %}
+      {% include _card.html
+      size=item.size
+      image=item.image
+      round_image=item.round_image
+      content=item.content
+      title=item.title %}
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% include _footer.html %}
 </body>
 
 </html>
