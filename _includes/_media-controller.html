@@ -1,8 +1,82 @@
-<div class="max-w-md mx-auto p-4 flex items-center space-x-4 bg-transparent shadow-none rounded-none">
+<style>
+    #seekbar {
+        accent-color: #a855f7;
+        background: none;
+        width: 100%;
+        /* Remove default appearance for consistent custom styles */
+        -webkit-appearance: none;
+        appearance: none;
+        padding: 0;
+    }
+    /* Track styling */
+    #seekbar::-webkit-slider-runnable-track {
+        background: #fff;
+        height: 4px;
+        border-radius: 2px;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    #seekbar::-moz-range-track {
+        background: #fff;
+        height: 4px;
+        border-radius: 2px;
+    }
+    #seekbar::-ms-fill-lower, #seekbar::-ms-fill-upper {
+        background: #fff;
+        height: 4px;
+        border-radius: 2px;
+    }
+    /* Thumb styling */
+    #seekbar::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #a855f7;
+        border-radius: 50%;
+        border: none;
+        box-shadow: 0 0 2px rgba(0,0,0,0.2);
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    #seekbar::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #a855f7;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    }
+    #seekbar::-ms-thumb {
+        width: 20px;
+        height: 20px;
+        background: #a855f7;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 0 0 2px rgba(0,0,0,0.2);
+    }
+    /* Remove extra outline and background on focus for all browsers */
+    #seekbar:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    /* Firefox fix for vertical alignment */
+    #seekbar {
+        vertical-align: middle;
+    }
+    /* Hide the outline on old Edge */
+    #seekbar::-ms-tooltip {
+        display: none;
+    }
+</style>
+
+<div class="max-w-md mx-auto flex items-center space-x-4 bg-transparent shadow-none rounded-none">
     <button
             id="playPause"
             aria-label="Play"
-            class="bg-transparent hover:bg-gray-200 text-gray-800 font-bold p-2 rounded-full transition-colors duration-200 flex items-center justify-center"
+            class="bg-transparent font-bold rounded-full transition-colors duration-200 flex items-center justify-center">
         <!-- Play Icon SVG (default) -->
         <svg id="playIcon" slot="play" aria-hidden="true" class="w-7 h-7">
             <use href="#play"/>
@@ -21,6 +95,6 @@
             class="w-full"
             aria-label="Seek"
     />
-    <span id="currentTime" class="text-gray-700 text-sm">0:00</span>
-    <audio id="audio" src="/assets/music/nmlstyl-sp33k.mp3"></audio>
+    <span id="currentTime" class="text-sm">0:00</span>
+    <audio id="audio" src="../assets/music/nmlstyl-sp33k.mp3"></audio>
 </div>
