@@ -6,15 +6,8 @@
   <!-- navigation bar  -->
   {% include _header.html %}
 
-  <!-- this is not seen - its a way to load the svgs fast as a symbol -->
-  {% include _svg-icons.html %}
-
   <!-- content time! -->
   <div id="fadeContent" class="pl-8 pr-8">
-    <!-- container for developing audio player-->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 grid-flow-row-dense pb-4">
-      {% include _media-controller.html %}
-    </div>
     <!-- grid container for cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
       {% for item in site.cards %}
@@ -24,7 +17,8 @@
       image=item.image
       round_image=item.round_image
       content=item.content
-      title=item.title %}
+      title=item.title
+      music=item.music%}
       {% endif %}
       {% endfor %}
     </div>

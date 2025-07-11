@@ -11,5 +11,8 @@
         <div class="text-sm text-justify text-gray-400 font-semibold pb-4 pt-4 rounded-3xl bg-black">
             {{ include.content }}
         </div>
+        {% if include.music %}
+            {% include _media-controller.html music=include.music %}
+        {% endif %}
     </div>
 </div>
