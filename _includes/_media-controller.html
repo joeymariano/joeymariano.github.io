@@ -4,11 +4,11 @@
             aria-label="Play"
             class="bg-transparent hover:bg-gray-200 text-gray-800 font-bold p-2 rounded-full transition-colors duration-200 flex items-center justify-center"
         <!-- Play Icon SVG (default) -->
-        <svg slot="play" aria-hidden="true" class="w-7 h-7">
+        <svg id="playIcon" slot="play" aria-hidden="true" class="w-7 h-7">
             <use href="#play"/>
         </svg>
         <!-- Pause Icon SVG (hidden by default) -->
-        <svg slot="pause" aria-hidden="true" class="w-7 h-7">
+        <svg id="pauseIcon" slot="pause" aria-hidden="true" class="w-7 h-7 hidden">
             <use href="#pause"/>
         </svg>
     </button>
