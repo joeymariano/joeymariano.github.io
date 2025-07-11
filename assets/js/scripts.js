@@ -21,11 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
         playIcon.classList.add('hidden');
         pauseIcon.classList.remove('hidden');
         playPause.setAttribute('aria-label', 'Pause');
+        console.log("switch 1!")
     });
     audio.addEventListener('pause', () => {
         playIcon.classList.remove('hidden');
         pauseIcon.classList.add('hidden');
         playPause.setAttribute('aria-label', 'Play');
+        console.log("switch 2!")
     });
     
     audio.addEventListener('timeupdate', () => {
