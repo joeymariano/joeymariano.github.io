@@ -65,6 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // need to debounce these buttons to let the easing do it's thing
+    // also need to react to the classes changing in tailwind =>
+    // when 4 jobs are on the screen - detect w-[25vw] and use scrollAmount = window.innerWidth / 4;
+    // when 2 jobs are on the screen - detect w-[50vw] and use scrollAmount = window.innerWidth / 2;
+    // when 1 job is on the screen - detect w-full (need to not have the first one hang off the edge)
     if (jobBtnBack && jobScroller) {
         jobBtnBack.addEventListener('click', () => {
             const scrollAmount = window.innerWidth / 4;
