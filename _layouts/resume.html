@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full dark:text-white dark:bg-[#0a0a0a]">
     {% include _head.html %}
-    <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col"> <!-- fixes larger screen negative space but cuts off -->
+    <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
     {% include _header.html %}
-    <div  id="fadeContent" class="pl-8 pr-8 pt-8"> <!-- container for content -->
+    <div  id="fadeContent" class="pl-8 pr-8 pt-8">
+        <!-- container for content - fade function is off at the moment -->
         <div class="grid grid-col-1 lg:grid-cols-3 gap-4">
             <div class="col-span-1 mb-4">
                 <span class="inline-flex text-3xl">E X P E R I E N C E</span>
             </div>
             <div class="col-span-1 text-left lg:text-center mb-4">
                 <button id="job-btn-back"
-                        class="ring-2 bg-black hover:ring-white ring-yellow-300 py-1 px-4 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
+                        class="ring-2 bg-black hover:ring-white ring-yellow-300 py-1 px-4 rounded-xl
+                        drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
                     < - -
                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                 <button id="job-btn-forward"
-                        class="ring-2 bg-black hover:ring-white ring-blue-500 py-1 px-4 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
+                        class="ring-2 bg-black hover:ring-white ring-blue-500 py-1 px-4 rounded-xl
+                        drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
                     - - >
                 </button>
             </div>
             <div class="col-span-1">
-                <!-- empty space rn -->
+                <!-- empty div for layout -->
             </div>
         </div>
 
-        <!-- job scroller needs to change job sizes responsively
-            needs be
-            2xl => w-[1/6vw] ??
-            xl and l => w-[25vw]
-            m => w-[50vw]
-            s => w-full to keep first one visible in the container
-            -->
-        <div id='job-scroller' class="overflow-x-scroll overscroll overscroll-none"><!-- scrollable wrapper  -->
+        <!-- JOBS SECTION horizontal scrollable wrapper  -->
+        <!-- style needs to get rid of the line on the last child -->
+        <div id='job-scroller' class="overflow-x-scroll overscroll overscroll-none">
             <div class="w-max items-top flex p-1 ">
                 {% assign rev-job = site.jobs | reverse %}
                 {% for item in rev-job %}
-                    <div class="relative w-[25vw] mb-6 sm:mb-0"> <!-- widths to add -->
+                    <div class="relative 2xl:w-[calc(100vw/6)] xl:w-[25vw] l:w-[25vw] m:w-[50vw] s:w-full mb-6 sm:mb-0">
+                        <!-- collapses better but still need to adjust content -->
                         <div class="flex items-center">
                         {% if item.tags contains "music" or item.tags contains "art" %}
                             <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
@@ -46,9 +45,12 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
                                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                                     <path stroke="#ffffff"
-                                          d="M4 0h8M4 1h1M11 1h1M1 2h14M0 3h16M0 4h16M0 5h2M3 5h1M5 5h6M12 5h1M14 5h2M0 6h16M0 7h2M3 7h1M5 7h6M12 7h1M14 7h2M0 8h16M0 9h16M0 10h16M0 11h3M5 11h6M13 11h3M0 12h5M11 12h5M0 13h16M0 14h16M1 15h14"/>
+                                          d="M4 0h8M4 1h1M11 1h1M1 2h14M0 3h16M0 4h16M0 5h2M3 5h1M5 5h6M12 5h1M14 5h2M0
+                                           6h16M0 7h2M3 7h1M5 7h6M12 7h1M14 7h2M0 8h16M0 9h16M0 10h16M0 11h3M5 11h6M13
+                                            11h3M0 12h5M11 12h5M0 13h16M0 14h16M1 15h14"/>
                                     <path stroke="#000000"
-                                          d="M2 5h1M4 5h1M11 5h1M13 5h1M2 7h1M4 7h1M11 7h1M13 7h1M3 11h2M11 11h2M5 12h6"/>
+                                          d="M2 5h1M4 5h1M11 5h1M13 5h1M2 7h1M4 7h1M11 7h1M13 7h1M3 11h2M11 11h2M5
+                                           12h6"/>
                                 </svg>
                             </div>
                             <div class="flex w-full bg-gray-200 h-0.5 dark:bg-gray-700 mr-4"></div>
@@ -65,16 +67,21 @@
             </div>
         </div>
 
+        <!-- Eduction 2 feilds - consider adding Will Lindsay's name - also taught Hacktory classes -->
         <p class="pb-8 mt-8 text-3xl">E D U C A T I O N</p>
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
+                <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2
+                rounded-xl p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
                         <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                         <path stroke="#ffffff"
-                              d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7 6h3M11 6h2M1 7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11 10h4M5 11h4M10 11h4M6 12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
+                              d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7 6h3M11
+                              6h2M1 7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11 10h4M5 11h4M10
+                              11h4M6 12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
                         <path stroke="#000000"
-                              d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6 10h1M10 10h1M9 11h1M8 12h1"/>
+                              d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6 10h1M10
+                              10h1M9 11h1M8 12h1"/>
                     </svg>
                 </div>
                 <h3 class="pt-4 text-lg font-semibold">Rutgers University</h3>
@@ -82,13 +89,17 @@
                 <p> + studied Jazz Guitar performance at Mason Gross School of the Arts within Rutgers University</p>
             </div>
             <div>
-                <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2 rounded-xl p-2">
+                <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2
+                rounded-xl p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
                         <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                         <path stroke="#ffffff"
-                              d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7 6h3M11 6h2M1 7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11 10h4M5 11h4M10 11h4M6 12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
+                              d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7 6h3M11 6h2M1
+                               7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11 10h4M5 11h4M10 11h4M6
+                               12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
                         <path stroke="#000000"
-                              d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6 10h1M10 10h1M9 11h1M8 12h1"/>
+                              d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6 10h1M10
+                              10h1M9 11h1M8 12h1"/>
                     </svg>
                 </div>
                 <h3 class="pt-4 text-lg font-semibold">Flatiron School</h3>
@@ -97,7 +108,8 @@
             </div>
         </div>
 
-        <!-- skills buttons need to be coded -->
+        <!-- skills buttons need to be coded
+        hook up the event listeners to button ids -->
         <div class="pt-8">
             <div class="grid grid-col-3 lg:grid-cols-3 gap-4 mb-8">
                 <div class="col-span-1">
@@ -105,26 +117,35 @@
                 </div>
                 <div class="col-span-1">
                     <p class="text-md text-left">
-                        <button
-                                class="mr-4 ring-2 mb-4 bg-black hover:ring-white ring-gray-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
-                            A l l
+                        <button id="randomButton"
+                        class="mr-4 ring-2 mb-4 bg-black hover:ring-white ring-gray-500 p-2 rounded-xl
+                        drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                            RANDOM
                         </button>
-                        <button class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-blue-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                        <button id="techButton"
+                        class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-blue-500 p-2 rounded-xl
+                        drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
                             TECH
                         </button>
-                        <button class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-red-500 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                        <button id="artsButton"
+                        class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-red-500 p-2 rounded-xl
+                        drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
                             ARTS AND MUSIC
                         </button>
-                        <button class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-yellow-300 p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
+                        <button id="artsButton"
+                        class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-yellow-300 p-2 rounded-xl
+                        drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
                             MISC
                         </button>
                     </p>
                 </div>
                 <div class="col-span-1">
-                    <!-- y is this here -->
+                    <!-- empty div for layout -->
                 </div>
             </div>
 
+            <!-- use js to insert an id when buttons are clicked
+             the id will determine the way the skills are sorted -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {% assign sorted_skills = page.skills | sort: "name" %}
                 {% for skill in sorted_skills %}
