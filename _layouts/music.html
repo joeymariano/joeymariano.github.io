@@ -8,18 +8,33 @@
 
   <!-- content time! -->
   <div id="fadeContent" class="pl-8 pr-8">
-    <!-- grid container for cards -->
+    <!-- mediaplayer examples first -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense mb-8">
+      {% for item in site.cards %}
+        {% if item.category contains "mediaplayer" %}
+          {% include _card.html
+          size=item.size
+          image=item.image
+          round_image=item.round_image
+          content=item.content
+          title=item.title
+          music=item.music%}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- grid container for cards with music in category -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
       {% for item in site.cards %}
-      {% if item.category contains "music" or item.category contains "show" %}
-      {% include _card.html
-      size=item.size
-      image=item.image
-      round_image=item.round_image
-      content=item.content
-      title=item.title
-      music=item.music%}
-      {% endif %}
+        {% if item.category contains "music" or item.category contains "show" %}
+          {% include _card.html
+          size=item.size
+          image=item.image
+          round_image=item.round_image
+          content=item.content
+          title=item.title
+          music=item.music%}
+        {% endif %}
       {% endfor %}
     </div>
   </div>

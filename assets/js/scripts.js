@@ -8,38 +8,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
     
-    playPause.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-        } else {
-            audio.pause();
-        }
-    });
+    if (audio) {
+        playPause.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        });
 
 // Sync icon when play/pause state changes
-    audio.addEventListener('play', () => {
-        playIcon.classList.add('hidden');
-        pauseIcon.classList.remove('hidden');
-        playPause.setAttribute('aria-label', 'Pause');
-        console.log("switch 1!")
-    });
-    audio.addEventListener('pause', () => {
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
-        playPause.setAttribute('aria-label', 'Play');
-        console.log("switch 2!")
-    });
-    
-    audio.addEventListener('timeupdate', () => {
-        seekbar.value = (audio.currentTime / audio.duration) * 100 || 0;
-        let minutes = Math.floor(audio.currentTime / 60);
-        let seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
-        currentTime.textContent = `${minutes}:${seconds}`;
-    });
-    
-    seekbar.addEventListener('input', () => {
-        audio.currentTime = (seekbar.value / 100) * audio.duration;
-    });
+        audio.addEventListener('play', () => {
+            playIcon.classList.add('hidden');
+            pauseIcon.classList.remove('hidden');
+            playPause.setAttribute('aria-label', 'Pause');
+            console.log("switch 1!")
+        });
+        audio.addEventListener('pause', () => {
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+            playPause.setAttribute('aria-label', 'Play');
+            console.log("switch 2!")
+        });
+        
+        audio.addEventListener('timeupdate', () => {
+            seekbar.value = (audio.currentTime / audio.duration) * 100 || 0;
+            let minutes = Math.floor(audio.currentTime / 60);
+            let seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+            currentTime.textContent = `${minutes}:${seconds}`;
+        });
+        
+        seekbar.addEventListener('input', () => {
+            audio.currentTime = (seekbar.value / 100) * audio.duration;
+        });
+    }
     
     // ui stuff
     
