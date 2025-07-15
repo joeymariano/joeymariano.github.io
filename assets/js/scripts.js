@@ -22,13 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
             playIcon.classList.add('hidden');
             pauseIcon.classList.remove('hidden');
             playPause.setAttribute('aria-label', 'Pause');
-            console.log("switch 1!")
         });
         audio.addEventListener('pause', () => {
             playIcon.classList.remove('hidden');
             pauseIcon.classList.add('hidden');
             playPause.setAttribute('aria-label', 'Play');
-            console.log("switch 2!")
         });
         
         audio.addEventListener('timeupdate', () => {
@@ -66,15 +64,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // need to debounce these buttons to let the easing do it's thing
     if (jobBtnBack && jobScroller) {
         jobBtnBack.addEventListener('click', () => {
-            jobScroller.scrollBy({ left: -384, behavior: 'smooth' });
+            const scrollAmount = window.innerWidth / 4;
+            jobScroller.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         });
     }
     
     if (jobBtnForward && jobScroller) {
         jobBtnForward.addEventListener('click', () => {
-            jobScroller.scrollBy({ left: 384, behavior: 'smooth' });
+            const scrollAmount = window.innerWidth / 4;
+            jobScroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         });
     }
     
