@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // audio player stuff
     
+    // need to change all of these to getElementsByClassName()
+    // this is to support multiple event listeners
     const audio = document.getElementById('audio');
     const playPause = document.getElementById('playPause');
     const seekbar = document.getElementById('seekbar');

@@ -23,11 +23,18 @@
             </div>
         </div>
 
+        <!-- job scroller needs to change job sizes responsively
+            needs be
+            2xl => w-[1/6vw] ??
+            xl and l => w-[25vw]
+            m => w-[50vw]
+            s => w-full to keep first one visible in the container
+            -->
         <div id='job-scroller' class="overflow-x-scroll overscroll overscroll-none"><!-- scrollable wrapper  -->
             <div class="w-max items-top flex p-1 ">
                 {% assign rev-job = site.jobs | reverse %}
                 {% for item in rev-job %}
-                    <div class="relative w-[25vw] mb-6 sm:mb-0">
+                    <div class="relative w-[25vw] mb-6 sm:mb-0"> <!-- widths to add -->
                         <div class="flex items-center">
                         {% if item.tags contains "music" or item.tags contains "art" %}
                             <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
@@ -90,6 +97,7 @@
             </div>
         </div>
 
+        <!-- skills buttons need to be coded -->
         <div class="pt-8">
             <div class="grid grid-col-3 lg:grid-cols-3 gap-4 mb-8">
                 <div class="col-span-1">
@@ -113,7 +121,7 @@
                     </p>
                 </div>
                 <div class="col-span-1">
-
+                    <!-- y is this here -->
                 </div>
             </div>
 
