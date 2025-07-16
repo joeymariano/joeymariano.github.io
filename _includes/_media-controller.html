@@ -1,28 +1,26 @@
 <div class="flex items-center space-x-4 pl-4 pr-4">
     <button
-            id="playPause"
             aria-label="Play"
-            class="bg-transparent font-bold rounded-full transition-colors duration-200 flex items-center justify-center">
+            class="playPause bg-transparent font-bold rounded-full transition-colors duration-200 flex items-center justify-center">
         <!-- Play Icon SVG (default) -->
-        <svg id="playIcon" slot="play" aria-hidden="true" class="w-7 h-7">
+        <svg slot="play" aria-hidden="true" class="playIcon w-7 h-7">
             <!-- icon defined in head -->
             <use href="#play"/>
         </svg>
         <!-- Pause Icon SVG (hidden by default) -->
-        <svg id="pauseIcon" slot="pause" aria-hidden="true" class="w-7 h-7 hidden">
+        <svg slot="pause" aria-hidden="true" class="pauseIcon w-7 h-7 hidden">
             <!-- icon defined in head -->
             <use href="#pause"/>
         </svg>
     </button>
     <input
-            id="seekbar"
             type="range"
             min="0"
             max="100"
             value="0"
-            class="w-full"
+            class="seekbar w-full"
             aria-label="Seek"
     />
-    <span id="currentTime" class="text-sm">0:00</span>
-    <audio id="audio" src="assets/music/{{ include.music }}"></audio>
+    <span class="currentTime text-sm">0:00</span>
+    <audio class="audio" src="assets/music/{{ include.music }}"></audio>
 </div>
