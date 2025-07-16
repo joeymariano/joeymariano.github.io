@@ -32,7 +32,7 @@
   }
 }
 
-#seekbar {
+.seekbar {
   accent-color: #a855f7;
   background: none;
   width: 100%;
@@ -42,7 +42,7 @@
   padding: 0;
 }
 /* Track styling */
-#seekbar::-webkit-slider-runnable-track {
+.seekbar::-webkit-slider-runnable-track {
   background: rgb(156, 163, 175);
   height: 4px;
   border-radius: 2px;
@@ -50,18 +50,18 @@
   top: 50%;
   transform: translateY(-50%);
 }
-#seekbar::-moz-range-track {
+.seekbar::-moz-range-track {
   background: #fff;
   height: 4px;
   border-radius: 2px;
 }
-#seekbar::-ms-fill-lower, #seekbar::-ms-fill-upper {
+.seekbar::-ms-fill-lower, #seekbar::-ms-fill-upper {
   background: #fff;
   height: 4px;
   border-radius: 2px;
 }
 /* Thumb styling */
-#seekbar::-webkit-slider-thumb {
+.seekbar::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 28px;
@@ -74,7 +74,7 @@
   top: 50%;
   transform: translateY(-50%);
 }
-#seekbar::-moz-range-thumb {
+.seekbar::-moz-range-thumb {
   width: 20px;
   height: 20px;
   background: #a855f7;
@@ -82,7 +82,7 @@
   border: 2px solid #fff;
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
-#seekbar::-ms-thumb {
+.seekbar::-ms-thumb {
   width: 20px;
   height: 20px;
   background: #a855f7;
@@ -91,15 +91,15 @@
   box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 /* Remove extra outline and background on focus for all browsers */
-#seekbar:focus {
+.seekbar:focus {
   outline: none;
   box-shadow: none;
 }
 /* Firefox fix for vertical alignment */
-#seekbar {
+.seekbar {
   vertical-align: middle;
 }
 /* Hide the outline on old Edge */
-#seekbar::-ms-tooltip {
+.seekbar::-ms-tooltip {
   display: none;
 }

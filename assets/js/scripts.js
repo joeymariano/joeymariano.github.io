@@ -1,49 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
     // audio player stuff
     
-    // need to change all of these to getElementsByClassName()
-    // this is to support multiple event listeners
-    const audio = document.getElementById('audio');
-    const playPause = document.getElementById('playPause');
-    const seekbar = document.getElementById('seekbar');
-    const currentTime = document.getElementById('currentTime');
-    const playIcon = document.getElementById('playIcon');
-    const pauseIcon = document.getElementById('pauseIcon');
+    const audios = document.getElementsByClassName('audio');
+    const playPauses = document.getElementsByClassName('playPause');
+    const seekbars = document.getElementsByClassName('seekbar');
+    const currentTimes = document.getElementsByClassName('currentTime');
+    const playIcons = document.getElementsByClassName('playIcon');
+    const pauseIcons = document.getElementsByClassName('pauseIcon');
     
-    if (audio) {
-        playPause.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play();
-            } else {
-                audio.pause();
+    // 'if (audios)' prevents errors from occuring since not every card has a 'music' entry
+    if (audios) {
+        for (let i = 0; i < audios.length; i++) {
+            const audio = audios[i];
+            const playPause = playPauses[i];
+            const seekbar = seekbars[i];
+            const currentTime = currentTimes[i];
+            const playIcon = playIcons[i];
+            const pauseIcon = pauseIcons[i];
+            
+            if (audio && playPause && seekbar && currentTime && playIcon && pauseIcon) {
+                playPause.addEventListener('click', () => {
+                    if (audio.paused) {
+                        audio.play();
+                    } else {
+                        audio.pause();
+                    }
+                });
+                
+                // Sync icon when play/pause state changes
+                // add an event listener to every audio in audios via previous for loop
+                audio.addEventListener('play', () => {
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                    playPause.setAttribute('aria-label', 'Pause');
+                });
+                audio.addEventListener('pause', () => {
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                    playPause.setAttribute('aria-label', 'Play');
+                });
+                
+                audio.addEventListener('timeupdate', () => {
+                    seekbar.value = (audio.currentTime / audio.duration) * 100 || 0;
+                    let minutes = Math.floor(audio.currentTime / 60);
+                    let seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+                    currentTime.textContent = `${minutes}:${seconds}`;
+                });
+                
+                seekbar.addEventListener('input', () => {
+                    audio.currentTime = (seekbar.value / 100) * audio.duration;
+                });
             }
-        });
-
-// Sync icon when play/pause state changes
-        audio.addEventListener('play', () => {
-            playIcon.classList.add('hidden');
-            pauseIcon.classList.remove('hidden');
-            playPause.setAttribute('aria-label', 'Pause');
-        });
-        audio.addEventListener('pause', () => {
-            playIcon.classList.remove('hidden');
-            pauseIcon.classList.add('hidden');
-            playPause.setAttribute('aria-label', 'Play');
-        });
-        
-        audio.addEventListener('timeupdate', () => {
-            seekbar.value = (audio.currentTime / audio.duration) * 100 || 0;
-            let minutes = Math.floor(audio.currentTime / 60);
-            let seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
-            currentTime.textContent = `${minutes}:${seconds}`;
-        });
-        
-        seekbar.addEventListener('input', () => {
-            audio.currentTime = (seekbar.value / 100) * audio.duration;
-        });
+        }
     }
     
-    // ui stuff
+    // UI stuff
     
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
