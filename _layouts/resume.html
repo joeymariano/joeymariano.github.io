@@ -147,7 +147,7 @@
             </div>
 
             <!-- S K I L L S  L I S T -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div id="skills-container" class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {% assign sorted_skills = page.skills | sort: "name" %}
                 {% for skill in sorted_skills %}
                     <div class="dark:bg-[#0a0a0a] p-2 text-left rounded-lg"
