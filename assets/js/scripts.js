@@ -79,32 +79,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     // right now scrolling works where it detects the width of the job and scrolls left or right based on that
-    // measurement. i would like it to work the same way however snap so that everything always lines up like the
-    // default layout.
+    // measurement. i would like it to work similar but add a snap function so that everything always lines up like the
+    // default layout. for instance: if i manually scrolled the jobs off by about 10px then hit the right arrow...
+    // the job should still snap to the leftmost edge of the container and be fully visible.
     // E X P E R I E N C E  U I //
-    const jobBtnBack= document.getElementById('job-btn-back');
+    const jobBtnBack = document.getElementById('job-btn-back');
     const jobBtnForward = document.getElementById('job-btn-forward');
     const jobScroller = document.getElementById('job-scroller');
 
-    // Debounce value in milliseconds
+// Debounce value in milliseconds
     const DEBOUNCE_DELAY = 500; // Change this value as needed
 
-    // job buttons
-    if (jobBtnBack && jobScroller) {
-        jobBtnBack.addEventListener('click', debounce(() => {
-            const scrollAmount = getJobEntryWidth();
-            jobScroller.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        }, DEBOUNCE_DELAY));
-    }
-    
-    if (jobBtnForward && jobScroller) {
-        jobBtnForward.addEventListener('click', debounce(() => {
-            const scrollAmount = getJobEntryWidth();
-            jobScroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        }, DEBOUNCE_DELAY));
-    }
-    
-    // Debounce helper
+// Helper to debounce rapid clicks
     function debounce(fn, delay) {
         let lastCall = 0;
         return function(...args) {
@@ -114,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
             fn.apply(this, args);
         };
     }
-    
-    // Get the width of a job entry (responsive)
+
+// Get the width of a job entry (responsive)
     function getJobEntryWidth() {
         const jobEntry = jobScroller ? jobScroller.querySelector('.job-entry') : null;
         if (jobEntry) {
@@ -123,6 +109,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // fallback to window width / 4 if no jobEntry found
         return window.innerWidth / 4;
+    }
+
+// Calculate the snapped scroll position
+    function getSnappedScrollLeft(direction = 0) {
+        if (!jobScroller) return 0;
+        const jobWidth = getJobEntryWidth();
+        const currentScroll = jobScroller.scrollLeft;
+        // Find the nearest job start position
+        let snapIndex = Math.round(currentScroll / jobWidth);
+        if (direction === -1) snapIndex = Math.max(0, snapIndex - 1); // Back
+        if (direction === 1) snapIndex = snapIndex + 1; // Forward
+        return snapIndex * jobWidth;
+    }
+
+// Snap scroll function
+    function snapJobScroller(direction = 0) {
+        if (jobScroller) {
+            const snapLeft = getSnappedScrollLeft(direction);
+            jobScroller.scrollTo({ left: snapLeft, behavior: 'smooth' });
+        }
+    }
+
+// Attach event listeners
+    if (jobBtnBack && jobScroller) {
+        jobBtnBack.addEventListener('click', debounce(() => {
+            snapJobScroller(-1); // Snap to previous job
+        }, DEBOUNCE_DELAY));
+    }
+    
+    if (jobBtnForward && jobScroller) {
+        jobBtnForward.addEventListener('click', debounce(() => {
+            snapJobScroller(1); // Snap to next job
+        }, DEBOUNCE_DELAY));
     }
     
     
@@ -188,29 +207,30 @@ document.addEventListener('DOMContentLoaded', () => {
     //         element.style.opacity = 0; // Fade out content before navigation
     //     });
     // });
+    
+    // Function to check if it's the first boot of the app
+    // function isFirstBoot() {
+    //     return !localStorage.getItem('appHasBooted');
+    // }
+
+    // Function to mark the first boot as completed
+    // function markFirstBootComplete() {
+    //     localStorage.setItem('appHasBooted', 'true');
+    // }
+
+    // Function to handle fade-in effect
+    // function fadeIn(element) {
+    //     if (!element) return; // Exit if the element doesn't exist
+    //
+    //     element.style.opacity = 0; // Ensure opacity starts at 0
+    //     element.style.transition = "opacity .6s ease-in-out"; // Longer duration and smoother easing
+    //
+    //     // Delay to ensure the transition applies
+    //     setTimeout(() => {
+    //         element.style.opacity = 1; // Fade to full opacity
+    //     }, 10);
+    // }
 });
 
 
 
-// Function to check if it's the first boot of the app
-function isFirstBoot() {
-    return !localStorage.getItem('appHasBooted');
-}
-
-// Function to mark the first boot as completed
-function markFirstBootComplete() {
-    localStorage.setItem('appHasBooted', 'true');
-}
-
-// Function to handle fade-in effect
-function fadeIn(element) {
-    if (!element) return; // Exit if the element doesn't exist
-    
-    element.style.opacity = 0; // Ensure opacity starts at 0
-    element.style.transition = "opacity .6s ease-in-out"; // Longer duration and smoother easing
-    
-    // Delay to ensure the transition applies
-    setTimeout(() => {
-        element.style.opacity = 1; // Fade to full opacity
-    }, 10);
-}
