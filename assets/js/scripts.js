@@ -203,12 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 others.push(div);
             }
         });
-        
-        // Remove all children
-        while (container.firstChild) {
-            container.removeChild(container.firstChild);
-        }
-        
         // Append categorized first, then others
         categorized.concat(others).forEach(div => {
             container.appendChild(div);
