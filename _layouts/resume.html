@@ -32,7 +32,8 @@
             <div class="w-max items-top flex p-1 ">
                 {% assign rev-job = site.jobs | reverse %}
                 {% for item in rev-job %}
-                    <div class="relative 2xl:w-[calc(100vw/6)] xl:w-[25vw] l:w-[25vw] m:w-[50vw] s:w-full mb-6 sm:mb-0">
+                    <div class="job-entry relative 2xl:w-[calc(100vw/6)] xl:w-[25vw] l:w-[25vw] m:w-[50vw] s:w-full
+                     mb-6 sm:mb-0">
                         <!-- collapses better but still need to adjust content -->
                         <div class="flex items-center">
                         {% if item.tags contains "music" or item.tags contains "art" %}
@@ -42,7 +43,8 @@
                         {% else %}
                             <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2 rounded-xl p-2">
                         {% endif %}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16"
+                                 shape-rendering="crispEdges">
                                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                                     <path stroke="#ffffff"
                                           d="M4 0h8M4 1h1M11 1h1M1 2h14M0 3h16M0 4h16M0 5h2M3 5h1M5 5h6M12 5h1M14 5h2M0
@@ -144,13 +146,13 @@
                 </div>
             </div>
 
-            <!-- use js to insert an id when buttons are clicked
-             the id will determine the way the skills are sorted -->
+            <!-- S K I L L S  L I S T -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {% assign sorted_skills = page.skills | sort: "name" %}
                 {% for skill in sorted_skills %}
                     <div class="dark:bg-[#0a0a0a] p-2 text-left rounded-lg"
-                         style="filter: drop-shadow(-2px -2px 0px {{ skill.color }});">
+                        style="filter: drop-shadow(-2px -2px 0px {{ skill.color }});"
+                        data-category="{{ skill.category }}">
                         {{ skill.name }}
                     </div>
                 {% endfor %}

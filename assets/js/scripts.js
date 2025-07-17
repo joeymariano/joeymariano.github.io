@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // audio player stuff
-    
+    // A U D I O -- P L A Y E R //
     const audios = document.getElementsByClassName('audio');
     const playPauses = document.getElementsByClassName('playPause');
     const seekbars = document.getElementsByClassName('seekbar');
@@ -8,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const playIcons = document.getElementsByClassName('playIcon');
     const pauseIcons = document.getElementsByClassName('pauseIcon');
     
-    // 'if (audios)' prevents errors from occuring since not every card has a 'music' entry
+    // 'if (audios)' prevents errors from occuring since not every card page has a 'music' entry
     if (audios) {
+        // iteration over all the audio instances
         for (let i = 0; i < audios.length; i++) {
             const audio = audios[i];
             const playPause = playPauses[i];
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 // Sync icon when play/pause state changes
-                // add an event listener to every audio in audios via previous for loop
+                // add an event listener to every audio in audios
                 audio.addEventListener('play', () => {
                     playIcon.classList.add('hidden');
                     pauseIcon.classList.remove('hidden');
@@ -53,48 +53,111 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    
-    // UI stuff
-    
+
+    // U I  S T U F F //
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
     const jobBtnBack = document.getElementById('job-btn-back');
     const jobBtnForward = document.getElementById('job-btn-forward');
     const jobScroller = document.getElementById('job-scroller');
-    const fadeContentElements = document.querySelectorAll('.fade-content'); // Only elements with fade-content class
-    const firstBootFade = document.getElementById('firstBootFade');
+
+    // Debounce value in milliseconds
+    const DEBOUNCE_DELAY = 500; // Change this value as needed
     
     if (menuBtn && menu) {
         menuBtn.addEventListener('click', () => {
             if (menu.classList.contains('hidden')) {
                 menu.classList.remove('hidden');
-                setTimeout(() => menu.classList.add('visible'), 10); // Short delay to trigger transition
+                setTimeout(() => menu.classList.add('visible'), 10);
             } else {
                 menu.classList.remove('visible');
-                setTimeout(() => menu.classList.add('hidden'), 500); // Matches transition duration
+                setTimeout(() => menu.classList.add('hidden'), 500);
             }
-            menuBtn.setAttribute('aria-expanded', !menu.classList.contains('hidden')); // Update accessibility attribute
+            menuBtn.setAttribute('aria-expanded', !menu.classList.contains('hidden'));
         });
     }
-    
-    // need to debounce these buttons to let the easing do it's thing
-    // also need to react to the classes changing in tailwind =>
-    // when 4 jobs are on the screen - detect w-[25vw] and use scrollAmount = window.innerWidth / 4;
-    // when 2 jobs are on the screen - detect w-[50vw] and use scrollAmount = window.innerWidth / 2;
-    // when 1 job is on the screen - detect w-full (need to not have the first one hang off the edge)
+
+    // --- JOB BUTTONS ---
     if (jobBtnBack && jobScroller) {
-        jobBtnBack.addEventListener('click', () => {
-            const scrollAmount = window.innerWidth / 4;
+        jobBtnBack.addEventListener('click', debounce(() => {
+            const scrollAmount = getJobEntryWidth();
             jobScroller.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
+        }, DEBOUNCE_DELAY));
     }
     
     if (jobBtnForward && jobScroller) {
-        jobBtnForward.addEventListener('click', () => {
-            const scrollAmount = window.innerWidth / 4;
+        jobBtnForward.addEventListener('click', debounce(() => {
+            const scrollAmount = getJobEntryWidth();
             jobScroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }, DEBOUNCE_DELAY));
+    }
+    
+    // Debounce helper
+    function debounce(fn, delay) {
+        let lastCall = 0;
+        return function(...args) {
+            const now = Date.now();
+            if (now - lastCall < delay) return;
+            lastCall = now;
+            fn.apply(this, args);
+        };
+    }
+    
+    // Get the width of a job entry (responsive)
+    function getJobEntryWidth() {
+        const jobEntry = jobScroller ? jobScroller.querySelector('.jobEntry') : null;
+        if (jobEntry) {
+            return jobEntry.offsetWidth;
+        }
+        // fallback to window width / 4 if no jobEntry found
+        return window.innerWidth / 4;
+    }
+    
+    // S K I L L  S O R T I N G //
+    const skillDivs = document.querySelectorAll('[data-category]');
+    const buttons = [
+        { id: 'randomButton', category: 'random' },
+        { id: 'techButton', category: 'tech' },
+        { id: 'artsButton', category: 'arts' },
+        { id: 'miscButton', category: 'misc' },
+    ];
+    
+    // Show all skills (helper)
+    function showAllSkills() {
+        skillDivs.forEach(div => div.style.display = '');
+    }
+    
+    // Filter skills by category
+    function showSkillsByCategory(category) {
+        skillDivs.forEach(div => {
+            if (div.getAttribute('data-category') === category) {
+                div.style.display = '';
+            } else {
+                div.style.display = 'none';
+            }
         });
     }
+    
+    // Hook up button listeners
+    buttons.forEach(btn => {
+        const button = document.getElementById(btn.id);
+        if (button) {
+            button.addEventListener('click', function() {
+                if (btn.id === 'randomButton') {
+                    // Pick a random skill to show
+                    skillDivs.forEach(div => div.style.display = 'none');
+                    const arr = Array.from(skillDivs);
+                    const randomDiv = arr[Math.floor(Math.random() * arr.length)];
+                    if (randomDiv) randomDiv.style.display = '';
+                } else {
+                    showSkillsByCategory(btn.category);
+                }
+            });
+        }
+    });
+    
+    // Optionally show all skills on page load
+    showAllSkills();
     
     // Add fade effects based on first boot or subsequent page loads
     // if (isFirstBoot()) {
@@ -111,6 +174,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //     });
     // });
 });
+
+
 
 // Function to check if it's the first boot of the app
 function isFirstBoot() {
