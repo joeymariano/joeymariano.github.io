@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // M E N U //
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('menu');
+    
+    if (menuBtn && menu) {
+        menuBtn.addEventListener('click', () => {
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                setTimeout(() => menu.classList.add('visible'), 10);
+            } else {
+                menu.classList.remove('visible');
+                setTimeout(() => menu.classList.add('hidden'), 500);
+            }
+            menuBtn.setAttribute('aria-expanded', !menu.classList.contains('hidden'));
+        });
+    }
+    
     // A U D I O -- P L A Y E R //
     const audios = document.getElementsByClassName('audio');
     const playPauses = document.getElementsByClassName('playPause');
@@ -61,30 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     
-    // U I  S T U F F //
-    const menuBtn = document.getElementById('menu-btn');
-    const menu = document.getElementById('menu');
-    const jobBtnBack = document.getElementById('job-btn-back');
+    // right now scrolling works where it detects the width of the job and scrolls left or right based on that
+    // measurement. i would like it to work the same way however snap so that everything always lines up like the
+    // default layout.
+    // E X P E R I E N C E  U I //
+    const jobBtnBack= document.getElementById('job-btn-back');
     const jobBtnForward = document.getElementById('job-btn-forward');
     const jobScroller = document.getElementById('job-scroller');
 
     // Debounce value in milliseconds
     const DEBOUNCE_DELAY = 500; // Change this value as needed
-    
-    if (menuBtn && menu) {
-        menuBtn.addEventListener('click', () => {
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                setTimeout(() => menu.classList.add('visible'), 10);
-            } else {
-                menu.classList.remove('visible');
-                setTimeout(() => menu.classList.add('hidden'), 500);
-            }
-            menuBtn.setAttribute('aria-expanded', !menu.classList.contains('hidden'));
-        });
-    }
 
-    // --- JOB BUTTONS ---
+    // job buttons
     if (jobBtnBack && jobScroller) {
         jobBtnBack.addEventListener('click', debounce(() => {
             const scrollAmount = getJobEntryWidth();
@@ -97,6 +102,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const scrollAmount = getJobEntryWidth();
             jobScroller.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }, DEBOUNCE_DELAY));
+    }
+    
+    // Debounce helper
+    function debounce(fn, delay) {
+        let lastCall = 0;
+        return function(...args) {
+            const now = Date.now();
+            if (now - lastCall < delay) return;
+            lastCall = now;
+            fn.apply(this, args);
+        };
+    }
+    
+    // Get the width of a job entry (responsive)
+    function getJobEntryWidth() {
+        const jobEntry = jobScroller ? jobScroller.querySelector('.job-entry') : null;
+        if (jobEntry) {
+            return jobEntry.offsetWidth;
+        }
+        // fallback to window width / 4 if no jobEntry found
+        return window.innerWidth / 4;
     }
     
     
@@ -146,26 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Optionally show all skills on page load
     showAllSkills();
     
-    // Debounce helper
-    function debounce(fn, delay) {
-        let lastCall = 0;
-        return function(...args) {
-            const now = Date.now();
-            if (now - lastCall < delay) return;
-            lastCall = now;
-            fn.apply(this, args);
-        };
-    }
-    
-    // Get the width of a job entry (responsive)
-    function getJobEntryWidth() {
-        const jobEntry = jobScroller ? jobScroller.querySelector('.jobEntry') : null;
-        if (jobEntry) {
-            return jobEntry.offsetWidth;
-        }
-        // fallback to window width / 4 if no jobEntry found
-        return window.innerWidth / 4;
-    }
+
     
     // Add fade effects based on first boot or subsequent page loads
     // if (isFirstBoot()) {
