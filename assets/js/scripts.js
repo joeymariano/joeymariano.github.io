@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTimes = document.getElementsByClassName('currentTime');
     const playIcons = document.getElementsByClassName('playIcon');
     const pauseIcons = document.getElementsByClassName('pauseIcon');
-    
+
     // 'if (audios)' prevents errors from occuring since not every card page has a 'music' entry
     if (audios) {
         // iteration over all the audio instances
@@ -20,6 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (audio && playPause && seekbar && currentTime && playIcon && pauseIcon) {
                 playPause.addEventListener('click', () => {
+                    // Always stop all tracks before playing a new one
+                    for (let j = 0; j < audios.length; j++) {
+                        if (j !== i) {
+                            audios[j].pause();
+                            audios[j].currentTime = 0; // Optionally reset time
+                        }
+                    }
                     if (audio.paused) {
                         audio.play();
                     } else {
@@ -28,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 // Sync icon when play/pause state changes
-                // add an event listener to every audio in audios
                 audio.addEventListener('play', () => {
                     playIcon.classList.add('hidden');
                     pauseIcon.classList.remove('hidden');
@@ -54,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    
     // U I  S T U F F //
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
@@ -92,26 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, DEBOUNCE_DELAY));
     }
     
-    // Debounce helper
-    function debounce(fn, delay) {
-        let lastCall = 0;
-        return function(...args) {
-            const now = Date.now();
-            if (now - lastCall < delay) return;
-            lastCall = now;
-            fn.apply(this, args);
-        };
-    }
-    
-    // Get the width of a job entry (responsive)
-    function getJobEntryWidth() {
-        const jobEntry = jobScroller ? jobScroller.querySelector('.jobEntry') : null;
-        if (jobEntry) {
-            return jobEntry.offsetWidth;
-        }
-        // fallback to window width / 4 if no jobEntry found
-        return window.innerWidth / 4;
-    }
     
     // S K I L L  S O R T I N G //
     const skillDivs = document.querySelectorAll('[data-category]');
@@ -158,6 +145,27 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Optionally show all skills on page load
     showAllSkills();
+    
+    // Debounce helper
+    function debounce(fn, delay) {
+        let lastCall = 0;
+        return function(...args) {
+            const now = Date.now();
+            if (now - lastCall < delay) return;
+            lastCall = now;
+            fn.apply(this, args);
+        };
+    }
+    
+    // Get the width of a job entry (responsive)
+    function getJobEntryWidth() {
+        const jobEntry = jobScroller ? jobScroller.querySelector('.jobEntry') : null;
+        if (jobEntry) {
+            return jobEntry.offsetWidth;
+        }
+        // fallback to window width / 4 if no jobEntry found
+        return window.innerWidth / 4;
+    }
     
     // Add fade effects based on first boot or subsequent page loads
     // if (isFirstBoot()) {
