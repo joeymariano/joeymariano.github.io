@@ -1,11 +1,11 @@
-title: joeymariano.github.io
+title: joeymariano.com
 email: joey@joeymariano.com
 description: >- # this means to ignore newlines until "baseurl:"
  Homepage of artist, musician, and engineer: Joey Mariano.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: https://joeymariano.github.io
+url: https://joeymariano.com
 
-# Use cards instead of posts
+# Use cards and jobs instead of posts
 collections:
  cards:
   output: false # Jobs won't be output as individual pages (optional)
