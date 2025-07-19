@@ -3,7 +3,7 @@ email: joey@joeymariano.com
 description: >- # this means to ignore newlines until "baseurl:"
  Homepage of artist, musician, and engineer: Joey Mariano.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: https://joeymariano.com
+url: https://joeymariano.github.io
 
 # Use cards and jobs instead of posts
 collections:
