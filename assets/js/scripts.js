@@ -222,43 +222,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     
-    // Add fade effects based on first boot or subsequent page loads
-    // if (isFirstBoot()) {
-    //     fadeIn(firstBootFade); // Special fade-in for first boot
-    //     markFirstBootComplete(); // Mark the first boot as completed
-    // } else {
-    //     fadeContentElements.forEach(fadeIn); // Regular fade-in for content
-    // }
+    const FADE_DURATION = 3000; // ms, adjust this value to change all fade speeds
+    const fadeContentElements = document.querySelectorAll('.fade-content');
     
-    // Add fade-out functionality on page unload
-    // window.addEventListener('beforeunload', () => {
-    //     fadeContentElements.forEach((element) => {
-    //         element.style.opacity = 0; // Fade out content before navigation
-    //     });
-    // });
+    function fadeIn(element) {
+        if (!element) return;
+        element.style.opacity = 0;
+        element.style.transition = `opacity ${FADE_DURATION/1000}s ease-in-out`;
+        setTimeout(() => {
+            element.style.opacity = 1;
+        }, 10);
+    }
     
-    // Function to check if it's the first boot of the app
-    // function isFirstBoot() {
-    //     return !localStorage.getItem('appHasBooted');
-    // }
-
-    // Function to mark the first boot as completed
-    // function markFirstBootComplete() {
-    //     localStorage.setItem('appHasBooted', 'true');
-    // }
-
-    // Function to handle fade-in effect
-    // function fadeIn(element) {
-    //     if (!element) return; // Exit if the element doesn't exist
-    //
-    //     element.style.opacity = 0; // Ensure opacity starts at 0
-    //     element.style.transition = "opacity .6s ease-in-out"; // Longer duration and smoother easing
-    //
-    //     // Delay to ensure the transition applies
-    //     setTimeout(() => {
-    //         element.style.opacity = 1; // Fade to full opacity
-    //     }, 10);
-    // }
+    fadeContentElements.forEach(fadeIn);
+    
+    window.addEventListener('beforeunload', () => {
+        fadeContentElements.forEach(element => {
+            element.style.opacity = 0;
+        });
+    });
 });
 
 
