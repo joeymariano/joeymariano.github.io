@@ -1,8 +1,8 @@
 <div class="{% if include.size == '1x' %}col-span-1{% elsif include.size == '2x' %}md:col-span-2{% endif %}">
     <!-- container with drop shadow -->
     <div class="h-full rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
-        <h2 class="text-black card-title text-left font-semibold pb-8 uppercase tracking-wider">
-            <span class="bg-gray-600 italic">&nbsp;{{ include.title }}&nbsp;</span>
+        <h2 class="-skew-x-12 text-black card-title text-left font-semibold pb-8 uppercase tracking-wider">
+            <span class="bg-gray-600">&nbsp;{{ include.title }}&nbsp;</span>
         </h2>
         <div>
             <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
