@@ -3,9 +3,9 @@
     {% include _head.html %}
     <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
     {% include _header.html %}
-    <div  id="fadeContent" class="pl-8 pr-8">
+    <div  id="fadeContent" class="pl-8 pr-8 pt-8">
         <!-- container for content - fade function is off at the moment -->
-        <div class="grid grid-col-1 lg:grid-cols-3 gap-4 pb-8">
+        <div class="grid grid-col-1 lg:grid-cols-3 gap-4">
             <div class="col-span-1 mb-4">
                 <span class="inline-flex text-3xl">E X P E R I E N C E</span>
             </div>
@@ -36,11 +36,11 @@
                      mb-6 sm:mb-0">
                         <div class="flex items-center">
                         {% if item.tags contains "music" or item.tags contains "art" %}
-                            <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
+                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
                         {% elsif item.tags contains "tech"%}
-                            <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-blue-500 ring-2 rounded-xl p-2">
+                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2 rounded-xl p-2">
                         {% else %}
-                            <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2 rounded-xl p-2">
+                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2 rounded-xl p-2">
                         {% endif %}
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16"
                                  shape-rendering="crispEdges">
@@ -55,14 +55,16 @@
                                 </svg>
                             </div>
                             {% if forloop.last %}
-                                <div class="flex w-full h-0 mr-4"></div>
+                                <div class="flex w-full bg-gray-200 h-0 mr-4"></div>
                             {% else %}
-                                <div class="flex w-full bg-gray-600 h-0.5  mr-4"></div>
+                                <div class="flex w-full bg-gray-200 h-0.5  mr-4"></div>
                             {% endif %}
                         </div>
                         <div class="mt-3 pr-8 w-[20rem] md:w-[28rem] lg:w-[16rem] xl:w-[20rem] 2xl:w-[24rem]">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white pb-2">{{ item.title }}</h3>
-                            <h2 class="pb-2 text-gray-400">{{ item.company }}</h2>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ item.title }}</h3>
+                            {% if item.company %}
+                                <h2 class="pt-2 pb-2 text-gray-400">{{ item.company }}</h2>
+                            {% endif %}
                             <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
                                 {{ item.date | date: "%B %Y" }}
                             </time>
@@ -117,11 +119,12 @@
         <!-- skills buttons need to be coded
         hook up the event listeners to button ids -->
         <div class="pt-8">
-            <div class="grid grid-col-3 lg:grid-cols-3 gap-4 pb-8">
+            <div class="grid grid-col-3 lg:grid-cols-3 gap-4 mb-8">
                 <div class="col-span-1">
                     <p class="mb-4 text-3xl">S K I L L S</p>
                 </div>
                 <div class="col-span-1">
+                    <h3 class="pb-4 uppercase">Sorting Buttons:</h3>
                     <p class="text-md text-left">
                         <button id="randomButton"
                         class="mr-4 ring-2 mb-4 bg-black hover:ring-white ring-gray-500 p-2 rounded-xl
