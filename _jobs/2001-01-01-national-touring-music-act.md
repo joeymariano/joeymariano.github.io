@@ -1,13 +1,10 @@
 ---
 title: "National Touring Music Act"
+company: "Self Employed Musician"
 date: 2001-01-01
 tags: [touring, music, performance, events, management]
+location: "United States"
 ---
 
-**Position:** National Touring Music Act  
-**Company:** Freelance  
-**Dates:** January 2001 - Present (24 years)  
-**Location:** Remote
-
-- Performs across the country with various bands and music projects.
-- Involved in concert and event management for national tours.
+- <span class="text-gray-500">&#8853;</span> Performs across the country with various bands and music projects.
+- <span class="text-gray-500">&#8853;</span> Involved in concert and event management for national tours.
