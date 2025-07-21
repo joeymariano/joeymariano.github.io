@@ -8,5 +8,5 @@ tags: [developer, front end, Sinatra, Bootstrap, Songkick API, tech]
 **Company:** Self-employed  
 **Dates:** January 2001 - Present (24 years)
 
-- Uses Sinatra framework and Twitter's Bootstrap to build interactive web applications.
-- Integrates Songkick API to display performance dates and manage tour schedules.
+- Long history of using different methods for creating websites
+- Specializing in front end technologies and artistic designs

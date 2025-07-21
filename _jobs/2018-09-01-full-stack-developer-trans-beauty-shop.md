@@ -1,11 +1,10 @@
 ---
 title: "Full Stack Developer"
+company: "Trans Beauty Shop"
 date: 2018-09-01
 tags: [developer, full stack, Ruby on Rails, Mailgun, Bootstrap, tech]
 ---
 
-**Position:** Full Stack Developer  
-**Company:** Trans Beauty Shop  
 **Dates:** September 2018 - December 2019 (1 year 4 months)  
 **Location:** Philadelphia, PA
 

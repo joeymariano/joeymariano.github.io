@@ -1,11 +1,10 @@
 ---
 title: "Scoopista"
+company: "Little Baby's Ice Cream"
 date: 2018-03-01
 tags: [ice cream, customer service]
 ---
 
-**Position:** Scoopista  
-**Company:** Little Baby's Ice Cream  
 **Dates:** March 2018 - March 2019 (1 year 1 month)  
 **Location:** Franklin's Table Food Court
 
