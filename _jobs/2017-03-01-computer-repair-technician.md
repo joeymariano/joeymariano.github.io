@@ -3,10 +3,8 @@ title: "Computer Repair Technician"
 company: "Wise Guy Tech"
 date: 2017-03-01
 tags: [IT, repair, Apple, Windows, Linux, tech]
+location: "Philadelphia, PA"
 ---
 
-**Dates:** March 2017 - June 2017 (4 months)  
-**Location:** Philadelphia, PA
-
-- Repaired Apple products, Windows computers, and Linux installations.
-- Soldered components and rebuilt equipment.
+- <span class="text-gray-500">&#8853;</span> Repaired Apple products, Windows computers, and Linux installations.
+- <span class="text-gray-500">&#8853;</span> Soldered components and rebuilt equipment.
