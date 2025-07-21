@@ -5,7 +5,7 @@
     {% include _header.html %}
     <div  id="fadeContent" class="pl-8 pr-8 pt-8">
         <!-- container for content - fade function is off at the moment -->
-        <div class="grid grid-col-1 lg:grid-cols-3 gap-4">
+        <div class="grid grid-col-1 lg:grid-cols-3 gap-4 pb-8">
             <div class="col-span-1 mb-4">
                 <span class="inline-flex text-3xl">E X P E R I E N C E</span>
             </div>
@@ -36,11 +36,11 @@
                      mb-6 sm:mb-0">
                         <div class="flex items-center">
                         {% if item.tags contains "music" or item.tags contains "art" %}
-                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
+                            <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
                         {% elsif item.tags contains "tech"%}
-                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2 rounded-xl p-2">
+                            <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-blue-500 ring-2 rounded-xl p-2">
                         {% else %}
-                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2 rounded-xl p-2">
+                            <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2 rounded-xl p-2">
                         {% endif %}
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16"
                                  shape-rendering="crispEdges">
@@ -117,7 +117,7 @@
         <!-- skills buttons need to be coded
         hook up the event listeners to button ids -->
         <div class="pt-8">
-            <div class="grid grid-col-3 lg:grid-cols-3 gap-4 mb-8">
+            <div class="grid grid-col-3 lg:grid-cols-3 gap-4 pb-8">
                 <div class="col-span-1">
                     <p class="mb-4 text-3xl">S K I L L S</p>
                 </div>
