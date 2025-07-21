@@ -5,7 +5,10 @@
             <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
                  class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}rounded-3xl{% endif %}">
         </div>
-        <h2 class="card-title text-left text-white font-semibold pt-4 mt-4">
+        <div class="before-title pt-16">
+
+        </div>
+        <h2 class="card-title text-left text-white font-semibold">
             {{ include.title }}
         </h2>
         <div class="text-sm text-justify text-gray-400 font-semibold pb-4 pt-2 rounded-3xl bg-black">
