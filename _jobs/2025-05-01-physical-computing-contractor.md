@@ -1,11 +1,10 @@
 ---
-title: "Knabe Labs"
+title: "Physical Computing Contractor + Fabrication"
+company: "Knabe Labs"
 date: 2025-02-01
 tags: [soldering, interactive sculptures, troubleshooting, assembly, tech]
 ---
 
-**Position:** Physical Computing Contractor  
-**Company:** Knabe Labs  
 **Dates:** May 2025 - Current
 **Location:** Ardmore, PA
 

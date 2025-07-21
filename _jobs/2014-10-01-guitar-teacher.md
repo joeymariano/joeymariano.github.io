@@ -1,5 +1,6 @@
 ---
 title: "Guitar Teacher"
+company: "Mosaic Music Lessons"
 date: 2014-10-01
 tags: [guitar, teacher, lessons, music]
 ---

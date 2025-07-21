@@ -1,11 +1,11 @@
 ---
 title: "Freelance Artist"
+company: "Trazacultura"
 date: 2019-04-01
 tags: [artist, installation, Gameboy, art]
 ---
 
-**Position:** Freelance Artist  
-**Company:** Trazacultura  
+**Location:** Laboral Technology Museum
 **Dates:** April 2019 - June 2019 (3 months)  
 **Location:** Spain
 
