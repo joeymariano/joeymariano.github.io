@@ -104,19 +104,13 @@
   display: none;
 }
 
-.card-title {
-  position: relative;
-  display: inline-block;
-  padding-top: 16px; /* Space for the wavy line */
-}
-
-.card-title::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 16px;
-  background: url('data:image/svg+xml;utf8,<svg width="120" height="12" viewBox="0 0 120 12" xmlns="http://www.w3.org/2000/svg"><path d="M0 6 Q 3.75 0, 7.5 6 T 15 6 T 22.5 6 T 30 6 T 37.5 6 T 45 6 T 52.5 6 T 60 6 T 67.5 6 T 75 6 T 82.5 6 T 90 6 T 97.5 6 T 105 6 T 112.5 6 T 120 6" fill="transparent" stroke="%23666666" stroke-width="2"/></svg>') repeat-x;
-  background-size: 100px 12px; /* Increase/decrease this for frequency */
+.before-title {
+  /* background image svg MUST be URL encoded or it will break the build process */
+  background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2232%22%20height%3D%2224%22%20viewBox%3D%220%200%2032%2024%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%2C12%20Q8%2C24%2016%2C12%20Q24%2C0%2032%2C12%22%20fill%3D%22none%22%20stroke%3D%22%23222222%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 32px 24px;
+  background-position: center;
+  min-height: 24px;
+  width: 75%;
+  margin: 0 auto;
 }
