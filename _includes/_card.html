@@ -1,16 +1,20 @@
 <div class="{% if include.size == '1x' %}col-span-1{% elsif include.size == '2x' %}md:col-span-2{% endif %}">
     <!-- container with drop shadow -->
     <div class="h-full rounded-3xl bg-black p-4 drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
-        <h2 class="-skew-x-12 text-black card-title text-left font-semibold pb-8 uppercase tracking-wider">
-            <span class="bg-gray-600">&nbsp;{{ include.title }}&nbsp;</span>
-        </h2>
         <div>
             <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
-                 class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}rounded-3xl{% endif %}">
+                 class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
+                           rounded-3xl{% endif %}">
         </div>
-        <div class="before-title pt-16">
+        <div class="before-title pt-16 pb-4">
             <!-- content is a squiggle line created by tricky CSS -->
         </div>
+        <h2 class="card-title pb-6 -skew-x-6">
+            <!-- -skew-x-12 text-white drop-shadow-[2px_2px_0px_#999999] card-title text-left font-semibold
+                    pb-4 uppercase tracking-wider -->
+            <span class="ring-[#222222]  ring-4 p-2 uppercase p-2 rounded-xl">{{ include.title }}</span>
+            <!-- <span class="bg-gray-600">&nbsp;{{ include.title }}&nbsp;</span> -->
+        </h2>
         <div class="text-sm text-justify text-gray-400 font-semibold pb-4 rounded-3xl bg-black">
             {{ include.content }}
         </div>
