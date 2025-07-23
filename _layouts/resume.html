@@ -4,21 +4,24 @@
     <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
     {% include _header.html %}
     <div  id="fadeContent" class="pl-8 pr-8 pt-8">
-        <!-- container for content - fade function is off at the moment -->
+
+        <!-- E X P E R I E N C E -->
         <div class="grid grid-col-1 lg:grid-cols-3 pb-4">
+            <!-- title -->
             <div class="col-span-1 mb-8">
-                <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black text-2xl tracking-widest">
+                <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black tracking-widest">
                     Experience</span>
             </div>
-            <div class="col-span-1 text-left lg:text-center mb-4">
+            <!-- L+R buttons -->
+            <div class="col-span-1 text-left lg:text-center">
                 <button id="job-btn-back"
                 class="ring-2 bg-black hover:ring-white ring-yellow-300 py-1 px-4 rounded-xl
-                drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
+                       drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
                     < - -
                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                 <button id="job-btn-forward"
                 class="ring-2 bg-black hover:ring-white ring-blue-500 py-1 px-4 rounded-xl
-                drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
+                       drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
                     - - >
                 </button>
             </div>
@@ -27,34 +30,40 @@
             </div>
         </div>
 
-        <!-- JOBS SECTION horizontal scrollable wrapper  -->
-        <!-- style needs to get rid of the line on the last child -->
-        <div id='job-scroller' class="overflow-x-scroll">
+        <!-- horizontal scrollable wrapper  -->
+        <div id='job-scroller' class="overflow-x-scroll mb-8">
             <div class="w-max items-top flex p-1 ">
+                <!-- order the jos w/ the most recent first -->
                 {% assign rev-job = site.jobs | reverse %}
                 {% for item in rev-job %}
+                    <!-- job entry -->
                     <div class="job-entry relative xl:w-[25vw] l:w-[25vw] m:w-[50vw] s:w-full
-                     mb-6 sm:mb-0">
+                                mb-6 sm:mb-0">
                         <div class="flex items-center">
-                        {% if item.tags contains "music" or item.tags contains "art" %}
-                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2 rounded-xl p-2">
-                        {% elsif item.tags contains "tech"%}
-                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2 rounded-xl p-2">
-                        {% else %}
-                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2 rounded-xl p-2">
-                        {% endif %}
+                            <!-- choosing color based on tags -->
+                            {% if item.tags contains "music" or item.tags contains "art" %}
+                                <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2
+                                            rounded-xl p-2">
+                            {% elsif item.tags contains "tech"%}
+                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2
+                                        rounded-xl p-2">
+                            {% else %}
+                            <div class="item-center w-12 dark:bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2
+                                        rounded-xl p-2">
+                            {% endif %}
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16"
                                  shape-rendering="crispEdges">
                                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                                     <path stroke="#ffffff"
                                           d="M4 0h8M4 1h1M11 1h1M1 2h14M0 3h16M0 4h16M0 5h2M3 5h1M5 5h6M12 5h1M14 5h2M0
-                                           6h16M0 7h2M3 7h1M5 7h6M12 7h1M14 7h2M0 8h16M0 9h16M0 10h16M0 11h3M5 11h6M13
-                                            11h3M0 12h5M11 12h5M0 13h16M0 14h16M1 15h14"/>
+                                             6h16M0 7h2M3 7h1M5 7h6M12 7h1M14 7h2M0 8h16M0 9h16M0 10h16M0 11h3M5 11h6M13
+                                             11h3M0 12h5M11 12h5M0 13h16M0 14h16M1 15h14"/>
                                     <path stroke="#000000"
                                           d="M2 5h1M4 5h1M11 5h1M13 5h1M2 7h1M4 7h1M11 7h1M13 7h1M3 11h2M11 11h2M5
-                                           12h6"/>
+                                             12h6"/>
                                 </svg>
                             </div>
+                            <!-- if last entry discontinue the line -->
                             {% if forloop.last %}
                                 <div class="flex w-full bg-gray-600 h-0 mr-4"></div>
                             {% else %}
@@ -63,6 +72,7 @@
                         </div>
                         <div class="mt-3 pr-8 w-[20rem] md:w-[28rem] lg:w-[16rem] xl:w-[20rem] 2xl:w-[24rem]">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ item.title }}</h3>
+                            <!-- check for company variable? -->
                             {% if item.company %}
                                 <h2 class="pt-2 pb-2 text-gray-400">{{ item.company }}</h2>
                             {% endif %}
@@ -76,84 +86,93 @@
             </div>
         </div>
 
-        <!-- Eduction 2 feilds - consider adding Will Lindsay's name - also taught Hacktory classes -->
-        <p class="pb-8 mt-8 text-2xl">
-            <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black text-2xl tracking-widest">
-                Education
-            </span>
-        </p>
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2
-                rounded-xl p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
-                        <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
-                        <path stroke="#ffffff"
-                              d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7 6h3M11
-                              6h2M1 7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11 10h4M5 11h4M10
-                              11h4M6 12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
-                        <path stroke="#000000"
-                              d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6 10h1M10
-                              10h1M9 11h1M8 12h1"/>
-                    </svg>
+        <!-- E D U C A T I O N -->
+        <div id="eduction-content" class="mb-8">
+            <!-- title -->
+            <p class="mb-6">
+                <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black tracking-widest">
+                    Education
+                </span>
+            </p>
+            <!-- grid for two schools -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-red-500 ring-2
+                    rounded-xl p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
+                            <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
+                            <path stroke="#ffffff"
+                                  d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7 6h3M11
+                                  6h2M1 7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11 10h4M5 11h4M10
+                                  11h4M6 12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
+                            <path stroke="#000000"
+                                  d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6
+                                  10h1M10 10h1M9 11h1M8 12h1"/>
+                        </svg>
+                    </div>
+                    <h3 class="pt-4 text-lg font-semibold">Rutgers University</h3>
+                    <p>BM, Jazz Guitar Performance 1998 - 2002</p>
+                    <p> + studied Jazz Guitar performance at Mason Gross School of the Arts within
+                        Rutgers University</p>
                 </div>
-                <h3 class="pt-4 text-lg font-semibold">Rutgers University</h3>
-                <p>BM, Jazz Guitar Performance 1998 - 2002</p>
-                <p> + studied Jazz Guitar performance at Mason Gross School of the Arts within Rutgers University</p>
-            </div>
-            <div>
-                <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2
-                rounded-xl p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
-                        <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
-                        <path stroke="#ffffff"
-                              d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7 6h3M11 6h2M1
-                               7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11 10h4M5 11h4M10 11h4M6
-                               12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
-                        <path stroke="#000000"
-                              d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6 10h1M10
-                              10h1M9 11h1M8 12h1"/>
-                    </svg>
+                <div>
+                    <div class="flex items-center justify-center w-11 dark:bg-[#0a0a0a] mr-4 ring-blue-500 ring-2
+                    rounded-xl p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
+                            <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
+                            <path stroke="#ffffff"
+                                  d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7
+                                     6h3M11 6h2M1 7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11
+                                     10h4M5 11h4M10 11h4M6 12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
+                            <path stroke="#000000"
+                                  d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6
+                                     10h1M10 10h1M9 11h1M8 12h1"/>
+                        </svg>
+                    </div>
+                    <h3 class="pt-4 text-lg font-semibold">Flatiron School</h3>
+                    <p>Fullstack Web Development 2017-2018</p>
+                    <p>+ received a Women Take Tech Scholarship</p>
                 </div>
-                <h3 class="pt-4 text-lg font-semibold">Flatiron School</h3>
-                <p>Fullstack Web Development 2017-2018</p>
-                <p>+ received a Women Take Tech Scholarship</p>
             </div>
         </div>
 
-        <!-- skills buttons need to be coded
-        hook up the event listeners to button ids -->
-        <div class="pt-8">
-            <div class="grid grid-col-3 lg:grid-cols-3 mb-8">
+       <!-- S K I L L S -->
+        <div id="skills-section">
+            <div class="grid grid-col-3 lg:grid-cols-3 mb-4">
+                <!-- title -->
                 <div class="col-span-1">
-                    <p class="mb-4 text-2xl mb-6">
-                        <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black
-                                     text-2xl tracking-widest">
+                    <p class="mb-4">
+                        <span class="text-xl ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black
+                                     tracking-widest">
                             Skills
                         </span>
                     </p>
                 </div>
+                <!-- buttons-->
                 <div class="col-span-1">
-                    <h3 class="pb-4 uppercase">Sorting Buttons:</h3>
+                    <h3 class="mb-4 uppercase text-center">
+                        <span class="mr-4 mb-4 bg-black p-2 rounded-xl
+                                     drop-shadow-[10px_10px_4px_rgba(38,38,38)]">Sorting Buttons:</a>
+                    </h3>
                     <p class="text-md text-left">
                         <button id="randomButton"
-                        class="mr-4 ring-2 mb-4 bg-black hover:ring-white ring-gray-500 p-2 rounded-xl
-                        drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                             class="mr-4 ring-2 mb-4 bg-black hover:ring-white ring-gray-500 p-2 rounded-xl
+                                    drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
                             RANDOM
                         </button>
                         <button id="techButton"
-                        class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-blue-500 p-2 rounded-xl
-                        drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                             class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-blue-500 p-2 rounded-xl
+                                    drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
                             TECH
                         </button>
                         <button id="artsButton"
-                        class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-red-500 p-2 rounded-xl
-                        drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
+                             class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-red-500 p-2 rounded-xl
+                                    drop-shadow-[10px_10px_4px_rgba(38,38,38)]">
                             ARTS AND MUSIC
                         </button>
                         <button id="miscButton"
-                        class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-yellow-300 p-2 rounded-xl
-                        drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
+                             class="mr-4 mb-4 ring-2 bg-black hover:ring-white ring-yellow-300 p-2 rounded-xl
+                                    drop-shadow-[10px_10px_4px_rgba(38,38,38)] ">
                             MISC
                         </button>
                     </p>
@@ -163,10 +182,11 @@
                 </div>
             </div>
 
-            <!-- S K I L L S  L I S T -->
+            <!-- skill list -->
             <div id="skills-container" class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {% assign sorted_skills = page.skills | sort: "name" %}
                 {% for skill in sorted_skills %}
+                    <!-- skill html -->
                     <div class="dark:bg-[#0a0a0a] p-2 text-left rounded-lg"
                         style="filter: drop-shadow(-2px -2px 0px {{ skill.color }});"
                         data-category="{{ skill.category }}">
