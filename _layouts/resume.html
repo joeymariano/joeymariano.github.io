@@ -37,52 +37,8 @@
                     <!-- order the jos w/ the most recent first -->
                     {% assign rev-job = site.jobs | reverse %}
                     {% for item in rev-job %}
-                        <!-- job entry -->
-                        <div class="job-entry relative xl:w-[25vw] l:w-[25vw] m:w-[50vw] s:w-full
-                                    mb-6 sm:mb-0">
-                            <div class="flex items-center">
-                                <!-- choosing color based on tags -->
-                                {% if item.tags contains "music" or item.tags contains "art" %}
-                                    <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-red-500 ring-2
-                                                rounded-xl p-2">
-                                {% elsif item.tags contains "tech"%}
-                                <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-blue-500 ring-2
-                                            rounded-xl p-2">
-                                {% else %}
-                                <div class="item-center w-12 bg-[#0a0a0a] mr-4 ring-yellow-300 ring-2
-                                            rounded-xl p-2">
-                                {% endif %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16"
-                                     shape-rendering="crispEdges">
-                                        <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
-                                        <path stroke="#ffffff"
-                                              d="M4 0h8M4 1h1M11 1h1M1 2h14M0 3h16M0 4h16M0 5h2M3 5h1M5 5h6M12 5h1M14 5h2M0
-                                                 6h16M0 7h2M3 7h1M5 7h6M12 7h1M14 7h2M0 8h16M0 9h16M0 10h16M0 11h3M5 11h6M13
-                                                 11h3M0 12h5M11 12h5M0 13h16M0 14h16M1 15h14"/>
-                                        <path stroke="#000000"
-                                              d="M2 5h1M4 5h1M11 5h1M13 5h1M2 7h1M4 7h1M11 7h1M13 7h1M3 11h2M11 11h2M5
-                                                 12h6"/>
-                                    </svg>
-                                </div>
-                                <!-- if last entry discontinue the line -->
-                                {% if forloop.last %}
-                                    <div class="flex w-full bg-gray-600 h-0 mr-4"></div>
-                                {% else %}
-                                    <div class="flex w-full bg-gray-600 h-0.5  mr-4"></div>
-                                {% endif %}
-                            </div>
-                            <div class="mt-3 pr-8 w-[20rem] md:w-[28rem] lg:w-[16rem] xl:w-[20rem] 2xl:w-[24rem]">
-                                <h3 class="text-gray-900 text-white">{{ item.title }}</h3>
-                                <!-- check for company variable? -->
-                                {% if item.company %}
-                                    <h2 class="pt-2 pb-2 text-gray-400">{{ item.company }}</h2>
-                                {% endif %}
-                                <time class="block mb-2 text-sm font-normal leading-none text-gray-400 text-gray-500">
-                                    {{ item.date | date: "%B %Y" }}
-                                </time>
-                                <p class="text-base font-normal text-gray-500 text-gray-400">{{ item.content }}</p>
-                            </div>
-                        </div>
+                        {% include _job.html tags=item.tags title=item.title company=item.company date=item.date
+                                             content=item.content%}
                     {% endfor %}
                 </div>
             </div>
@@ -115,7 +71,8 @@
                     <h3 class="pt-4">Rutgers University</h3>
                     <h2 class="text-gray-400">BM, Jazz Guitar Performance</h2>
                     <p class="text-gray-400 text-sm">1998 - 2002</p>
-                    <p><span class="text-gray-500">&#8853;</span> studied Jazz Guitar performance at Mason Gross School of the Arts within
+                    <p><span class="text-gray-500">&#8853;</span> studied Jazz Guitar performance at Mason Gross School
+                        of the Arts within
                         Rutgers University</p>
                 </div>
                 <div>
@@ -146,8 +103,8 @@
                 <!-- title -->
                 <div class="col-span-1">
                     <p class="mb-4">
-                        <span
-                                class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black tracking-widest text-lg">
+                        <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black tracking-widest
+                                     text-lg">
                             Skills
                         </span>
                     </p>
