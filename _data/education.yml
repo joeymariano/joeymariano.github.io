@@ -1,0 +1,14 @@
+- school: "Rutgers University"
+  degree: "BM, Jazz Guitar Performance"
+  years: "1998 - 2002"
+  color: "red-500"
+  details:
+    - "studied Jazz Guitar performance at Mason Gross School of the Arts within Rutgers University"
+    - "student of Vic Juris"
+- school: "Flatiron School"
+  degree: "Fullstack Web Development"
+  years: "2017-2018"
+  color: "blue-500"
+  details:
+    - "received a Women Take Tech Scholarship"
+    - "completed intensive bootcamp program"
