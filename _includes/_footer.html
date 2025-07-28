@@ -28,6 +28,7 @@
         content.querySelectorAll('a').forEach(function (el) {
           el.classList.add('text-green-400', 'hover:text-green-300', 'transition',
                   'duration-150');
+          el.setAttribute('target', '_blank');
         });
       });
     });
