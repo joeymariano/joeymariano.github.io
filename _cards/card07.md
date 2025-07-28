@@ -8,5 +8,5 @@ size: 1x
 
 A demo written in Lua using the pico8 fantasy console.
 
-- [PICO-8 Demo on GitHub](https://github.com/joeymariano/pico8_demo)
 - [Play the NMLSTYL Demo in Browser](/assets/pico8/nmlstyl-demo/nmlstyl.html)
+- [PICO-8 Demo on GitHub](https://github.com/joeymariano/pico8_demo)

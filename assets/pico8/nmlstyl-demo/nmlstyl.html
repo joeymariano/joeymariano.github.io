@@ -987,6 +987,17 @@ canvas{
 	-webkit-background-size:cover; -moz-background-size:cover; -o-background-size:cover; background-size:cover;
 }
 
+.bg-grid{
+	background-image:
+	linear-gradient(#222222 1.1px, transparent 1.1px),
+	linear-gradient(to right, #222222 1.1px, #0a0a0a 1.1px);
+	background-size: 40px 40px;
+	background-position: center;
+	background-repeat: repeat;
+	background-attachment: fixed;
+	min-height: 100vh;
+}
+
 .button_gfx{
 	stroke-width:2;
 	stroke: #ffffff;
@@ -1007,7 +1018,7 @@ canvas{
 
 </head>
 
-<body style="padding:0px; margin:0px; background-color:#222; color:#ccc">
+<body class="bg-grid" style="padding:0px; margin:0px; background-color:#222; color:#ccc">
 <div id="body_0"> <!-- hide this when playing in mobile (p8_touch_detected) so that elements don't affect layout -->
 
 <!-- Add any content above the cart here -->
