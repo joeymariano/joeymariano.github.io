@@ -19,4 +19,32 @@
             {% include _media-controller.html music=include.music %}
         {% endif %}
     </div>
+    <!-- script adds tailwind classes to dynamically create markdown in the content -->
+    <!-- this should maybe be included in the main js -->
+    <script>
+			// Add Tailwind classes to elements inside the card content
+			document.addEventListener("DOMContentLoaded", function () {
+				// Find the parent of the content (the .text-sm div)
+				const cardContents = document.querySelectorAll('.text-sm.text-justify.text-gray-400.font-semibold.pb-4.bg-black');
+				cardContents.forEach(function (content) {
+					// Blockquotes
+					content.querySelectorAll('blockquote').forEach(function (el) {
+						el.classList.add('border-l-4', 'border-gray-700', 'pl-4', 'italic', 'my-4', 'text-gray-300');
+					});
+					// Unordered Lists
+					content.querySelectorAll('ul').forEach(function (el) {
+						el.classList.add('list-disc', 'pl-6', 'my-2', 'space-y-1', 'text-gray-300');
+					});
+					// List Items
+					content.querySelectorAll('li').forEach(function (el) {
+						el.classList.add('mb-1', 'ml-2');
+					});
+					// Links
+					content.querySelectorAll('a').forEach(function (el) {
+						el.classList.add('text-green-400', 'hover:text-green-300', 'transition',
+                          'duration-150');
+					});
+				});
+			});
+    </script>
 </div>
