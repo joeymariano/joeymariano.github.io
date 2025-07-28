@@ -9,3 +9,7 @@ music: nmlstyl-reptileSurf.mp3
 ---
 
 A mixure of surfrock, SNES sounds, guitar and drums.
+
+- [Bandcamp Link](https://nmlstyl.bandcamp.com/track/reptile-surf)
+- [M8's site](https://dirtywave.com)
+- [BRR Tools used to rip SNES samples](https://github.com/Optiroc/BRRtools)
