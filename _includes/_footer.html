@@ -18,11 +18,12 @@
         });
         // Unordered Lists
         content.querySelectorAll('ul').forEach(function (el) {
-          el.classList.add('list-disc', 'pl-6', 'my-2', 'space-y-1', 'text-gray-300');
+          el.classList.add('list-disc', 'pl-6', 'my-2', 'space-y-1', 'text-gray-500');
         });
         // List Items
         content.querySelectorAll('li').forEach(function (el) {
           el.classList.add('mb-1', 'ml-2');
+          el.setAttribute('style', 'list-style-type: \'⊕ \';');
         });
         // Links
         content.querySelectorAll('a').forEach(function (el) {
