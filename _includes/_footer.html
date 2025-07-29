@@ -1,10 +1,18 @@
 <footer class="text-sm text-gray-600 text-right mt-8 mb-8 mr-8">
+  <!-- contact jawn -->
+  <div class="flex justify-between">
+  <p class="ml-8 pl-2 pr-2 text-sm ring rounded-full ring-gray-600 bg-black font-bold pt-1 pb-1">
+    contact me: <a id="email"></a>
+  </p>
+
   <p class="-skew-x-12"><span class="ring rounded-full ring-gray-600 bg-black pl-2 pr-2 pt-1 pb-1 font-bold">&copy; {{
     site.time |
     date: '%Y'
     }} {{
     site.title
     }}</span></p>
+  </div>
+
   <!-- script adds tailwind classes to dynamically create markdown in the content -->
   <script>
     // Add Tailwind classes to elements inside the card content
@@ -37,4 +45,28 @@
       });
     });
   </script>
+
+  <!-- obfuscate!! -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const ascii = [
+        106, 111, 101, 121,        // 'j...'
+        46,                        // '.'
+        109, 105, 99, 104, 97, 108, 105, 110, 97, // 'michal...'
+        46,                        // '.'
+        109, 97, 114, 105, 97, 110, 111, // 'mari...'
+        64,                        // '@'
+        103, 109, 97, 105, 108,    // 'gm...'
+        46,                        // '.'
+        99, 111, 109               // 'com'
+      ];
+      const email = String.fromCharCode(...ascii);
+      const link = document.getElementById("email");
+      link.href = "mailto:" + email;
+      link.textContent = email;
+      link.className = "text-violet-400 hover:text-violet-300 transition duration-150";
+    });
+  </script>
 </footer>
+
+
