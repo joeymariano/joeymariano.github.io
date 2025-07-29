@@ -12,7 +12,11 @@
          needs to be some kind of different design here for the audio cards
          (maybe make them a different color? or give them a rby stripe? or a diagonal sticker?)
           "with guitar" sorting? -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense mb-8">
+    <div class="mb-8 ">
+       <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black tracking-widest text-lg">
+       Compositions / Recordings</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense mb-10">
       {% for item in site.cards %}
         {% if item.category contains "mediaplayer" %}
           {% include _card.html
@@ -26,6 +30,10 @@
       {% endfor %}
     </div>
 
+    <div class="mb-8">
+       <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black tracking-widest text-lg">
+       Music Related</span>
+    </div>
     <!-- grid container for cards with music in category -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
       {% for item in site.cards %}
