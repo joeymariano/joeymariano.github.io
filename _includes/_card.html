@@ -12,7 +12,8 @@
         <h2 class="card-title pb-6">
             <span class="ring-[#222222] ring-4 p-2 uppercase p-2 rounded-xl">{{ include.title }}</span>
         </h2>
-        <div class="text-sm text-justify text-gray-400 font-semibold pb-4 rounded-3xl bg-black">
+        <!-- card-contents class for injected style via js in the footer -->
+        <div class="card-contents text-sm text-justify text-gray-400 font-semibold pb-4 rounded-3xl">
             {{ include.content }}
         </div>
         {% if include.music %}

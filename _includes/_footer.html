@@ -18,7 +18,7 @@
     // Add Tailwind classes to elements inside the card content
     document.addEventListener("DOMContentLoaded", function () {
       // Find the parent of the content (the .text-sm div)
-      const cardContents = document.querySelectorAll('.text-sm.text-justify.text-gray-400.font-semibold.pb-4.bg-black');
+      const cardContents = document.querySelectorAll('.card-contents');
       cardContents.forEach(function (content) {
         // Blockquotes
         content.querySelectorAll('blockquote').forEach(function (el) {
