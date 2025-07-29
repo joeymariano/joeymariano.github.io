@@ -1,6 +1,6 @@
 ---
 title: Multimedia Installation
-image: juvenile-amplifier-little.jpg
+image: juvenile-amplifier.jpg
 round_image: false
 category: home art design
 size: 1x
