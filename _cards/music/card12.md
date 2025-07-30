@@ -7,6 +7,6 @@ size: 1x
 music: nmlstyl-fliteSite.mp3
 ---
 
-Sample rate reduced guitar, Sega samples and vaporwave easthetics.
+Sample rate reduced guitar, Sega samples and vaporwave aesthetics.
 
 - [flite site on bandcamp.com](https://nmlstyl.bandcamp.com/track/nmlstyl-flite-site)
