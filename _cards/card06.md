@@ -6,6 +6,7 @@ category: home art design
 size: 1x
 link: https://we-make-money-not-art.com/playlist_when_video_game_gets/
 ---
+
 Juvenile Amplifier installation. Was featured at Laboral Art Center in Spain and it traveled around Europe. Parts 
 List: 6 mini gameboy speakers, hookup wire, and amplifier in an Altoids tin, a push button.
 
