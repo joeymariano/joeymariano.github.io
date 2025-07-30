@@ -1,20 +1,21 @@
 <footer class="grid grid-cols-1 md:grid-cols-2 text-sm text-gray-600 text-right mt-8 mb-8 mr-8">
   <!-- contact jawn -->
-
   <div class="pt-4 text-left pl-8">
-  <p class="text-left">
-    <span class="rounded-full bg-black pl-2 pr-2 pt-1 pb-1 font-bold">contact:
-      <a id="email"></a></span>
-  </p></div>
+    <p class="text-left">
+      <span class="rounded-full bg-black pl-2 pr-2 pt-1 pb-1 font-bold">contact: <a id="email"></a></span>
+    </p>
+  </div>
 
+  <!-- copyright year -->
   <div class="pt-4">
     <p class="text-left sm:pl-8 md:text-right">
       <span class="rounded-full bg-black pl-2 pr-2 pt-1 pb-1 font-bold">&copy; {{
-    site.time |
-    date: '%Y'
-    }} {{
-    site.title
-    }}</span></p>
+      site.time |
+      date: '%Y'
+      }} {{
+      site.title
+      }}</span>
+    </p>
   </div>
 
   <!-- script adds tailwind classes to dynamically create markdown in the content -->
@@ -50,19 +51,16 @@
     });
   </script>
 
-  <!-- obfuscate!! -->
+  <!-- obfuscate fer [e].[m].[a].[i].[l] !! -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const ascii = [
-        106, 111, 101, 121,        // 'j...'
-        46,                        // '.'
-        109, 105, 99, 104, 97, 108, 105, 110, 97, // 'michal...'
-        46,                        // '.'
+        106, 111, 101, 121,           // 'j...'
+        64,                           // '@'
+        106, 111, 101, 121,           // 'j...'
         109, 97, 114, 105, 97, 110, 111, // 'mari...'
-        64,                        // '@'
-        103, 109, 97, 105, 108,    // 'gm...'
-        46,                        // '.'
-        99, 111, 109               // 'com'
+        46,                           // '.'
+        99, 111, 109                  // 'com'
       ];
       const email = String.fromCharCode(...ascii);
       const link = document.getElementById("email");
