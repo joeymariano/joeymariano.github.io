@@ -1,11 +1,15 @@
-<footer class="text-sm text-gray-600 text-right mt-8 mb-8 mr-8">
+<footer class="grid grid-cols-1 md:grid-cols-2 text-sm text-gray-600 text-right mt-8 mb-8 mr-8">
   <!-- contact jawn -->
-  <div class="flex justify-between pt-4">
-  <p class="ml-8 pl-2 pr-2 text-sm ring rounded-full ring-gray-600 bg-black font-bold pt-1 pb-1">
-    contact: <a id="email"></a>
-  </p>
 
-  <p><span class="ring rounded-full ring-gray-600 bg-black pl-2 pr-2 pt-1 pb-1 font-bold">&copy; {{
+  <div class="pt-4 text-left pl-8">
+  <p class="text-left">
+    <span class="rounded-full bg-black pl-2 pr-2 pt-1 pb-1 font-bold">contact:
+      <a id="email"></a></span>
+  </p></div>
+
+  <div class="pt-4">
+    <p class="text-left sm:pl-8 md:text-right">
+      <span class="rounded-full bg-black pl-2 pr-2 pt-1 pb-1 font-bold">&copy; {{
     site.time |
     date: '%Y'
     }} {{
