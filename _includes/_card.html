@@ -1,6 +1,6 @@
-<div class="{% if include.size == '1x' %}col-span-1{% elsif include.size == '2x' %}md:col-span-2{% endif %}">
+<div class="{% if include.size == '1x' %}col-span-1{% elsif include.size == '2x' %}md:col-span-2{% endif %} ">
     <!-- container with drop shadow -->
-    <div class="h-full rounded-3xl bg-black p-4 drop-shadow-[8px_8px_0px_rgba(24,24,24)]">
+    <div class="striped-div h-full rounded-3xl bg-black p-4 drop-shadow-[8px_8px_0px_rgba(24,24,24)]">
         <div>
             <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
                  class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
