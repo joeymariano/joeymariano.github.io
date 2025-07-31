@@ -115,4 +115,18 @@
   margin: 0 auto;
 }
 
+.striped-div {
+  background:
+          linear-gradient(
+                  145deg,
+                  black 0 115px,         /* Black base */
+                  #3B82F6 5px 120px,    /* First stripe (blue) */
+                  black 5px 125px,         /* Black base */
+                  #EF4444 5px 130px,    /* Second stripe (blue) */
+                  black 5px 135px,         /* Black base */
+                  #FCD34D 5px 140px,    /* Second stripe (blue) */
+                  black 80px 100%
+          );
+}
+
 
