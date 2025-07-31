@@ -9,4 +9,4 @@ music: nmlstyl-transPortation.mp3
 
 Horror style music with Ableton and Super Metroid samples.
 
-- [trans portation on bandcamp](https://nmlstyl.bandcamp.com/track/nmlstyl-trans-portation)
+- [Track on Bandcamp](https://nmlstyl.bandcamp.com/track/nmlstyl-trans-portation)

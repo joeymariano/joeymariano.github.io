@@ -9,5 +9,5 @@ music: nmlstyl-sp33k.mp3
 
 A song featuring the Speak n' Spell style synth engine inside the dirtywave m8.
 
-- [Bandcamp Link](https://nmlstyl.bandcamp.com/track/sp33k)
+- [Track on Bandcamp](https://nmlstyl.bandcamp.com/track/sp33k)
 - [M8's site](https://dirtywave.com)

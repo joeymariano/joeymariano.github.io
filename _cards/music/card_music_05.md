@@ -7,6 +7,7 @@ size: 1x
 music: nmlstyl-etherialLimb.mp3
 ---
 
-Destructive war march with advanced modal harmonies.
+Destructive war march on gameboy with advanced modal harmonies, drums and guitar.
 
-- [etherial limb on bandcamp.com](https://nmlstyl.bandcamp.com/track/etherial-limb)
+- [Track on Bandcamp](https://nmlstyl.bandcamp.com/track/etherial-limb)
+- [LSDJ](https://www.littlesounddj.com/)
