@@ -9,4 +9,5 @@ music: nmlstyl-dotted.mp3
 
 Examples of synth guitar with gameboy programming.
 
-- [dotted on bandcamp.com](https://nmlstyl.bandcamp.com/track/dotted-2)
+- [Track on Bandcamp](https://nmlstyl.bandcamp.com/track/dotted-2)
+- [LSDJ](https://www.littlesounddj.com/)

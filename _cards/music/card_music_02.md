@@ -10,5 +10,5 @@ music: nmlstyl-reptileSurf.mp3
 
 A mixure of surfrock, SNES sounds, guitar and drums.
 
-- [Bandcamp Link](https://nmlstyl.bandcamp.com/track/reptile-surf)
+- [Track on Bandcamp](https://nmlstyl.bandcamp.com/track/reptile-surf)
 - [BRR Tools used to rip SNES samples](https://github.com/Optiroc/BRRtools)
