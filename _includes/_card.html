@@ -3,22 +3,24 @@
     <div class="striped-div h-full rounded-3xl bg-black p-4 drop-shadow-[8px_8px_0px_rgba(24,24,24)]">
         <div>
             <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
-                 class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
-                           rounded-3xl{% endif %} ring-4 ring-black">
+             class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
+             rounded-3xl{% endif %} ring-4 ring-black">
         </div>
-        <div class="before-title pt-16 pb-4">
-            <!-- content is a squiggle line created by tricky CSS -->
-        </div>
+
+        <!-- content is a squiggle line created by tricky CSS -->
+        <div class="before-title pt-16 pb-4"></div>
+
         <h2 class="card-title pb-6">
             <span class="ring-[#222222] ring-2 p-2 uppercase p-2 rounded-xl">{{ include.title }}</span>
         </h2>
-        <!-- card-contents class for injected style via js in the footer -->
+
+        <!-- script in footer adds tailwind classes to dynamically create markdown in the content -->
         <div class="card-contents text-sm text-justify text-gray-400 font-semibold pb-4 rounded-3xl">
             {{ include.content }}
         </div>
+
         {% if include.music %}
             {% include _media-controller.html music=include.music %}
         {% endif %}
-        <!-- script in footer adds tailwind classes to dynamically create markdown in the content -->
     </div>
 </div>
