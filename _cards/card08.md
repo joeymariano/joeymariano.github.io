@@ -2,7 +2,7 @@
 title: Gameboy Foot Controller
 image: gb-foot-controller.png
 round_image: false
-category: art music
+category: music
 size: 2x
 ---
 
