@@ -5,8 +5,6 @@
         {% include _header.html %}
         <div  id="fadeContent" class="pl-8 pr-8"> <!-- container for cards -->
 
-            <!-- consider embedding pdf of your graffiti notebook -->
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
                 {% for item in site.cards %}
                     {% if item.category contains 'art' or item.category contains 'design' %}
