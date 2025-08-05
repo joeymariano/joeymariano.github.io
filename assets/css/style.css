@@ -147,3 +147,11 @@
 .hdr-1-macro { /* in html wrap in h1 then span with hdr-1-macro */
   @apply ring-[#333333] ring-4 p-2 uppercase rounded-xl bg-black tracking-widest text-lg;
 }
+
+.arrow-btn-macro {
+  @apply ring-2 bg-black hover:ring-white py-1 px-4 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)];
+}
+
+.reg-btn-macro {
+  @apply mr-4 ring-2 mb-4 bg-black hover:ring-white p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)];
+}
