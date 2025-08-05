@@ -149,9 +149,9 @@
 }
 
 .arrow-btn-macro {
-  @apply ring-2 bg-black hover:ring-white py-1 px-4 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)];
+  @apply ring-2 bg-black hover:ring-gray-400 py-1 px-4 rounded-xl drop-shadow-[6px_6px_0px_#222222];
 }
 
 .reg-btn-macro {
-  @apply mr-4 ring-2 mb-4 bg-black hover:ring-white p-2 rounded-xl drop-shadow-[10px_10px_4px_rgba(38,38,38)];
+  @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl drop-shadow-[6px_6px_0px_#222222];
 }
