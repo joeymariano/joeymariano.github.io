@@ -2,7 +2,7 @@
 title: Multimedia Installation
 image: juvenile-amplifier.jpg
 round_image: false
-category: home art design
+category: home art design tech
 size: 1x
 link: https://we-make-money-not-art.com/playlist_when_video_game_gets/
 ---

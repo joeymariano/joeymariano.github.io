@@ -8,6 +8,11 @@
     <!-- another skill tree with only the tech stuff -->
     <!-- link to my github with a typewriter effect -->
 
+        <div class="col-span-1 mb-8">
+                    <span class="ring-[#333333] ring-4 p-2 uppercase p-2 rounded-xl bg-black tracking-widest text-lg">
+                        Tech Related</span>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
             {% for item in site.cards %}
             {% if item.category contains 'code' or item.category contains 'tech' %}
