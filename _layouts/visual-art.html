@@ -3,12 +3,22 @@
     {% include _head.html %}
     <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
         {% include _header.html %}
-        <div  id="fadeContent" class="pl-8 pr-8"> <!-- container for cards -->
+        <div  id="fadeContent" class="pl-8 pr-8"> <!-- container for fade in -->
 
-            {% include _pdf-viewer.html %}
+            <!-- P D F  V I E W E R -->
+            <div class="lg:w-1/2 w-full mb-9">
+                <div class="mb-8 flex">
+                    <h1 class="mr-4 w-1/2"><span class="hdr-1-macro">Black Book</span></h1>
+                    <div class="w-1/2 text-right">
+                        <button id="prev-page" class="arrow-btn-macro ring-yellow-300 mr-4"> < - - </button>
+                        <button id="next-page" class="arrow-btn-macro ring-blue-500"> - - > </button>
+                    </div>
+                </div>
+                {% include _pdf-viewer.html %}
+            </div>
 
+            <!-- A R T  C A R D S -->
             <h1 class="mb-8"><span class="hdr-1-macro">Visual Work</span></h1>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
                 {% for item in site.cards %}
                     {% if item.category contains 'art' or item.category contains 'design' %}
