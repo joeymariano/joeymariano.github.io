@@ -155,3 +155,8 @@
 .reg-btn-macro {
   @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl drop-shadow-[6px_6px_0px_#222222];
 }
+
+#the-canvas {
+  border: 1px solid black;
+  direction: ltr;
+}
