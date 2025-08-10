@@ -4,6 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* G R I D  B A C K G R O U N D */
 .bg-grid {
   background-image:
   linear-gradient(#222222 1.1px, transparent 1.1px),
@@ -15,6 +16,7 @@
   min-height: 100vh;
 }
 
+/* N A V  A N I M A T I O N */
 @media (max-width: 1280px) {
   #menu {
     max-height: 0;
@@ -26,6 +28,7 @@
   }
 }
 
+/* S E E K B A R */
 .seekbar {
   accent-color: #3B82F6;
   background: none;
@@ -98,6 +101,7 @@
   display: none;
 }
 
+/* S I N E  W A V E */
 .before-title {
   /* background image svg MUST be URL encoded or it will break the build process */
   background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2232%22%20height%3D%2224%22%20viewBox%3D%220%200%2032%2024%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%2C12%20Q8%2C24%2016%2C12%20Q24%2C0%2032%2C12%22%20fill%3D%22none%22%20stroke%3D%22%23222222%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
@@ -109,6 +113,7 @@
   margin: 0 auto;
 }
 
+/* S T R I P E S */
 .striped-div {
   background:
     linear-gradient(
@@ -123,6 +128,7 @@
     );
 }
 
+/* not currently used */
 .pill-shapes {
   --s: 4px; /* control the size*/
   --c1: #222222;
@@ -136,8 +142,7 @@
   background-size: calc(4*var(--s)) calc(4*var(--s));
 }
 
-/* Tailwind Class Macros */
-
+/* Tailwind Class Macros for md created content */
 .hdr-1-macro { /* in html wrap in h1 then span with hdr-1-macro */
   @apply ring-[#333333] ring-4 p-2 uppercase rounded-xl bg-black tracking-widest text-lg;
 }
@@ -150,6 +155,7 @@
   @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl drop-shadow-[6px_6px_0px_#222222];
 }
 
+/* P D F  V I E W E R */
 #the-canvas {
   border: 1px solid black;
   direction: ltr;
