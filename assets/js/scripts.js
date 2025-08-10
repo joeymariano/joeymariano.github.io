@@ -2,22 +2,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // M E N U //
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
-    const duration = 1200; // ms, must match CSS!!
+    const duration = 400; // ms, must match CSS!!
     
     menuBtn.addEventListener('click', function() {
         if (menu.classList.contains('show')) {
-            // Animate collapse
+            // animate collapse
             menu.classList.remove('show');
-            // After transition, add hidden
+            // after transition, add hidden
             setTimeout(() => {
                 menu.classList.add('hidden');
             }, duration);
         } else {
-            // Unhide immediately, then animate expand
+            // unhide immediately, then animate expand
             menu.classList.remove('hidden');
             setTimeout(() => {
                 menu.classList.add('show');
-            }, 10);
+            });
         }
     });
     
@@ -105,8 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Debounce value in milliseconds
     const DEBOUNCE_DELAY = 500; // Change this value as needed
-
-    // Attach event listeners
+    
     if (jobBtnBack && jobScroller) {
         jobBtnBack.addEventListener('click', debounce(() => {
             snapJobScroller(-1); // Snap to previous job
@@ -119,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, DEBOUNCE_DELAY));
     }
     
-    // Helper to debounce rapid clicks
+    // helper to debounce rapid clicks
     function debounce(fn, delay) {
         let lastCall = 0;
         return function(...args) {
@@ -130,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
     
-    // Get the width of a job entry (responsive)
+    // get the width of a job entry (responsive)
     function getJobEntryWidth() {
         const jobEntry = jobScroller ? jobScroller.querySelector('.job-entry') : null;
         if (jobEntry) {
@@ -140,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return window.innerWidth / 4;
     }
     
-    // Calculate the snapped scroll position
+    // calculate the snapped scroll position
     function getSnappedScrollLeft(direction = 0) {
         if (!jobScroller) return 0;
         const jobWidth = getJobEntryWidth();
@@ -152,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return snapIndex * jobWidth;
     }
     
-    // Snap scroll function
+    // snap scroll function
     function snapJobScroller(direction = 0) {
         if (jobScroller) {
             const snapLeft = getSnappedScrollLeft(direction);
@@ -170,8 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'miscButton', category: 'misc' },
     ];
     let previousSkillOrder = [];
-
-    // Hook up button listeners
+    
     buttons.forEach(btn => {
         const button = document.getElementById(btn.id);
         if (button) {
@@ -200,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Optionally show all skills on page load
     showAllSkills();
 
-    // Show all skills (helper)
+    // show all skills (helper)
     function showAllSkills() {
         skillDivs.forEach(div => div.style.display = '');
     }
@@ -208,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showSkillsByCategory(category) {
         const container = document.getElementById('skills-container'); // adjust if your container ID differs
         
-        // Separate skillDivs into chosen category and others
+        // separate skillDivs into chosen category and others
         const categorized = [];
         const others = [];
         skillDivs.forEach(div => {
@@ -218,20 +216,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 others.push(div);
             }
         });
-        // Append categorized first, then others
+        // append categorized first, then others
         categorized.concat(others).forEach(div => {
             container.appendChild(div);
         });
     }
     
     function getDerangement(arr) {
-        // Generate a random permutation that is a derangement (no element stays in the same position)
+        // generate a random permutation that is a derangement (no element stays in the same position)
         let deranged;
         let attempts = 0;
         do {
             deranged = arr.slice().sort(() => Math.random() - 0.5);
             attempts++;
-            // If any element stays in its old position, rerun
+            // if any element stays in its old position, rerun
         } while (deranged.some((el, idx) => el === arr[idx]) && attempts < 100);
         return deranged;
     }

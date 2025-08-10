@@ -21,10 +21,10 @@
   #menu {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 1.2s cubic-bezier(.68,-0.55,.27,1.55); /* timeout must math the js function */
+    transition: max-height .4s linear; /* timeout must math the js function */
   }
   #menu.show {
-    max-height: 600px; /* Should be >= menu content height */
+    max-height: 180px; /* Should be >= menu content height */
   }
 }
 
