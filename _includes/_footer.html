@@ -1,74 +1,80 @@
-<footer class="grid grid-cols-1 md:grid-cols-2 text-sm text-gray-600 text-right mt-8 mb-8 mr-8">
-  <!-- contact jawn -->
-  <div class="pt-4 text-left pl-8">
-    <p class="text-left">
-      <span class="rounded-full bg-black p-2 font-bold">contact: <a id="email"></a></span>
-    </p>
+<footer class="m-8" >
+  <!-- T O P  B U T T O N -->
+  <div class="flex-col text-center pb-4">
+    <button id="top-button" class="top-btn-macro">^</button>
   </div>
 
-  <!-- copyright year -->
-  <div class="pt-4">
-    <p class="text-left pl-8 lg:pl-0 md:text-right">
-      <span class="rounded-full bg-black pl-2 pr-2 pt-1 pb-1 font-bold">&copy; {{
-      site.time |
-      date: '%Y'
-      }} {{
-      site.title
-      }}</span>
-    </p>
+  <!-- C O N T A C T  A N D  C O P Y R I G H T -->
+  <div class="grid grid-cols-1 md:grid-cols-2 text-sm text-gray-600 text-right">
+    <!-- contact jawn -->
+    <div class="pt-4 text-left">
+      <p class="text-left">
+        <span class="rounded-full bg-black p-2 font-bold">contact: <a id="email"></a></span>
+      </p>
+    </div>
+
+    <!-- copyright year -->
+    <div class="pt-4">
+      <p class="text-left md:text-right">
+        <span class="rounded-full bg-black pl-2 pr-2 pt-1 pb-1 font-bold">&copy; {{
+        site.time |
+        date: '%Y'
+        }} {{
+        site.title
+        }}</span>
+      </p>
+    </div>
   </div>
-
-  <!-- script adds tailwind classes to dynamically create markdown in the content -->
-  <script>
-    // Add Tailwind classes to elements inside the card content
-    document.addEventListener("DOMContentLoaded", function () {
-      // Find the parent of the content (the .text-sm div)
-      const cardContents = document.querySelectorAll('.card-contents');
-      cardContents.forEach(function (content) {
-        // Blockquotes
-        content.querySelectorAll('blockquote').forEach(function (el) {
-          el.classList.add('border-l-4', 'border-gray-700', 'pl-4', 'italic', 'my-4', 'text-gray-300');
-        });
-        // Unordered Lists
-        content.querySelectorAll('ul').forEach(function (el) {
-          el.classList.add('list-disc', 'pl-6', 'my-2', 'space-y-1', 'text-gray-500', 'text-left');
-        });
-        // List Items
-        content.querySelectorAll('li').forEach(function (el) {
-          el.classList.add('mb-1', 'ml-2');
-          el.setAttribute('style', 'list-style-type: \'⊕ \';');
-        });
-        // Links
-        content.querySelectorAll('a').forEach(function (el) {
-          el.classList.add('text-blue-400', 'hover:text-blue-200', 'transition',
-                  'duration-150');
-          el.setAttribute('target', '_blank');
-        });
-        content.querySelectorAll('p').forEach(function (el) {
-          el.classList.add('pb-4');
-        });
-      });
-    });
-  </script>
-
-  <!-- obfuscate fer [e].[m].[a].[i].[l] !! -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const ascii = [
-        106, 111, 101, 121,           // 'j...'
-        64,                           // '@'
-        106, 111, 101, 121,           // 'j...'
-        109, 97, 114, 105, 97, 110, 111, // 'mari...'
-        46,                           // '.'
-        99, 111, 109                  // 'com'
-      ];
-      const email = String.fromCharCode(...ascii);
-      const link = document.getElementById("email");
-      link.href = "mailto:" + email;
-      link.textContent = email;
-      link.className = "text-blue-500 hover:text-blue-300 transition duration-150";
-    });
-  </script>
 </footer>
 
+<!-- obfuscate fer [e].[m].[a].[i].[l] !! -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ascii = [
+      106, 111, 101, 121,           // 'j...'
+      64,                           // '@'
+      106, 111, 101, 121,           // 'j...'
+      109, 97, 114, 105, 97, 110, 111, // 'mari...'
+      46,                           // '.'
+      99, 111, 109                  // 'com'
+    ];
+    const email = String.fromCharCode(...ascii);
+    const link = document.getElementById("email");
+    link.href = "mailto:" + email;
+    link.textContent = email;
+    link.className = "text-blue-500 hover:text-blue-300 transition duration-150";
+  });
+</script>
 
+<!-- script adds tailwind classes to dynamically create markdown in the content -->
+<script>
+  // Add Tailwind classes to elements inside the card content
+  document.addEventListener("DOMContentLoaded", function () {
+    // Find the parent of the content (the .text-sm div)
+    const cardContents = document.querySelectorAll('.card-contents');
+    cardContents.forEach(function (content) {
+      // Blockquotes
+      content.querySelectorAll('blockquote').forEach(function (el) {
+        el.classList.add('border-l-4', 'border-gray-700', 'pl-4', 'italic', 'my-4', 'text-gray-300');
+      });
+      // Unordered Lists
+      content.querySelectorAll('ul').forEach(function (el) {
+        el.classList.add('list-disc', 'pl-6', 'my-2', 'space-y-1', 'text-gray-500', 'text-left');
+      });
+      // List Items
+      content.querySelectorAll('li').forEach(function (el) {
+        el.classList.add('mb-1', 'ml-2');
+        el.setAttribute('style', 'list-style-type: \'⊕ \';');
+      });
+      // Links
+      content.querySelectorAll('a').forEach(function (el) {
+        el.classList.add('text-blue-400', 'hover:text-blue-200', 'transition',
+                'duration-150');
+        el.setAttribute('target', '_blank');
+      });
+      content.querySelectorAll('p').forEach(function (el) {
+        el.classList.add('pb-4');
+      });
+    });
+  });
+</script>

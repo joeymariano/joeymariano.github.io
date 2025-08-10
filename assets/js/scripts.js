@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    
     // M E N U //
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
@@ -21,6 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 menu.classList.add('show');
             }, 10);
         }
+    });
+    
+    // T O P  B U T T O N //
+    const topButton = document.getElementById('top-button');
+    
+    if (!topButton) return;
+    
+    topButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
     
     

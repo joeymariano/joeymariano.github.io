@@ -151,6 +151,11 @@
   @apply mr-4 ring-2 bg-black hover:ring-gray-400 py-1 px-4 rounded-xl drop-shadow-[6px_6px_0px_#222222];
 }
 
+.top-btn-macro {
+  @apply mr-4 ring-2 bg-black hover:ring-gray-400 pr-6 pl-6 pt-2 pb-1 rounded-xl drop-shadow-[6px_6px_0px_#222222]
+         ring-blue-500 text-xl font-bold;
+}
+
 .reg-btn-macro {
   @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl drop-shadow-[6px_6px_0px_#222222];
 }
