@@ -4,19 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // M E N U //
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
+    const duration = 1200; // ms, must match CSS!!
     
-    if (menuBtn && menu) {
-        menuBtn.addEventListener('click', () => {
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                setTimeout(() => menu.classList.add('visible'), 10);
-            } else {
-                menu.classList.remove('visible');
-                setTimeout(() => menu.classList.add('hidden'), 500);
-            }
-            menuBtn.setAttribute('aria-expanded', !menu.classList.contains('hidden'));
-        });
-    }
+    menuBtn.addEventListener('click', function() {
+        if (menu.classList.contains('show')) {
+            // Animate collapse
+            menu.classList.remove('show');
+            // After transition, add hidden
+            setTimeout(() => {
+                menu.classList.add('hidden');
+            }, duration);
+        } else {
+            // Unhide immediately, then animate expand
+            menu.classList.remove('hidden');
+            setTimeout(() => {
+                menu.classList.add('show');
+            }, 10);
+        }
+    });
     
     
     // A U D I O -- P L A Y E R //

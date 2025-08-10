@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Animated Growing Div Example</title>
+    <style>
+        #growDiv {
+            width: 300px;
+            height: 10px;
+            background: #4caf50;
+            transition: width 1s ease, height 1s ease;
+            margin: 40px auto;
+            border-radius: 8px;
+        }
+        #growDiv.grow {
+            height: 300px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 30px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div id="growDiv"></div>
+<button onclick="growDiv()">Grow!</button>
+<button onclick="shrinkDiv()">Shrink!</button>
+<script>
+	function growDiv() {
+		document.getElementById('growDiv').classList.add('grow');
+	}
+	function shrinkDiv() {
+		document.getElementById('growDiv').classList.remove('grow');
+	}
+</script>
+</body>
+</html>
