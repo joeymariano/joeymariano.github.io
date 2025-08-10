@@ -1,5 +1,5 @@
 ---
-title: "Evironment Artist"
+title: "Environment Artist"
 company: "Akupara Games"
 date: 2025-06-01
 tags: [art, graffiti, visual]
