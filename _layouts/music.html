@@ -3,15 +3,11 @@
 {% include _head.html %}
 
 <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
-  <!-- navigation bar  -->
   {% include _header.html %}
 
-  <!-- content time! -->
   <div id="fadeContent" class="pl-8 pr-8">
-    <!-- mediaplayer examples first
-         needs to be some kind of different design here for the audio cards
-         (maybe make them a different color? or give them a rby stripe? or a diagonal sticker?)
-          "with guitar" sorting? -->
+
+    <!-- R E C O R D I N G S -->
     <div class="mb-8 ">
        <h1><span class="hdr-1-macro">Recordings</span></h1>
     </div>
@@ -29,10 +25,11 @@
       {% endfor %}
     </div>
 
+    <!-- M U S I C  C A R D S -->
     <div class="mb-8">
        <h1><span class="hdr-1-macro">Music Related</span></h1>
     </div>
-    <!-- grid container for cards with music in category -->
+    <!-- grid container for cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
       {% for item in site.cards %}
         {% if item.category contains "music" or item.category contains "show" %}
