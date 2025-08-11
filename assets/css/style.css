@@ -165,3 +165,44 @@
   border: 1px solid black;
   direction: ltr;
 }
+
+/* L O A D I N G  B A R S */
+.loading-bars {
+    background-image: linear-gradient(
+            45deg,
+            #ef4444 2.78%,
+            #000 2.78%,
+            #000 16.67%,
+            #3b82f6 16.67%,
+            #3b82f6 19.44%,
+            #000 19.44%,
+            #000 33.33%,
+            #fde047 33.33%,
+            #fde047 36.11%,
+            #000 36.11%,
+            #000 50%,
+            #ef4444 50%,
+            #ef4444 52.78%,
+            #000 52.78%,
+            #000 66.67%,
+            #3b82f6 66.67%,
+            #3b82f6 69.44%,
+            #000 69.44%,
+            #000 83.33%,
+            #fde047 83.33%,
+            #fde047 86.11%,
+            #000 86.11%,
+            #000 100%
+    );
+    background-size: 80px 80px;
+    animation: gradient-move 0.8s linear infinite;
+}
+
+@keyframes gradient-move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 80px 0;
+    }
+}
