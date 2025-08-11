@@ -2,10 +2,12 @@
 <html lang="en" class="h-full text-white bg-[#0a0a0a]">
 {% include _head.html %}
 <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
-    {% include _header.html %} <!-- Header should not fade in/out -->
+    {% include _header.html %}
+    <!-- Header should not fade in/out -->
 
-    <!-- Wrapper for content that fades in on subsequent loads -->
-    <div id="fadeContent" class="pl-8 pr-8"> <!-- cards wrapper -->
+    <!-- H O M E  C A R D S -->
+    <div id="fadeContent" class="pl-8 pr-8">
+    <!-- cards wrapper to control fade in -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
             {% for item in site.cards %}
                 {% if item.category contains 'home' %}
@@ -21,6 +23,7 @@
         </div>
     </div>
 
+    <!-- footer should not fade in/out -->
     {% include _footer.html %}
 </body>
 </html>
