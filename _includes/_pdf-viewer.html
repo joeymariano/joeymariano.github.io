@@ -13,6 +13,13 @@
   "></div>
 </div>
 
+<div class="h-4">
+    <div class="loading-bars h-6 w-full text-center rounded-xl">
+        <span class="bg-black">L O A D I N G</span>
+    </div>
+</div>
+
+
 <!-- nav script -->
 <script type="module">
 	import * as pdfjsLib from '/assets/js/pdf.mjs';
@@ -25,12 +32,20 @@
 
 	const canvas = document.getElementById('pdf-canvas');
 	const context = canvas.getContext('2d');
+	const loadingOverlay = document.getElementById('loading-overlay');
+	const loadingBars = document.getElementsByClassName('loading-bars');
 
     function showLoading() {
-        document.getElementById('loading-overlay').style.display = 'block';
+	    for (let i = 0; i < loadingBars.length; i++) {
+		    loadingBars[i].classList.remove('hidden');
+	    }
+        loadingOverlay.style.display = 'block';
     }
     function hideLoading() {
-        document.getElementById('loading-overlay').style.display = 'none';
+	    for (let i = 0; i < loadingBars.length; i++) {
+		    loadingBars[i].classList.add('hidden');
+	    }
+	    loadingOverlay.style.display = 'none';
     }
 
     // Update renderPage to use loading overlay
