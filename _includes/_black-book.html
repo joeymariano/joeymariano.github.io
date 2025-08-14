@@ -1,0 +1,37 @@
+<!-- black book -->
+<div id="black-book" class="w-full bg-black">
+    <img id="black-book-page"
+         src="{{site.baseurl}}/assets/img/black-book/13.jpg"
+         class="rounded-xl book-fade">
+</div>
+
+<script type="module">
+	const NUM_PAGES = 40;
+	let pageNumber = 13;
+	const blackBookPage = document.getElementById('black-book-page');
+	const prevBtn = document.getElementById("prev-page");
+	const nextBtn = document.getElementById("next-page");
+
+	function changeImage(newPageNumber) {
+		blackBookPage.classList.add('book-fade-out');
+		blackBookPage.addEventListener('transitionend', function handler() {
+			blackBookPage.removeEventListener('transitionend', handler);
+			pageNumber = newPageNumber;
+			blackBookPage.src = `{{site.baseurl}}/assets/img/black-book/${pageNumber}.jpg`;
+			blackBookPage.classList.remove('book-fade-out');
+			blackBookPage.classList.add('book-fade-in');
+			setTimeout(() => blackBookPage.classList.remove('book-fade-in'), 400);
+		});
+	}
+
+	prevBtn.addEventListener("click", () => {
+		if (pageNumber > 0) {
+			changeImage(pageNumber - 1);
+		}
+	});
+	nextBtn.addEventListener("click", () => {
+		if (pageNumber < NUM_PAGES - 1) {
+			changeImage(pageNumber + 1);
+		}
+	});
+</script>
