@@ -24,7 +24,7 @@
     transition: max-height .4s linear; /* timeout must math the js function */
   }
   #menu.show {
-    max-height: 180px; /* Should be >= menu content height */
+    max-height: 200px; /* Should be >= menu content height */
   }
 }
 
