@@ -1,37 +1,63 @@
-<!-- black book -->
-<div id="black-book" class="w-full bg-black">
+<div class="w-full bg-black relative">
+    <!-- Old image (visible, underneath) -->
     <img id="black-book-page"
-         src="{{site.baseurl}}/assets/img/black-book/13.jpg"
-         class="rounded-xl book-fade">
+         src="{{ site.url }}/assets/img/black-book/13.jpg"
+         class="rounded-xl w-full block">
+    <!-- New image (hidden, slides in as wipe, absolutely positioned above) -->
+    <img id="black-book-wipe"
+         src="{{ site.url }}/assets/img/black-book/14.jpg"
+         style="pointer-events:none; clip-path:inset(0 100% 0 0); transition:clip-path 0.4s cubic-bezier(.77,0,.175,1), opacity 0.2s linear; opacity:0;"
+         class="rounded-xl w-full absolute inset-0 top-0 left-0 block">
 </div>
 
 <script type="module">
 	const NUM_PAGES = 40;
 	let pageNumber = 13;
 	const blackBookPage = document.getElementById('black-book-page');
+	const blackBookWipe = document.getElementById('black-book-wipe');
 	const prevBtn = document.getElementById("prev-page");
 	const nextBtn = document.getElementById("next-page");
+	const baseUrl = "{{ site.url }}/assets/img/black-book/";
 
-	function changeImage(newPageNumber) {
-		blackBookPage.classList.add('book-fade-out');
-		blackBookPage.addEventListener('transitionend', function handler() {
-			blackBookPage.removeEventListener('transitionend', handler);
-			pageNumber = newPageNumber;
-			blackBookPage.src = `{{site.baseurl}}/assets/img/black-book/${pageNumber}.jpg`;
-			blackBookPage.classList.remove('book-fade-out');
-			blackBookPage.classList.add('book-fade-in');
-			setTimeout(() => blackBookPage.classList.remove('book-fade-in'), 400);
-		});
+	function wipeToImage(newPageNumber) {
+		newPageNumber = Math.max(0, Math.min(NUM_PAGES - 1, newPageNumber));
+		const newImgUrl = `${baseUrl}${newPageNumber}.jpg`;
+
+		const img = new window.Image();
+		img.src = newImgUrl;
+		img.onload = () => {
+			blackBookWipe.src = newImgUrl;
+			blackBookWipe.style.transition = "none";
+			blackBookWipe.style.clipPath = "inset(0 100% 0 0)";
+			blackBookWipe.style.opacity = "1"; // show wipe
+
+			requestAnimationFrame(() => {
+				blackBookWipe.style.transition = "clip-path 0.4s cubic-bezier(.77,0,.175,1), opacity 0.2s linear";
+				blackBookWipe.style.clipPath = "inset(0 0% 0 0)";
+				blackBookWipe.style.opacity = "1";
+			});
+
+			setTimeout(() => {
+				// Swap underlying image
+				pageNumber = newPageNumber;
+				blackBookPage.src = newImgUrl;
+
+				// Fade out the wipe after swap
+				blackBookWipe.style.opacity = "0";
+
+				// After fade-out, reset wipe (wait for fade duration: 200ms)
+				setTimeout(() => {
+					blackBookWipe.style.transition = "none";
+					blackBookWipe.style.clipPath = "inset(0 100% 0 0)";
+				}, 200);
+			}, 400);
+		};
 	}
 
 	prevBtn.addEventListener("click", () => {
-		if (pageNumber > 0) {
-			changeImage(pageNumber - 1);
-		}
+		if (pageNumber > 0) wipeToImage(pageNumber - 1);
 	});
 	nextBtn.addEventListener("click", () => {
-		if (pageNumber < NUM_PAGES - 1) {
-			changeImage(pageNumber + 1);
-		}
+		if (pageNumber < NUM_PAGES - 1) wipeToImage(pageNumber + 1);
 	});
 </script>

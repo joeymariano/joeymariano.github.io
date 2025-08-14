@@ -160,16 +160,6 @@
   @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl drop-shadow-[6px_6px_0px_#222222];
 }
 
-.book-fade {
-  transition: opacity 0.4s;
-  opacity: 1;
-}
-.book-fade-out {
-  opacity: 0;
-}
-.book-fade-in {
-  opacity: 1;
-}
 
 /* L O A D I N G  B A R S */
 /*.loading-bars {*/
