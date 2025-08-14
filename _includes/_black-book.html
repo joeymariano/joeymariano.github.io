@@ -19,7 +19,13 @@
 	const nextBtn = document.getElementById("next-page");
 	const baseUrl = "{{ site.url }}/assets/img/black-book/";
 
+	// Debounce flag
+	let isAnimating = false;
+
 	function wipeToImage(newPageNumber) {
+		if (isAnimating) return; // Prevent concurrent animation
+		isAnimating = true;
+
 		newPageNumber = Math.max(0, Math.min(NUM_PAGES - 1, newPageNumber));
 		const newImgUrl = `${baseUrl}${newPageNumber}.jpg`;
 
@@ -49,15 +55,16 @@
 				setTimeout(() => {
 					blackBookWipe.style.transition = "none";
 					blackBookWipe.style.clipPath = "inset(0 100% 0 0)";
+					isAnimating = false; // Allow next click after animation clears
 				}, 200);
 			}, 400);
 		};
 	}
 
 	prevBtn.addEventListener("click", () => {
-		if (pageNumber > 0) wipeToImage(pageNumber - 1);
+		if (pageNumber > 0 && !isAnimating) wipeToImage(pageNumber - 1);
 	});
 	nextBtn.addEventListener("click", () => {
-		if (pageNumber < NUM_PAGES - 1) wipeToImage(pageNumber + 1);
+		if (pageNumber < NUM_PAGES - 1 && !isAnimating) wipeToImage(pageNumber + 1);
 	});
 </script>
