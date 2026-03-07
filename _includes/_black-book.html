@@ -19,52 +19,99 @@
 	const nextBtn = document.getElementById("next-page");
 	const baseUrl = "{{ site.url }}/assets/img/black-book/";
 
-	// Debounce flag
-	let isAnimating = false;
+	// Preload all images
+	const imageCache = {};
+	let loadedCount = 0;
 
-	function wipeToImage(newPageNumber) {
-		if (isAnimating) return; // Prevent concurrent animation
-		isAnimating = true;
+	function setButtonsDisabled(disabled) {
+		prevBtn.disabled = disabled;
+		nextBtn.disabled = disabled;
+		prevBtn.style.opacity = disabled ? "0.4" : "1";
+		nextBtn.style.opacity = disabled ? "0.4" : "1";
+	}
 
-		newPageNumber = Math.max(0, Math.min(NUM_PAGES - 1, newPageNumber));
-		const newImgUrl = `${baseUrl}${newPageNumber}.jpg`;
+	setButtonsDisabled(true);
 
+	for (let i = 0; i < NUM_PAGES; i++) {
 		const img = new window.Image();
-		img.src = newImgUrl;
-		img.onload = () => {
-			blackBookWipe.src = newImgUrl;
-			blackBookWipe.style.transition = "none";
-			blackBookWipe.style.clipPath = "inset(0 100% 0 0)";
-			blackBookWipe.style.opacity = "1"; // show wipe
-
-			requestAnimationFrame(() => {
-				blackBookWipe.style.transition = "clip-path 0.4s cubic-bezier(.77,0,.175,1), opacity 0.2s linear";
-				blackBookWipe.style.clipPath = "inset(0 0% 0 0)";
-				blackBookWipe.style.opacity = "1";
-			});
-
-			setTimeout(() => {
-				// Swap underlying image
-				pageNumber = newPageNumber;
-				blackBookPage.src = newImgUrl;
-
-				// Fade out the wipe after swap
-				blackBookWipe.style.opacity = "0";
-
-				// After fade-out, reset wipe (wait for fade duration: 200ms)
-				setTimeout(() => {
-					blackBookWipe.style.transition = "none";
-					blackBookWipe.style.clipPath = "inset(0 100% 0 0)";
-					isAnimating = false; // Allow next click after animation clears
-				}, 200);
-			}, 400);
+		img.src = `${baseUrl}${i}.jpg`;
+		img.onload = img.onerror = () => {
+			imageCache[i] = img;
+			loadedCount++;
+			if (loadedCount === NUM_PAGES) {
+				setButtonsDisabled(false);
+			}
 		};
 	}
 
+	// Animation queue
+	let animQueue = [];
+	let isAnimating = false;
+	let lastClickTime = 0;
+
+	function runNext() {
+		if (animQueue.length === 0) {
+			isAnimating = false;
+			return;
+		}
+		isAnimating = true;
+		const {newPageNumber, direction} = animQueue.shift();
+
+		const fromRight = direction === "next";
+		const startClip = fromRight ? "inset(0 0% 0 100%)" : "inset(0 100% 0 0)";
+		const newImgUrl = `${baseUrl}${newPageNumber}.jpg`;
+
+		// Reset clip and hide BEFORE setting new src (prep for next wipe)
+		blackBookWipe.style.transition = "none";
+		blackBookWipe.style.opacity = "0";
+		blackBookWipe.style.clipPath = startClip;
+		blackBookWipe.src = newImgUrl;
+
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				// Now reveal and animate
+				blackBookWipe.style.opacity = "1";
+				blackBookWipe.style.transition = "clip-path 0.4s cubic-bezier(.77,0,.175,1)";
+				blackBookWipe.style.clipPath = "inset(0 0% 0 0%)";
+			});
+		});
+
+		setTimeout(() => {
+			// Wipe is fully covering — safe to swap underlying image
+			blackBookPage.src = newImgUrl;
+			pageNumber = newPageNumber;
+
+			// Fade out wipe while underlying image is now correct
+			blackBookWipe.style.transition = "opacity 0.01s";
+			blackBookWipe.style.opacity = "0";
+
+			runNext();
+		}, 400);
+	}
+
+	function wipeToImage(newPageNumber, direction) {
+		newPageNumber = Math.max(0, Math.min(NUM_PAGES - 1, newPageNumber));
+		animQueue.push({newPageNumber, direction});
+		if (!isAnimating) runNext();
+	}
+
 	prevBtn.addEventListener("click", () => {
-		if (pageNumber > 0 && !isAnimating) wipeToImage(pageNumber - 1);
+		const now = Date.now();
+		if (now - lastClickTime < 450) return;
+		lastClickTime = now;
+		const target = Math.max(0, (animQueue.length
+			? animQueue[animQueue.length - 1].newPageNumber
+			: pageNumber) - 1);
+		wipeToImage(target, "prev");
 	});
+
 	nextBtn.addEventListener("click", () => {
-		if (pageNumber < NUM_PAGES - 1 && !isAnimating) wipeToImage(pageNumber + 1);
+		const now = Date.now();
+		if (now - lastClickTime < 450) return;
+		lastClickTime = now;
+		const target = Math.min(NUM_PAGES - 1, (animQueue.length
+			? animQueue[animQueue.length - 1].newPageNumber
+			: pageNumber) + 1);
+		wipeToImage(target, "next");
 	});
 </script>
