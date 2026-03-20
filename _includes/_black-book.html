@@ -1,4 +1,6 @@
 <div class="w-full bg-black relative">
+    <!-- S K E L E T O N -->
+    <div id="bb-skeleton" class="rounded-xl absolute inset-0 z-10"></div>
     <!-- Old image (visible, underneath) -->
     <img id="black-book-page"
          src="{{ site.url }}/assets/img/black-book/13.jpg"
@@ -17,6 +19,7 @@
 	const blackBookWipe = document.getElementById('black-book-wipe');
 	const prevBtn = document.getElementById("prev-page");
 	const nextBtn = document.getElementById("next-page");
+	const skeleton = document.getElementById('bb-skeleton');
 	const baseUrl = "{{ site.url }}/assets/img/black-book/";
 
 	// Preload all images
@@ -40,6 +43,7 @@
 			loadedCount++;
 			if (loadedCount === NUM_PAGES) {
 				setButtonsDisabled(false);
+				skeleton.classList.add('loaded');
 			}
 		};
 	}
