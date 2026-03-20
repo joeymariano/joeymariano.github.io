@@ -24,8 +24,19 @@
     transition: max-height .4s linear; /* timeout must math the js function */
   }
   #menu.show {
-    max-height: 200px; /* Should be >= menu content height */
+    max-height: 300px; /* Should be >= menu content height */
   }
+}
+
+/* C O N T A C T  B L I N K */
+@keyframes contact-blink {
+  0%   { filter: invert(0); }
+  50%  { filter: invert(1); }
+  100% { filter: invert(0); }
+}
+
+.contact-blink {
+  animation: contact-blink 0.9s cubic-bezier(0.45, 0, 0.55, 1) 3;
 }
 
 /* S E E K B A R */

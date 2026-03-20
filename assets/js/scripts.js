@@ -21,6 +21,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    // C O N T A C T  L I N K //
+    const contactNavLink = document.getElementById('contact-nav-link');
+
+    if (contactNavLink) {
+        contactNavLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const footer = document.querySelector('footer');
+            footer.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                const contactSpan = document.getElementById('contact-blink');
+                if (contactSpan) {
+                    contactSpan.classList.remove('contact-blink');
+                    void contactSpan.offsetWidth; // force reflow to restart animation
+                    contactSpan.classList.add('contact-blink');
+                    contactSpan.addEventListener('animationend', function() {
+                        contactSpan.classList.remove('contact-blink');
+                    }, { once: true });
+                }
+            }, 700);
+        });
+    }
+
     // T O P  B U T T O N //
     const topButton = document.getElementById('top-button');
     
