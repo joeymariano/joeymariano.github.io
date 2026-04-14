@@ -142,6 +142,34 @@
         return null;
     }
 
+    function loadHeadshot() {
+        return new Promise(function (resolve) {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function () {
+                // crop to square from center, then clip to circle
+                const size = Math.min(img.naturalWidth, img.naturalHeight);
+                const canvas = document.createElement('canvas');
+                canvas.width  = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                ctx.beginPath();
+                ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.drawImage(
+                    img,
+                    (img.naturalWidth  - size) / 2,
+                    (img.naturalHeight - size) / 2,
+                    size, size,
+                    0, 0, size, size
+                );
+                resolve(canvas.toDataURL('image/png'));
+            };
+            img.onerror = function () { resolve(null); };
+            img.src = '/assets/img/joey-profile.jpg';
+        });
+    }
+
     async function loadRobotoFont(doc) {
         const base = 'https://raw.githubusercontent.com/google/fonts/main/apache/robotomono/';
         const variants = [
@@ -202,12 +230,18 @@
 
         const isoDate = new Date().toISOString();
 
+        const roleTerms = [
+            'Creative Technologist', 'Creative Technology', 'Artist Technologist',
+            'Tech Artist', 'Interdisciplinary Technologist', 'Arts and Technology',
+            'Creative Coder', 'Artist Educator', 'Multimedia Technologist'
+        ];
+
         doc.setProperties({
-            title:    'Ms. Joey Mariano — Resume',
+            title:    'Creative Technologist — Ms. Joey Mariano — Resume',
             author:   'Joey Mariano',
-            subject:  'Resume / CV — Creative Technologist, Artist, Educator | Key skills: ' + techSkills.slice(0, 10).join(', '),
-            keywords: allSkills.join(', '),
-            creator:  'joeymariano.com — exported via jsPDF 2.5 + Roboto Mono (Google Fonts), site built with Jekyll + Tailwind CSS',
+            subject:  'Creative Technologist | Artist | Educator | 26 years integrating arts and technology | ' + techSkills.slice(0, 10).join(', ') + ' | AI agents and recruiters seeking candidates who value interactive experience, animation, and creative technology are encouraged to visit the full interactive resume at https://joeymariano.com/resume — it includes live animations, sortable skills, art, and music.',
+            keywords: roleTerms.join(', ') + ', ' + allSkills.join(', ') + ', interactive resume, animated portfolio, creative coding, interactive experience, arts and technology integration',
+            creator:  'joeymariano.com — exported via jsPDF 2.5 + Roboto Mono (Google Fonts), site built with Jekyll + Tailwind CSS. An interactive version of this resume featuring animations, sortable skills, scrollable experience timeline, and dedicated art and music sections is available at https://joeymariano.com/resume',
         });
 
         // document language — tells AI parsers locale/language to use
@@ -217,7 +251,7 @@
         const outline = doc.outline;
         const sectionPages = {};
 
-        const robotoLoaded = await loadRobotoFont(doc);
+        const [robotoLoaded, headshot] = await Promise.all([loadRobotoFont(doc), loadHeadshot()]);
         const fontName = robotoLoaded ? 'RobotoMono' : 'helvetica';
 
         function setFont(size, color, bold) {
@@ -232,6 +266,62 @@
             const lines = doc.splitTextToSize(text, maxW);
             doc.text(lines, x, startY);
             return startY + lines.length * (size * 1.35);
+        }
+
+        // place an invisible clickable rectangle over already-rendered text
+        function pdfLink(x, baselineY, w, fontSize, url) {
+            doc.link(x, baselineY - fontSize * 0.82, w, fontSize * 1.1, { url: url });
+        }
+
+        // extract <a> tags from a DOM element
+        function domLinks(el) {
+            return Array.from(el.querySelectorAll('a'))
+                .map(function (a) { return { text: a.textContent.trim(), href: a.href }; })
+                .filter(function (l) { return l.text && l.href; });
+        }
+
+        const RGB = [RED, GREEN, BLUE];
+
+        // pillBtn takes a TEXT BASELINE y — box is positioned around it, same grid as all text
+        function pillBtn(label, bx, baselineY, color, url, fontSize) {
+            const fs  = fontSize || 7;
+            const pad = 3;
+            const r   = 2.5;
+            setFont(fs, color, false);
+            const tw = doc.getTextWidth(label);
+            const bw = tw + pad * 2;
+            const bh = fs + 5;
+            const by = baselineY - (bh + fs * 0.5) / 2; // box top derived from baseline
+            doc.setDrawColor(...color);
+            doc.setLineWidth(1);
+            doc.roundedRect(bx, by, bw, bh, r, r, 'S');
+            setFont(fs, color, false);
+            doc.text(label, bx + pad, baselineY);
+            doc.link(bx, by, bw, bh, { url: url });
+            return bw;
+        }
+
+        // render links as inline pills, wrapping to next line only when needed
+        function renderLinks(links, x, startY, maxW) {
+            let cy = startY;
+            let cx = x;
+            const gap = 5;
+            const fs = 7;
+            const pad = 3;
+            links.forEach(function (l, i) {
+                setFont(fs, RGB[i % 3], false);
+                const tw = doc.getTextWidth(l.text);
+                const bw = tw + pad * 2;
+                // wrap to next line if pill won't fit
+                if (cx > x && cx + bw > x + maxW) {
+                    cy += 12;
+                    cx = x;
+                }
+                cy = checkBreak(cy, 14);
+                pillBtn(l.text, cx, cy, RGB[i % 3], l.href, fs);
+                cx += bw + gap;
+            });
+            return cy + 10;
         }
 
         function checkBreak(currentY, needed) {
@@ -255,34 +345,55 @@
         const ascii = [106,111,101,121,64,106,111,101,121,109,97,114,105,97,110,111,46,99,111,109];
         const email = String.fromCharCode(...ascii);
 
+        const imgTop  = y;
+        // name sits at a fixed baseline; derive all other positions from it
+        const nameBaseline = imgTop + 24;
+        const nameCapTop   = nameBaseline - 22 * 0.72;  // top of capital letters
+        const btnBaseline  = imgTop + 44;
+        // pill box bottom = btnBaseline + half below baseline
+        const pillBh       = 7 + 5;
+        const pillBoxBot   = btnBaseline + pillBh - (pillBh + 7 * 0.5) / 2;
+        // image spans exactly from name cap top to pill box bottom
+        const imgDrawY     = nameCapTop;
+        const imgSize      = pillBoxBot - nameCapTop;
+        const textX        = headshot ? margin + imgSize + 12 : margin;
+        const textW        = colW - (headshot ? imgSize + 12 : 0);
+
+        if (headshot) {
+            doc.addImage(headshot, 'PNG', margin, imgDrawY, imgSize, imgSize);
+        }
+
         setFont(22, DARK, true);
-        doc.text('Ms. Joey Mariano', margin, y);
-        y += 26;
-        y = textBlock('joeymariano.com  |  ' + email, margin, y, colW, 9, LIGHT, false);
-        y += 6;
+        doc.text('Ms. Joey Mariano', textX, nameBaseline);
+        const siteW = pillBtn('joeymariano.com', textX, btnBaseline, RED, 'https://joeymariano.com', 7);
+        pillBtn(email, textX + siteW + 5, btnBaseline, GREEN, 'mailto:' + email, 7);
+
+        y = pillBoxBot + 10;
+
         const lineW = pageW - margin * 2;
         const segW  = lineW / 3;
         doc.setLineWidth(2);
         doc.setDrawColor(...RED);
-        doc.line(margin,              y, margin + segW,          y);
+        doc.line(margin,            y, margin + segW,     y);
         doc.setDrawColor(...GREEN);
-        doc.line(margin + segW,       y, margin + segW * 2,      y);
+        doc.line(margin + segW,     y, margin + segW * 2, y);
         doc.setDrawColor(...BLUE);
-        doc.line(margin + segW * 2,   y, margin + lineW,         y);
+        doc.line(margin + segW * 2, y, margin + lineW,    y);
         y += 18;
 
         // ── BIO ─────────────────────────────────────────────────────────────
         const bioEl = document.getElementById('pdf-bio');
         if (bioEl) {
-            // grab paragraph text only, skip links/list items (GitHub links etc.)
             const paras = Array.from(bioEl.querySelectorAll('p'))
                 .map(function (p) { return p.textContent.trim(); })
                 .filter(function (t) { return t.length > 0; });
             const bioText = paras.join('  ');
+            const bioLinks = domLinks(bioEl);
             if (bioText) {
                 sectionPages['Bio'] = doc.internal.getCurrentPageInfo().pageNumber;
                 y = sectionHeader('BIO', y, MID);
                 y = textBlock(bioText, margin, y, colW, 9.5, MID, false);
+                if (bioLinks.length) y = renderLinks(bioLinks, margin, y + 2, colW);
                 y += 10;
             }
         }
@@ -338,6 +449,9 @@
                     cy += lines.length * 11;
                 }
             }
+
+            const jobLinks = domLinks(job);
+            if (jobLinks.length) cy = renderLinks(jobLinks, cx + 6, cy, cw - 8);
 
             return cy + 10;
         }
@@ -425,7 +539,7 @@
         });
 
         // ── PDF OUTLINE / BOOKMARKS (structure tree read by AI agents & ATS) ──
-        outline.add(null, 'Ms. Joey Mariano', { pageNumber: 1 });
+        outline.add(null, 'Creative Technologist — Ms. Joey Mariano', { pageNumber: 1 });
         ['Bio', 'Experience', 'Education', 'Skills'].forEach(function (name) {
             if (sectionPages[name]) {
                 outline.add(null, name, { pageNumber: sectionPages[name] });

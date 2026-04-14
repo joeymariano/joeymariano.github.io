@@ -13,6 +13,6 @@ technology.
 She uses her independent studies in STEM to find opportunities to blend artistic creativity with technical expertise in music, programming, education, entertainment, and fabrication.
 
 - [Joey's Github](https://github.com/joeymariano)
-- [This Site's Github Repo](https://github.com/joeymariano/joeymariano.github.io)
+- [joeymariano.com on Github](https://github.com/joeymariano/joeymariano.github.io)
 
 
