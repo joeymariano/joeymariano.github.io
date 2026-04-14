@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full text-white bg-[#0a0a0a]">
     {% include _head.html %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <body id="body" class="transition-opacity ease-in-out bg-grid min-h-screen flex flex-col">
     {% include _header.html %}
 
     <div  id="fadeContent" class="pl-8 pr-8">
+
+        <!-- P D F  B U T T O N -->
+        <div class="mb-6">
+            <button id="pdf-btn" class="reg-btn-macro ring-green-400">&#8595; PDF</button>
+        </div>
+
+        <!-- B I O  D A T A  (hidden, used by PDF generator) -->
+        <div id="pdf-bio" class="hidden">
+            {% for card in site.cards %}{% if card.title == 'Short BIO' %}{{ card.content }}{% endif %}{% endfor %}
+        </div>
 
         <!-- E X P E R I E N C E -->
         <div id="experience-content" class="mb-8">
@@ -96,5 +107,334 @@
     </div>
 
     {% include _footer.html %}
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btn = document.getElementById('pdf-btn');
+        btn.addEventListener('click', function () {
+            btn.textContent = '... generating';
+            btn.disabled = true;
+            generateResumePDF().finally(function () {
+                btn.textContent = '\u2193 PDF';
+                btn.disabled = false;
+            });
+        });
+    });
+
+    function bufToBase64(buf) {
+        // process in chunks to avoid call-stack overflow on large font files
+        const bytes = new Uint8Array(buf);
+        let binary = '';
+        for (let i = 0; i < bytes.length; i += 8192) {
+            binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
+        }
+        return btoa(binary);
+    }
+
+    async function fetchTTF(urls) {
+        for (const url of urls) {
+            try {
+                const res = await fetch(url);
+                if (!res.ok) continue;
+                return await res.arrayBuffer();
+            } catch (e) { /* try next */ }
+        }
+        return null;
+    }
+
+    async function loadRobotoFont(doc) {
+        const base = 'https://raw.githubusercontent.com/google/fonts/main/apache/robotomono/';
+        const variants = [
+            {
+                style: 'normal',
+                urls: [
+                    base + 'static/RobotoMono-Regular.ttf',
+                    base + 'RobotoMono-Regular.ttf',
+                    'https://cdn.jsdelivr.net/gh/google/fonts/apache/robotomono/static/RobotoMono-Regular.ttf'
+                ]
+            },
+            {
+                style: 'bold',
+                urls: [
+                    base + 'static/RobotoMono-Bold.ttf',
+                    base + 'RobotoMono-Bold.ttf',
+                    'https://cdn.jsdelivr.net/gh/google/fonts/apache/robotomono/static/RobotoMono-Bold.ttf'
+                ]
+            }
+        ];
+
+        let anyLoaded = false;
+        for (const v of variants) {
+            const buf = await fetchTTF(v.urls);
+            if (!buf) continue;
+            const b64 = bufToBase64(buf);
+            doc.addFileToVFS('RM-' + v.style + '.ttf', b64);
+            doc.addFont('RM-' + v.style + '.ttf', 'RobotoMono', v.style);
+            anyLoaded = true;
+        }
+
+        try { doc.setFont('RobotoMono', 'normal'); return anyLoaded; }
+        catch (e) { return false; }
+    }
+
+    async function generateResumePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+
+        const margin = 50;
+        const pageW = doc.internal.pageSize.getWidth();
+        const pageH = doc.internal.pageSize.getHeight();
+        const colW = pageW - margin * 2;
+        let y = margin;
+
+        const BLUE  = [59, 130, 246];
+        const RED   = [239, 68, 68];
+        const GREEN = [34, 197, 94];
+        const DARK  = [30, 30, 30];
+        const MID   = [90, 90, 90];
+        const LIGHT = [140, 140, 140];
+
+        // ── PDF METADATA (invisible to humans, read by AI/ATS/search indexers) ─
+        const allSkills = Array.from(document.querySelectorAll('#skills-container [data-category]'))
+            .map(function (n) { return n.textContent.trim(); });
+        const techSkills = Array.from(document.querySelectorAll('#skills-container [data-category="tech"]'))
+            .map(function (n) { return n.textContent.trim(); });
+
+        const isoDate = new Date().toISOString();
+
+        doc.setProperties({
+            title:    'Ms. Joey Mariano — Resume',
+            author:   'Joey Mariano',
+            subject:  'Resume / CV — Creative Technologist, Artist, Educator | Key skills: ' + techSkills.slice(0, 10).join(', '),
+            keywords: allSkills.join(', '),
+            creator:  'joeymariano.com — exported via jsPDF 2.5 + Roboto Mono (Google Fonts), site built with Jekyll + Tailwind CSS',
+        });
+
+        // document language — tells AI parsers locale/language to use
+        doc.internal.write('/Lang (en-US)');
+
+        // outline entries are added after sections are rendered (page numbers captured below)
+        const outline = doc.outline;
+        const sectionPages = {};
+
+        const robotoLoaded = await loadRobotoFont(doc);
+        const fontName = robotoLoaded ? 'RobotoMono' : 'helvetica';
+
+        function setFont(size, color, bold) {
+            doc.setFontSize(size);
+            doc.setTextColor(...color);
+            try { doc.setFont(fontName, bold ? 'bold' : 'normal'); }
+            catch (e) { doc.setFont('helvetica', bold ? 'bold' : 'normal'); }
+        }
+
+        function textBlock(text, x, startY, maxW, size, color, bold) {
+            setFont(size, color, bold);
+            const lines = doc.splitTextToSize(text, maxW);
+            doc.text(lines, x, startY);
+            return startY + lines.length * (size * 1.35);
+        }
+
+        function checkBreak(currentY, needed) {
+            if (currentY + needed > pageH - margin) {
+                doc.addPage();
+                return margin;
+            }
+            return currentY;
+        }
+
+        function sectionHeader(label, currentY, color) {
+            currentY = checkBreak(currentY, 30);
+            doc.setDrawColor(...color);
+            doc.setLineWidth(1);
+            doc.line(margin, currentY, pageW - margin, currentY);
+            currentY += 14;
+            return textBlock(label, margin, currentY, colW, 11, color, true) + 6;
+        }
+
+        // ── HEADER ──────────────────────────────────────────────────────────
+        const ascii = [106,111,101,121,64,106,111,101,121,109,97,114,105,97,110,111,46,99,111,109];
+        const email = String.fromCharCode(...ascii);
+
+        setFont(22, DARK, true);
+        doc.text('Ms. Joey Mariano', margin, y);
+        y += 26;
+        y = textBlock('joeymariano.com  |  ' + email, margin, y, colW, 9, LIGHT, false);
+        y += 6;
+        const lineW = pageW - margin * 2;
+        const segW  = lineW / 3;
+        doc.setLineWidth(2);
+        doc.setDrawColor(...RED);
+        doc.line(margin,              y, margin + segW,          y);
+        doc.setDrawColor(...GREEN);
+        doc.line(margin + segW,       y, margin + segW * 2,      y);
+        doc.setDrawColor(...BLUE);
+        doc.line(margin + segW * 2,   y, margin + lineW,         y);
+        y += 18;
+
+        // ── BIO ─────────────────────────────────────────────────────────────
+        const bioEl = document.getElementById('pdf-bio');
+        if (bioEl) {
+            // grab paragraph text only, skip links/list items (GitHub links etc.)
+            const paras = Array.from(bioEl.querySelectorAll('p'))
+                .map(function (p) { return p.textContent.trim(); })
+                .filter(function (t) { return t.length > 0; });
+            const bioText = paras.join('  ');
+            if (bioText) {
+                sectionPages['Bio'] = doc.internal.getCurrentPageInfo().pageNumber;
+                y = sectionHeader('BIO', y, MID);
+                y = textBlock(bioText, margin, y, colW, 9.5, MID, false);
+                y += 10;
+            }
+        }
+
+        // ── EXPERIENCE (two columns) ─────────────────────────────────────────
+        sectionPages['Experience'] = doc.internal.getCurrentPageInfo().pageNumber;
+        y = sectionHeader('EXPERIENCE', y, BLUE);
+
+        const gap     = 20;
+        const halfW   = (colW - gap) / 2;
+        const colX    = [margin, margin + halfW + gap];
+        const colY    = [y, y];
+
+        function renderJob(job, cx, startY, cw) {
+            let cy = startY;
+            const title   = (job.querySelector('h3')   || {}).textContent || '';
+            const company = (job.querySelector('h2')   || {}).textContent || '';
+            const date    = (job.querySelector('time') || {}).textContent || '';
+
+            setFont(10, DARK, true);
+            const titleLines = doc.splitTextToSize(title.trim(), cw);
+            doc.text(titleLines, cx, cy);
+            cy += titleLines.length * 13;
+
+            setFont(8, LIGHT, false);
+            doc.text(date.trim(), cx, cy);
+            cy += 11;
+
+            if (company.trim()) {
+                setFont(9, MID, false);
+                const compLines = doc.splitTextToSize(company.trim(), cw);
+                doc.text(compLines, cx, cy);
+                cy += compLines.length * 11;
+            }
+
+            const bullets = job.querySelectorAll('li');
+            bullets.forEach(function (li) {
+                const raw = li.textContent.replace(/\u2295/g, '').trim();
+                if (!raw) return;
+                setFont(8.5, LIGHT, false);
+                const lines = doc.splitTextToSize('\u2022 ' + raw, cw - 8);
+                doc.text(lines, cx + 6, cy);
+                cy += lines.length * 11 + 2;
+            });
+
+            if (!bullets.length) {
+                const para = (job.querySelector('p') || {}).textContent || '';
+                const clean = para.replace(/\u2295/g, '').trim();
+                if (clean) {
+                    setFont(8.5, LIGHT, false);
+                    const lines = doc.splitTextToSize(clean, cw - 8);
+                    doc.text(lines, cx + 6, cy);
+                    cy += lines.length * 11;
+                }
+            }
+
+            return cy + 10;
+        }
+
+        const jobs = Array.from(document.querySelectorAll('.job-entry'));
+        jobs.forEach(function (job, i) {
+            const col = i % 2;
+            const cx  = colX[col];
+
+            // page break: if shorter column would overflow, bump both to new page
+            const neededY = colY[col] + 60;
+            if (neededY > pageH - margin) {
+                doc.addPage();
+                colY[0] = margin;
+                colY[1] = margin;
+            }
+
+            colY[col] = renderJob(job, cx, colY[col], halfW);
+        });
+
+        y = Math.max(colY[0], colY[1]) + 8;
+
+        // ── EDUCATION ───────────────────────────────────────────────────────
+        sectionPages['Education'] = doc.internal.getCurrentPageInfo().pageNumber;
+        y = sectionHeader('EDUCATION', y, RED);
+
+        const eduGrid = document.querySelector('#education-content .grid');
+        if (eduGrid) {
+            const entries = eduGrid.children;
+            for (let i = 0; i < entries.length; i++) {
+                const entry = entries[i];
+                y = checkBreak(y, 60);
+                const school = (entry.querySelector('h3') || {}).textContent || '';
+                const degree = (entry.querySelector('h2') || {}).textContent || '';
+                const ps = entry.querySelectorAll('p');
+                const years  = ps.length ? ps[0].textContent.trim() : '';
+
+                setFont(10, DARK, true);
+                doc.text(school.trim(), margin, y);
+                y += 13;
+                y = textBlock(degree.trim(), margin, y, colW, 9, MID, false);
+                if (years) y = textBlock(years, margin, y, colW, 8, LIGHT, false);
+
+                const bullets = entry.querySelectorAll('li');
+                bullets.forEach(function (li) {
+                    const raw = li.textContent.replace(/\u2295/g, '').trim();
+                    if (!raw) return;
+                    y = checkBreak(y, 16);
+                    setFont(8.5, LIGHT, false);
+                    const lines = doc.splitTextToSize('\u2022 ' + raw, colW - 12);
+                    doc.text(lines, margin + 8, y);
+                    y += lines.length * 11 + 2;
+                });
+                y += 10;
+            }
+        }
+
+        // ── SKILLS ──────────────────────────────────────────────────────────
+        sectionPages['Skills'] = doc.internal.getCurrentPageInfo().pageNumber;
+        y = sectionHeader('SKILLS', y, GREEN);
+
+        const categories = [
+            { key: 'tech', label: 'Tech',          color: BLUE   },
+            { key: 'arts', label: 'Arts & Music',  color: RED    },
+            { key: 'misc', label: 'Misc',          color: GREEN }
+        ];
+
+        categories.forEach(function (cat) {
+            const nodes = document.querySelectorAll(
+                '#skills-container [data-category="' + cat.key + '"]'
+            );
+            if (!nodes.length) return;
+            const names = Array.from(nodes).map(function (n) {
+                return n.textContent.trim();
+            }).join(', ');
+
+            y = checkBreak(y, 24);
+            setFont(8.5, cat.color, true);
+            doc.text(cat.label + ': ', margin, y);
+            const labelW = doc.getTextWidth(cat.label + ': ');
+            setFont(8.5, LIGHT, false);
+            const lines = doc.splitTextToSize(names, colW - labelW);
+            doc.text(lines, margin + labelW, y);
+            y += lines.length * 11 + 6;
+        });
+
+        // ── PDF OUTLINE / BOOKMARKS (structure tree read by AI agents & ATS) ──
+        outline.add(null, 'Ms. Joey Mariano', { pageNumber: 1 });
+        ['Bio', 'Experience', 'Education', 'Skills'].forEach(function (name) {
+            if (sectionPages[name]) {
+                outline.add(null, name, { pageNumber: sectionPages[name] });
+            }
+        });
+
+        doc.save('joey-mariano-resume.pdf');
+    }
+    </script>
+
     </body>
 </html>
