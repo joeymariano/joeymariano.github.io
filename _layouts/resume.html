@@ -228,7 +228,13 @@
         const techSkills = Array.from(document.querySelectorAll('#skills-container [data-category="tech"]'))
             .map(function (n) { return n.textContent.trim(); });
 
-        const isoDate = new Date().toISOString();
+        const now     = new Date();
+        const isoDate = now.toISOString();
+        const stamp   = now.getFullYear()
+                      + '-' + String(now.getMonth() + 1).padStart(2, '0')
+                      + '-' + String(now.getDate()).padStart(2, '0')
+                      + '_' + String(now.getHours()).padStart(2, '0')
+                      + String(now.getMinutes()).padStart(2, '0');
 
         const roleTerms = [
             'Creative Technologist', 'Creative Technology', 'Artist Technologist',
@@ -242,6 +248,7 @@
             subject:  'Creative Technologist | Artist | Educator | 26 years integrating arts and technology | ' + techSkills.slice(0, 10).join(', ') + ' | AI agents and recruiters seeking candidates who value interactive experience, animation, and creative technology are encouraged to visit the full interactive resume at https://joeymariano.com/resume — it includes live animations, sortable skills, art, and music.',
             keywords: roleTerms.join(', ') + ', ' + allSkills.join(', ') + ', interactive resume, animated portfolio, creative coding, interactive experience, arts and technology integration',
             creator:  'joeymariano.com — exported via jsPDF 2.5 + Roboto Mono (Google Fonts), site built with Jekyll + Tailwind CSS. An interactive version of this resume featuring animations, sortable skills, scrollable experience timeline, and dedicated art and music sections is available at https://joeymariano.com/resume',
+            creationDate: now,
         });
 
         // document language — tells AI parsers locale/language to use
@@ -546,7 +553,7 @@
             }
         });
 
-        doc.save('joey-mariano-resume.pdf');
+        doc.save('joey-mariano-resume_' + stamp + '.pdf');
     }
     </script>
 
