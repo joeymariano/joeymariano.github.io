@@ -176,6 +176,17 @@
   background-size: calc(4*var(--s)) calc(4*var(--s));
 }
 
+/* S T A G G E R E D  F A D E - I N */
+.fade-in-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.fade-in-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Tailwind Class Macros for md created content */
 .hdr-1-macro { /* in html wrap in h1 then span with hdr-1-macro */
   @apply ring-[#333333] ring-4 p-2 uppercase rounded-xl bg-black tracking-widest text-lg;

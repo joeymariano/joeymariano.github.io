@@ -257,25 +257,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     
-    const FADE_DURATION = 3000; // ms, adjust this value to change all fade speeds
-    const fadeContentElements = document.querySelectorAll('.fade-content');
-    
-    function fadeIn(element) {
-        if (!element) return;
-        element.style.opacity = 0;
-        element.style.transition = `opacity ${FADE_DURATION/1000}s ease-in-out`;
-        setTimeout(() => {
-            element.style.opacity = 1;
-        }, 10);
-    }
-    
-    fadeContentElements.forEach(fadeIn);
-    
-    window.addEventListener('beforeunload', () => {
-        fadeContentElements.forEach(element => {
-            element.style.opacity = 0;
+    // S T A G G E R E D  F A D E - I N
+    // Groups elements by row, animates left-to-right within each row
+    const observer = new IntersectionObserver((entries) => {
+        const intersecting = entries.filter(e => e.isIntersecting);
+        if (!intersecting.length) return;
+
+        // bucket by row — round top to nearest 8px to absorb sub-pixel gaps
+        const rows = new Map();
+        intersecting.forEach(entry => {
+            const top = Math.round(entry.boundingClientRect.top / 8) * 8;
+            if (!rows.has(top)) rows.set(top, []);
+            rows.get(top).push(entry.target);
         });
-    });
+
+        rows.forEach(rowEls => {
+            rowEls
+                .sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left)
+                .forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 80));
+        });
+
+        intersecting.forEach(e => observer.unobserve(e.target));
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+    document.querySelectorAll('.fade-in-item').forEach(el => observer.observe(el));
 });
 
 
