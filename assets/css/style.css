@@ -52,37 +52,16 @@
 }
 
 /* C O N T A C T  B O R D E R  A N I M A T I O N */
-@keyframes contact-border-slide {
-  0%   { opacity: 0; background-position: 0 0; }
-  12%  { opacity: 1; }
-  75%  { opacity: 1; background-position: 340px 0; }
-  100% { opacity: 0; background-position: 340px 0; }
+@keyframes contact-border-glow {
+  0%   { box-shadow: 0 0 0 0px transparent; }
+  15%  { box-shadow: 0 0 0 3px #ef4444; }
+  50%  { box-shadow: 0 0 0 3px #3b82f6; }
+  80%  { box-shadow: 0 0 0 3px #fcd34d; }
+  100% { box-shadow: 0 0 0 0px transparent; }
 }
 
 .contact-blink {
-  position: relative;
-  isolation: isolate;
-}
-
-.contact-blink::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  border-radius: 9999px;
-  border: 3px solid transparent;
-  background-image:
-    linear-gradient(#000, #000),
-    repeating-linear-gradient(
-      -45deg,
-      #ef4444  0px  40px,
-      #3b82f6  40px 80px,
-      #fcd34d  80px 120px
-    );
-  background-origin: padding-box, border-box;
-  background-clip: padding-box, border-box;
-  background-size: auto, 170px 170px;
-  animation: contact-border-slide 4s linear 1 forwards;
-  z-index: -1;
+  animation: contact-border-glow 4s ease-in-out 1 forwards;
 }
 
 /* S E E K B A R */
