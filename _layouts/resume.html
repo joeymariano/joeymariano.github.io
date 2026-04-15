@@ -294,7 +294,7 @@
             const fs  = fontSize || 7;
             const pad = 3;
             const r   = 2.5;
-            setFont(fs, color, false);
+            setFont(fs, DARK, false);
             const tw = doc.getTextWidth(label);
             const bw = tw + pad * 2;
             const bh = fs + 5;
@@ -302,7 +302,7 @@
             doc.setDrawColor(...color);
             doc.setLineWidth(1);
             doc.roundedRect(bx, by, bw, bh, r, r, 'S');
-            setFont(fs, color, false);
+            setFont(fs, DARK, false);
             doc.text(label, bx + pad, baselineY);
             doc.link(bx, by, bw, bh, { url: url });
             return bw;
@@ -316,7 +316,7 @@
             const fs = 7;
             const pad = 3;
             links.forEach(function (l, i) {
-                setFont(fs, RGB[i % 3], false);
+                setFont(fs, DARK, false);
                 const tw = doc.getTextWidth(l.text);
                 const bw = tw + pad * 2;
                 // wrap to next line if pill won't fit
