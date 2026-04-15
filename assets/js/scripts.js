@@ -35,9 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     contactSpan.classList.remove('contact-blink');
                     void contactSpan.offsetWidth; // force reflow to restart animation
                     contactSpan.classList.add('contact-blink');
-                    contactSpan.addEventListener('animationend', function() {
-                        contactSpan.classList.remove('contact-blink');
-                    }, { once: true });
+                    setTimeout(() => contactSpan.classList.remove('contact-blink'), 4000);
                 }
             }, 700);
         });
