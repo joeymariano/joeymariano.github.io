@@ -52,6 +52,32 @@
 }
 
 /* C O N T A C T  B O R D E R  A N I M A T I O N */
+/* H A M B U R G E R  →  X  A N I M A T I O N */
+#menu-btn .hamburger-inner,
+#menu-btn .hamburger-inner::before,
+#menu-btn .hamburger-inner::after {
+  width: 20px;
+  height: 2px;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: all 0.15s linear;
+  display: block;
+  position: relative;
+}
+
+#menu-btn .hamburger-inner::before,
+#menu-btn .hamburger-inner::after {
+  content: "";
+  position: absolute;
+}
+
+#menu-btn .hamburger-inner::before { transform: translateY(-300%); }
+#menu-btn .hamburger-inner::after  { transform: translateY(300%);  }
+
+#menu-btn.is-open .hamburger-inner          { background: rgba(0,0,0,0); }
+#menu-btn.is-open .hamburger-inner::before  { transform: rotate(45deg);  }
+#menu-btn.is-open .hamburger-inner::after   { transform: rotate(-45deg); }
+
 @keyframes nav-hover-cycle {
   0%   { box-shadow: 0 0 0 3px #ef4444; }
   33%  { box-shadow: 0 0 0 3px #3b82f6; }

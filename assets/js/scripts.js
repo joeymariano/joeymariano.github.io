@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (menu.classList.contains('show')) {
             // animate collapse
             menu.classList.remove('show');
+            menuBtn.classList.remove('is-open');
             // after transition, add hidden
             setTimeout(() => {
                 menu.classList.add('hidden');
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             // unhide immediately, then animate expand
             menu.classList.remove('hidden');
+            menuBtn.classList.add('is-open');
             setTimeout(() => {
                 menu.classList.add('show');
             });
