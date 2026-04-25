@@ -52,6 +52,21 @@
 }
 
 /* C O N T A C T  B O R D E R  A N I M A T I O N */
+@keyframes nav-hover-cycle {
+  0%   { box-shadow: 0 0 0 3px #ef4444; }
+  33%  { box-shadow: 0 0 0 3px #3b82f6; }
+  66%  { box-shadow: 0 0 0 3px #fcd34d; }
+  100% { box-shadow: 0 0 0 3px #ef4444; }
+}
+
+.nav-link {
+  transition: box-shadow 0.3s ease-out;
+}
+
+.nav-link:hover {
+  animation: nav-hover-cycle 1.5s ease-in-out infinite;
+}
+
 @keyframes contact-border-glow {
   0%   { box-shadow: 0 0 0 0px transparent; }
   15%  { box-shadow: 0 0 0 3px #ef4444; }
