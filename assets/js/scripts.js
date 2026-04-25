@@ -256,29 +256,30 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     // S T A G G E R E D  F A D E - I N
-    // Groups elements by row, animates left-to-right within each row
-    const observer = new IntersectionObserver((entries) => {
-        const intersecting = entries.filter(e => e.isIntersecting);
-        if (!intersecting.length) return;
+    // Fires once on page load — groups elements by row, animates top-to-bottom, left-to-right
+    const fadeItems = document.querySelectorAll('.fade-in-item');
 
+    if (fadeItems.length) {
         // bucket by row — round top to nearest 8px to absorb sub-pixel gaps
         const rows = new Map();
-        intersecting.forEach(entry => {
-            const top = Math.round(entry.boundingClientRect.top / 8) * 8;
+        fadeItems.forEach(el => {
+            const top = Math.round(el.getBoundingClientRect().top / 8) * 8;
             if (!rows.has(top)) rows.set(top, []);
-            rows.get(top).push(entry.target);
+            rows.get(top).push(el);
         });
 
-        rows.forEach(rowEls => {
+        // sort rows top-to-bottom, then animate each row left-to-right
+        const sortedRows = [...rows.entries()].sort((a, b) => a[0] - b[0]);
+        let delay = 0;
+        sortedRows.forEach(([, rowEls]) => {
             rowEls
                 .sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left)
-                .forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 80));
+                .forEach(el => {
+                    setTimeout(() => el.classList.add('visible'), delay);
+                    delay += 80;
+                });
         });
-
-        intersecting.forEach(e => observer.unobserve(e.target));
-    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
-
-    document.querySelectorAll('.fade-in-item').forEach(el => observer.observe(el));
+    }
 });
 
 
