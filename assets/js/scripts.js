@@ -256,9 +256,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     // S T A G G E R E D  F A D E - I N
-    // Fires once on page load — staggers in DOM order (grid places items left-to-right, top-to-bottom)
+    // Each card waits for both its stagger delay AND its image to load before becoming visible
     document.querySelectorAll('.fade-in-item').forEach((el, i) => {
-        setTimeout(() => el.classList.add('visible'), i * 80);
+        const img = el.querySelector('img');
+        const delayPromise = new Promise(resolve => setTimeout(resolve, i * 80));
+
+        if (img && !img.complete) {
+            const imgPromise = new Promise(resolve => {
+                img.addEventListener('load', resolve);
+                img.addEventListener('error', resolve); // show card even if image fails
+            });
+            Promise.all([delayPromise, imgPromise]).then(() => el.classList.add('visible'));
+        } else {
+            delayPromise.then(() => el.classList.add('visible'));
+        }
     });
 });
 
