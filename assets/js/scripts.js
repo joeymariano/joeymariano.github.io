@@ -28,16 +28,23 @@ document.addEventListener('DOMContentLoaded', () => {
         contactNavLink.addEventListener('click', function(e) {
             e.preventDefault();
             const footer = document.querySelector('footer');
+            const contactSpan = document.getElementById('contact-blink');
             footer.scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => {
-                const contactSpan = document.getElementById('contact-blink');
-                if (contactSpan) {
-                    contactSpan.classList.remove('contact-blink');
-                    void contactSpan.offsetWidth; // force reflow to restart animation
-                    contactSpan.classList.add('contact-blink');
-                    setTimeout(() => contactSpan.classList.remove('contact-blink'), 4000);
+
+            // wait until footer is fully in view before triggering animation
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    observer.disconnect();
+                    if (contactSpan) {
+                        contactSpan.classList.remove('contact-blink');
+                        void contactSpan.offsetWidth; // force reflow to restart animation
+                        contactSpan.classList.add('contact-blink');
+                        setTimeout(() => contactSpan.classList.remove('contact-blink'), 4000);
+                    }
                 }
-            }, 700);
+            }, { threshold: 0.9 });
+
+            observer.observe(footer);
         });
     }
 
