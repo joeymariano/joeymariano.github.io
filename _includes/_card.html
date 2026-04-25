@@ -3,8 +3,9 @@
     <div class="striped-div h-full rounded-3xl bg-black p-4 drop-shadow-[8px_8px_0px_rgba(24,24,24)]">
         <div>
             <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
+             style="aspect-ratio: auto 4/3;"
              class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
-             rounded-3xl{% endif %} ring-4 ring-black">
+             rounded-3xl{% endif %} ring-4 ring-black w-full">
         </div>
 
         <!-- content is a squiggle line created by tricky CSS -->
