@@ -3,27 +3,33 @@
         <!-- container -->
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
 
-            <!-- L O G O  A N D  T I T L E -->
-            <p class="md:text-xl rounded-xl item-center
-                duration-1000 ease-in-out ml-2">
-                <a href="/" class="flex rtl:space-x-reverse items-center">
-                    <img src="/assets/img/joey-mariano-logo.svg" class="h-8" alt="nmlstyl logo"/>&nbsp;&nbsp;
-                    &nbsp;
-                    <span class="hdr-1-macro nav-link">{{ site.title }}<span>
-                </a>
-            </p>
+            <!-- mobile row: hamburger left, title right — xl:contents makes wrapper transparent to flexbox on desktop -->
+            <div class="flex flex-row items-center justify-between w-full xl:contents">
 
-            <!-- H A M B U R G E R -->
-            <button id="menu-btn" data-collapse-toggle="navbar-default" type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg
-                    xl:hidden"
-                    aria-controls="navbar-default" aria-expanded="false">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 17 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M1 1h15M1 7h15M1 13h15"/>
-                </svg>
-            </button>
+                <!-- L O G O  A N D  T I T L E -->
+                <p class="md:text-xl rounded-xl item-center
+                    duration-1000 ease-in-out ml-2 min-w-0">
+                    <a href="/" class="flex rtl:space-x-reverse items-center">
+                        <img src="/assets/img/joey-mariano-logo.svg" class="h-8" alt="nmlstyl logo"/>&nbsp;&nbsp;
+                        &nbsp;
+                        <span class="hdr-1-macro nav-link h-10 inline-flex items-center"
+                              style="font-size: clamp(0.55rem, 3.5vw, 1.125rem); letter-spacing: clamp(0.02em, 0.4vw, 0.1em);">{{ site.title }}<span>
+                    </a>
+                </p>
+
+                <!-- H A M B U R G E R -->
+                <button id="menu-btn" data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-lg
+                        xl:hidden"
+                        aria-controls="navbar-default" aria-expanded="false">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                         viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M1 1h15M1 7h15M1 13h15"/>
+                    </svg>
+                </button>
+
+            </div>
 
             <!-- N A V -->
             <div id="menu" class="hidden w-full xl:block xl:w-auto">
