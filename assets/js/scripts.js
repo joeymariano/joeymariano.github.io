@@ -256,30 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     // S T A G G E R E D  F A D E - I N
-    // Fires once on page load — groups elements by row, animates top-to-bottom, left-to-right
-    const fadeItems = document.querySelectorAll('.fade-in-item');
-
-    if (fadeItems.length) {
-        // bucket by row — round top to nearest 8px to absorb sub-pixel gaps
-        const rows = new Map();
-        fadeItems.forEach(el => {
-            const top = Math.round(el.getBoundingClientRect().top / 8) * 8;
-            if (!rows.has(top)) rows.set(top, []);
-            rows.get(top).push(el);
-        });
-
-        // sort rows top-to-bottom, then animate each row left-to-right
-        const sortedRows = [...rows.entries()].sort((a, b) => a[0] - b[0]);
-        let delay = 0;
-        sortedRows.forEach(([, rowEls]) => {
-            rowEls
-                .sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left)
-                .forEach(el => {
-                    setTimeout(() => el.classList.add('visible'), delay);
-                    delay += 80;
-                });
-        });
-    }
+    // Fires once on page load — staggers in DOM order (grid places items left-to-right, top-to-bottom)
+    document.querySelectorAll('.fade-in-item').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 80);
+    });
 });
 
 
