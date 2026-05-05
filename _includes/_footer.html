@@ -27,6 +27,44 @@
   </div>
 </footer>
 
+<!-- C O P Y  C A R D -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.copy-card-btn').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        const card     = btn.closest('.striped-div');
+        const img      = card.querySelector('img');
+        const titleEl  = card.querySelector('.card-title');
+        const contentEl = card.querySelector('.card-contents');
+
+        const imgSrc    = img ? img.src : '';
+        const imgHtml   = imgSrc ? '<img src="' + imgSrc + '" style="max-width:100%;"><br><br>' : '';
+        const titleHtml = titleEl ? '<h2>' + titleEl.textContent.trim() + '</h2>' : '';
+        const bodyHtml  = contentEl ? contentEl.innerHTML : '';
+        const plainText = (titleEl ? titleEl.textContent.trim() + '\n\n' : '') +
+                          (contentEl ? contentEl.textContent.trim() : '');
+
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'text/html':  new Blob([imgHtml + titleHtml + bodyHtml], { type: 'text/html' }),
+              'text/plain': new Blob([plainText], { type: 'text/plain' }),
+            })
+          ]);
+          btn.querySelector('.copy-icon').classList.add('hidden');
+          btn.querySelector('.check-icon').classList.remove('hidden');
+          setTimeout(function () {
+            btn.querySelector('.copy-icon').classList.remove('hidden');
+            btn.querySelector('.check-icon').classList.add('hidden');
+          }, 1500);
+        } catch (e) {
+          console.warn('Copy failed', e);
+        }
+      });
+    });
+  });
+</script>
+
 <!-- obfuscate fer [e].[m].[a].[i].[l] !! -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
