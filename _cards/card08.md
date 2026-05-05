@@ -6,7 +6,7 @@ category: music tech
 size: 2x
 ---
 
-Built a Gameboy Foot Controller back in 2008.
+Built a [Gameboy](https://en.wikipedia.org/wiki/Game_Boy) Foot Controller back in 2008.
 
 - [2008 Youtube Video](https://www.youtube.com/watch?v=lQdqudTzyBs)
 - [Slashgear](https://www.slashgear.com/gameboy-effects-sampler-foot-controller-hack-1612066/)

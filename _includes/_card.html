@@ -1,6 +1,6 @@
 <div class="{% if include.size == '1x' %}col-span-1{% elsif include.size == '2x' %}md:col-span-2{% endif %} fade-in-item">
     <!-- container with drop shadow -->
-    <div class="striped-div h-full rounded-3xl bg-black p-4 drop-shadow-[8px_8px_0px_rgba(24,24,24)] relative">
+    <div class="striped-div h-full rounded-3xl bg-black p-4 {% if include.music %}pb-10{% endif %} drop-shadow-[8px_8px_0px_rgba(24,24,24)] relative">
         <div>
             <img src="/assets/img/{{ include.image }}" alt="{{ include.image }}"
              style="aspect-ratio: auto 4/3;"

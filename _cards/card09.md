@@ -6,7 +6,7 @@ category: music
 size: 2x
 ---
 
-Contributed SNES style music to Twilio Quest, a game that taught developers how to use Twilio technology.
+Contributed SNES style music to [Twilio](https://www.twilio.com) Quest, a game that taught developers how to use Twilio technology.
 
 - [Fast Company Article](https://www.fastcompany.com/90687508/twilioquest-play-game-learn-to-code)
-- [Terminal Quest Github](https://twilio.com/quest)
+- [Terminal Quest Github](https://github.com/twilioquest)
