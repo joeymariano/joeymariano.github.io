@@ -32,7 +32,7 @@
         <h3 class="text-gray-900 text-white">{{ include.title }}</h3>
 
         {% if include.company %}
-        <h2 class="pt-2 pb-2 text-gray-400">{{ include.company }}</h2>
+        <h2 class="pt-2 pb-2 text-gray-400">{% if include.link %}<a href="{{ include.link }}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">{{ include.company }}</a>{% else %}{{ include.company }}{% endif %}</h2>
 
         {% endif %}
         <time class="block mb-2 text-sm font-normal leading-none text-gray-400 text-gray-500">

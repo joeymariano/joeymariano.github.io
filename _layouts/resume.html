@@ -41,7 +41,7 @@
                     {% assign rev-job = site.jobs | reverse %}
                     {% for item in rev-job %}
                         {% include _job.html tags=item.tags title=item.title company=item.company date=item.date
-                                             content=item.content%}
+                                             content=item.content link=item.link%}
                     {% endfor %}
                 </div>
             </div>
@@ -62,6 +62,7 @@
                     years=entry.years
                     color=entry.color
                     details=entry.details
+                    url=entry.url
                     %}
                 {% endfor %}
             </div>
@@ -99,7 +100,7 @@
                     <div class="bg-[#0a0a0a] p-2 text-left rounded-lg"
                         style="filter: drop-shadow(-2px -2px 0px {{ skill.color }});"
                         data-category="{{ skill.category }}">
-                        {{ skill.name }}
+                        {% if skill.wiki %}<a href="{{ skill.wiki }}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">{{ skill.name }}</a>{% else %}{{ skill.name }}{% endif %}
                     </div>
                 {% endfor %}
             </div>
