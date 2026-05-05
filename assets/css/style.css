@@ -232,7 +232,7 @@
 
 /* Tailwind Class Macros for md created content */
 .hdr-1-macro { /* in html wrap in h1 then span with hdr-1-macro */
-  @apply ring-[#333333] ring-4 p-2 uppercase rounded-xl bg-black tracking-widest text-lg;
+  @apply ring-[#333333] ring-4 py-2 px-3 uppercase rounded-xl bg-black tracking-widest text-lg;
 }
 
 .arrow-btn-macro {
@@ -240,7 +240,7 @@
 }
 
 .top-btn-macro {
-  @apply mr-4 ring-2 bg-black hover:ring-gray-400 pr-6 pl-6 pt-2 pb-1 rounded-xl drop-shadow-[6px_6px_0px_#222222]
+  @apply mr-4 ring-2 bg-black hover:ring-gray-400 pr-6 pl-6 pt-2 pb-1 rounded-xl
          ring-blue-500 text-xl font-bold;
 }
 
