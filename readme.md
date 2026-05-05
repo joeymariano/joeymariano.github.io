@@ -16,6 +16,64 @@
 
 ---
 
+---
+
+### 🃏 Card System
+
+Most pages are powered by a shared card component. Cards live in `_cards/` as individual markdown files:
+
+```yaml
+---
+title: "Card Title"
+image: filename.jpg          # loaded from /assets/img/
+round_image: true            # true = circular, false = rounded rect
+category: home code music    # space-separated — controls which pages show this card
+size: 1x                     # 1x = single column, 2x = double column
+music: filename.mp3          # optional — enables the inline media player
+---
+Card content in markdown.
+```
+
+The `_card.html` include renders each card with a 4:3 image, a CSS squiggle divider, a ring-badge title, and markdown content. Cards with a `music:` value get an inline audio controller via `_media-controller.html`.
+
+---
+
+### 🏠 Home Page (`/`)
+
+Layout: `_layouts/home.html` — source: `index.markdown`
+
+Renders all cards where `category` contains `home` in a responsive 1→2→4 column grid.
+
+---
+
+### 💻 Code / Tech Page (`/code`)
+
+Layout: `_layouts/code.html` — source: `code.md`
+
+Renders all cards where `category` contains `code` or `tech` under a "Tech Related" heading. Same responsive grid as home.
+
+---
+
+### 🎵 Music Page (`/music`)
+
+Layout: `_layouts/music.html` — source: `music.md`
+
+Two sections:
+- **Recordings** — cards with `category: mediaplayer`, each renders with an inline audio player
+- **Music Related** — cards with `category: music` or `show`, rendered as standard cards
+
+---
+
+### 🎨 Visual Art Page (`/visual-art`)
+
+Layout: `_layouts/visual-art.html` — source: `visual-art.md`
+
+Two sections:
+- **Black Book** — an inline PDF viewer (`_includes/_black-book.html`) with prev/next page buttons, constrained to half-width on large screens
+- **Visual Work** — cards with `category: art` or `design` in the standard responsive grid
+
+---
+
 ### 📄 Resume Page
 
 The resume page (`/resume`) is a fully interactive Jekyll page with a live PDF export feature.
