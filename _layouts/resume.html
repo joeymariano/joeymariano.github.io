@@ -434,6 +434,10 @@
                 setFont(9, MID, false);
                 const compLines = doc.splitTextToSize(company.trim(), cw);
                 doc.text(compLines, cx, cy);
+                const compAnchor = job.querySelector('h2 a');
+                if (compAnchor && compAnchor.href) {
+                    pdfLink(cx, cy, doc.getTextWidth(company.trim()), 9, compAnchor.href);
+                }
                 cy += compLines.length * 11;
             }
 
@@ -458,26 +462,75 @@
                 }
             }
 
-            const jobLinks = domLinks(job);
+            const jobLinks = domLinks(job.querySelector('p') || job);
             if (jobLinks.length) cy = renderLinks(jobLinks, cx + 6, cy, cw - 8);
 
             return cy + 10;
         }
 
+        function companyGroup(co) {
+            if (/BRDG Studios/i.test(co)) return 'BRDG Studios';
+            if (/Knabe Labs/i.test(co)) return 'Knabe Labs';
+            return co.trim();
+        }
+
+        function renderGroupedJobs(companyName, jobList, cx, startY, cw) {
+            let cy = startY;
+            setFont(9, MID, false);
+            doc.text(companyName, cx, cy);
+            const firstAnchor = jobList[0].querySelector('h2 a');
+            if (firstAnchor && firstAnchor.href) {
+                pdfLink(cx, cy, doc.getTextWidth(companyName), 9, firstAnchor.href);
+            }
+            cy += 13;
+            jobList.forEach(function (job) {
+                const title = (job.querySelector('h3') || {}).textContent || '';
+                const date  = (job.querySelector('time') || {}).textContent || '';
+                setFont(10, DARK, true);
+                const titleLines = doc.splitTextToSize(title.trim(), cw);
+                doc.text(titleLines, cx + 4, cy);
+                cy += titleLines.length * 13;
+                setFont(8, LIGHT, false);
+                doc.text(date.trim(), cx + 4, cy);
+                cy += 11;
+                const bullets = job.querySelectorAll('li');
+                bullets.forEach(function (li) {
+                    const raw = li.textContent.replace(/⊕/g, '').trim();
+                    if (!raw) return;
+                    setFont(8.5, LIGHT, false);
+                    const lines = doc.splitTextToSize('• ' + raw, cw - 12);
+                    doc.text(lines, cx + 10, cy);
+                    cy += lines.length * 11 + 2;
+                });
+                const jLinks = domLinks(job.querySelector('p') || job);
+                if (jLinks.length) cy = renderLinks(jLinks, cx + 10, cy, cw - 12);
+                cy += 4;
+            });
+            return cy + 6;
+        }
+
         const jobs = Array.from(document.querySelectorAll('.job-entry'));
-        jobs.forEach(function (job, i) {
+        const jobSeen = {};
+        const jobGroups = [];
+        jobs.forEach(function (job) {
+            const co = (job.querySelector('h2') || {}).textContent || '';
+            const key = companyGroup(co);
+            if (!jobSeen[key]) { jobSeen[key] = { key: key, jobs: [] }; jobGroups.push(jobSeen[key]); }
+            jobSeen[key].jobs.push(job);
+        });
+
+        jobGroups.slice(0, 5).forEach(function (group, i) {
             const col = i % 2;
             const cx  = colX[col];
-
-            // page break: if shorter column would overflow, bump both to new page
             const neededY = colY[col] + 60;
             if (neededY > pageH - margin) {
                 doc.addPage();
                 colY[0] = margin;
                 colY[1] = margin;
             }
-
-            colY[col] = renderJob(job, cx, colY[col], halfW);
+            colY[col] = group.jobs.length === 1
+                ? renderJob(group.jobs[0], cx, colY[col], halfW)
+                : renderGroupedJobs(group.key, group.jobs, cx, colY[col], halfW);
         });
 
         y = Math.max(colY[0], colY[1]) + 8;
@@ -498,7 +551,12 @@
                 const years  = ps.length ? ps[0].textContent.trim() : '';
 
                 setFont(10, DARK, true);
-                doc.text(school.trim(), margin, y);
+                const schoolText = school.trim();
+                doc.text(schoolText, margin, y);
+                const schoolAnchor = entry.querySelector('h3 a');
+                if (schoolAnchor && schoolAnchor.href) {
+                    pdfLink(margin, y, doc.getTextWidth(schoolText), 10, schoolAnchor.href);
+                }
                 y += 13;
                 y = textBlock(degree.trim(), margin, y, colW, 9, MID, false);
                 if (years) y = textBlock(years, margin, y, colW, 8, LIGHT, false);
