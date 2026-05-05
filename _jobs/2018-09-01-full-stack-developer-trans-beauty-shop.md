@@ -4,6 +4,7 @@ company: "Trans Beauty Shop"
 date: 2018-09-01
 tags: [developer, full stack, Ruby on Rails, Mailgun, Bootstrap, tech]
 location: "Philadelphia, PA"
+link: "http://www.transbeautyshop.com"
 ---
 
 - <span class="text-gray-500">&#8853;</span> Provided responsive mobile design for the website and created Ruby on Rails configurations for scalability.

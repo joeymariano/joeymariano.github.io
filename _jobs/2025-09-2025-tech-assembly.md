@@ -4,6 +4,7 @@ company: "Psuedonym Productions"
 date: 2025-09-01
 tags: [tech, assembly, soldering, interactive, troubleshooting]
 location: "On Site in Fish Town Philadelphia"
+link: "https://pseudonymproductions.com"
 ---
 
 - <span class="text-gray-500">&#8853;</span> Installed 100 speakers and soldered cables for a Qsys install
