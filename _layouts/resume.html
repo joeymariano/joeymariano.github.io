@@ -590,18 +590,41 @@
                 '#skills-container [data-category="' + cat.key + '"]'
             );
             if (!nodes.length) return;
-            const names = Array.from(nodes).map(function (n) {
-                return n.textContent.trim();
-            }).join(', ');
 
             y = checkBreak(y, 24);
             setFont(8.5, cat.color, true);
             doc.text(cat.label + ': ', margin, y);
             const labelW = doc.getTextWidth(cat.label + ': ');
             setFont(8.5, LIGHT, false);
-            const lines = doc.splitTextToSize(names, colW - labelW);
-            doc.text(lines, margin + labelW, y);
-            y += lines.length * 11 + 6;
+
+            const skills = Array.from(nodes).map(function (n) {
+                const a = n.querySelector('a');
+                return { name: n.textContent.trim(), href: a ? a.href : null };
+            });
+
+            const startX = margin + labelW;
+            const maxX   = margin + colW;
+            const lineH  = 11;
+            let cx = startX;
+            let lineY = y;
+
+            skills.forEach(function (skill, idx) {
+                const suffix = idx < skills.length - 1 ? ', ' : '';
+                const word   = skill.name + suffix;
+                const wordW  = doc.getTextWidth(word);
+                if (cx + wordW > maxX && cx > startX) {
+                    lineY += lineH;
+                    lineY = checkBreak(lineY, lineH);
+                    cx = startX;
+                }
+                doc.text(word, cx, lineY);
+                if (skill.href) {
+                    pdfLink(cx, lineY, doc.getTextWidth(skill.name), 8.5, skill.href);
+                }
+                cx += wordW;
+            });
+
+            y = lineY + lineH + 6;
         });
 
         // ── PDF OUTLINE / BOOKMARKS (structure tree read by AI agents & ATS) ──
