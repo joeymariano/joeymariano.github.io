@@ -113,10 +113,13 @@
     document.addEventListener('DOMContentLoaded', function () {
         const btn = document.getElementById('pdf-btn');
         btn.addEventListener('click', function () {
-            btn.textContent = '... generating';
+            btn.innerHTML = '<span class="ticker"><span class="ticker-track">g e n e r a t i n g    g e n e r a t i n g    </span></span>';
+            btn.classList.add('is-generating');
             btn.disabled = true;
-            generateResumePDF().finally(function () {
+            const minSparkle = new Promise(function (r) { setTimeout(r, 1800); });
+            Promise.all([generateResumePDF(), minSparkle]).finally(function () {
                 btn.textContent = '\u2193 PDF';
+                btn.classList.remove('is-generating');
                 btn.disabled = false;
             });
         });
