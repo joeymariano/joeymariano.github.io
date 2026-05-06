@@ -249,36 +249,41 @@
 }
 
 /* P D F  B U T T O N  S P A R K L E S */
-#pdf-btn.is-generating::before,
-#pdf-btn.is-generating::after {
-  display: inline-block;
-  width: 1ch;
-  text-align: center;
-}
-#pdf-btn.is-generating .ticker {
-  display: inline-block;
-  width: 7ch;
-  overflow: hidden;
-  vertical-align: baseline;
+#pdf-btn {
+  width: max-content;
   white-space: nowrap;
+  text-align: left;
 }
-#pdf-btn.is-generating .ticker-track {
+#pdf-btn::before {
+  content: "\00B7";
   display: inline-block;
-  white-space: pre;
-  animation: pdf-ticker 3s steps(12) infinite;
+  width: 0;
+  margin: 0;
+  opacity: 0;
+  text-align: center;
+  vertical-align: baseline;
+  transition: width 0.2s ease, margin 0.2s ease, opacity 0.2s ease;
 }
-@keyframes pdf-ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+#pdf-btn::after {
+  content: "*";
+  display: inline-block;
+  width: 0;
+  margin: 0;
+  opacity: 0;
+  text-align: center;
+  vertical-align: baseline;
+  transition: width 0.2s ease, margin 0.2s ease, opacity 0.2s ease;
 }
 #pdf-btn.is-generating::before {
-  content: "\00B7";
+  width: 1ch;
   margin-right: 0.4em;
+  opacity: 1;
   animation: pdf-sparkle-a 1.2s ease-in-out infinite;
 }
 #pdf-btn.is-generating::after {
-  content: "*";
+  width: 1ch;
   margin-left: 0.4em;
+  opacity: 1;
   animation: pdf-sparkle-b 1.2s ease-in-out infinite;
 }
 @keyframes pdf-sparkle-a {

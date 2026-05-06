@@ -112,16 +112,54 @@
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         const btn = document.getElementById('pdf-btn');
-        btn.addEventListener('click', function () {
-            btn.innerHTML = '<span class="ticker"><span class="ticker-track">g e n e r a t i n g    g e n e r a t i n g    </span></span>';
-            btn.classList.add('is-generating');
+        const stepDelay = 50;
+        function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+        async function untype(el) {
+            while (el.textContent.length > 0) {
+                el.textContent = el.textContent.slice(0, -1);
+                await wait(stepDelay);
+            }
+        }
+        async function typeText(el, target) {
+            for (const ch of target) {
+                el.textContent += ch;
+                await wait(stepDelay);
+            }
+        }
+        function measureTargetW() {
+            const clone = btn.cloneNode(false);
+            clone.style.position = 'absolute';
+            clone.style.visibility = 'hidden';
+            clone.style.left = '-9999px';
+            clone.style.top = '0';
+            clone.style.transition = 'none';
+            clone.classList.add('is-generating');
+            clone.textContent = '\u2193 PDF';
+            btn.parentNode.appendChild(clone);
+            const w = clone.offsetWidth;
+            clone.remove();
+            return w;
+        }
+        btn.addEventListener('click', async function () {
             btn.disabled = true;
-            const minSparkle = new Promise(function (r) { setTimeout(r, 1800); });
-            Promise.all([generateResumePDF(), minSparkle]).finally(function () {
-                btn.textContent = '\u2193 PDF';
-                btn.classList.remove('is-generating');
-                btn.disabled = false;
-            });
+            const pdfPromise = generateResumePDF();
+            const minSparkle = wait(1800);
+
+            btn.textContent = '';
+            btn.classList.add('is-generating');
+            await typeText(btn, ' g e n e r a t i n g ');
+
+            try { await Promise.all([pdfPromise, minSparkle]); } catch (e) {}
+
+            const targetW = measureTargetW();
+            while (btn.textContent.length > 0 && btn.offsetWidth > targetW) {
+                btn.textContent = btn.textContent.slice(0, -1);
+                await wait(stepDelay);
+            }
+            btn.textContent = '\u2193 PDF';
+            btn.classList.remove('is-generating');
+
+            btn.disabled = false;
         });
     });
 
