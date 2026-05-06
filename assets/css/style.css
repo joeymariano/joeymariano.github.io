@@ -272,12 +272,26 @@
   to   { transform: translateX(-50%); }
 }
 #pdf-btn.is-generating::before {
-  content: '*';
+  content: "\00B7";
   margin-right: 0.4em;
+  animation: pdf-sparkle-a 1.2s ease-in-out infinite;
 }
 #pdf-btn.is-generating::after {
-  content: '\00B7';
+  content: "*";
   margin-left: 0.4em;
+  animation: pdf-sparkle-b 1.2s ease-in-out infinite;
+}
+@keyframes pdf-sparkle-a {
+  0%, 24%   { content: "\00B7"; }
+  25%, 49%  { content: "~"; }
+  50%, 74%  { content: "*"; }
+  75%, 100% { content: "+"; }
+}
+@keyframes pdf-sparkle-b {
+  0%, 24%   { content: "*"; }
+  25%, 49%  { content: "+"; }
+  50%, 74%  { content: "\00B7"; }
+  75%, 100% { content: "~"; }
 }
 
 
