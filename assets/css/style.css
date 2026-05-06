@@ -248,6 +248,52 @@
   @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl drop-shadow-[6px_6px_0px_#222222];
 }
 
+/* P D F  B U T T O N  S P A R K L E S */
+#pdf-btn.is-generating::before,
+#pdf-btn.is-generating::after {
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+}
+#pdf-btn.is-generating .ticker {
+  display: inline-block;
+  width: 7ch;
+  overflow: hidden;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+#pdf-btn.is-generating .ticker-track {
+  display: inline-block;
+  white-space: pre;
+  animation: pdf-ticker 3s steps(12) infinite;
+}
+@keyframes pdf-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+#pdf-btn.is-generating::before {
+  content: '*';
+  margin-right: 0.4em;
+  animation: pdf-sparkle-a 1.2s ease-in-out infinite;
+}
+#pdf-btn.is-generating::after {
+  content: '\00B7';
+  margin-left: 0.4em;
+  animation: pdf-sparkle-b 1.2s ease-in-out infinite;
+}
+@keyframes pdf-sparkle-a {
+  0%, 24%   { content: '*'; }
+  25%, 49%  { content: '+'; }
+  50%, 74%  { content: '\00B7'; }
+  75%, 100% { content: '^'; }
+}
+@keyframes pdf-sparkle-b {
+  0%, 24%   { content: '\00B7'; }
+  25%, 49%  { content: '~'; }
+  50%, 74%  { content: '*'; }
+  75%, 100% { content: '+'; }
+}
+
 
 /* L O A D I N G  B A R S */
 /*.loading-bars {*/
