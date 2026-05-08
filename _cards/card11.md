@@ -1,8 +1,9 @@
 ---
 title: Rig Build and Code
-image: rig.png
+image: rig.jpg
+alt: nmlstyl live rig — Raspberry Pi and Zoom L6 driving tracks and MIDI
 round_image: false
-category: tech
+category: home tech
 size: 2x
 ---
 

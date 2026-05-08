@@ -1,5 +1,9 @@
 ---
 layout: resume
+title: Resume — Joey Mariano
+description: >-
+  Resume, skill tree, and downloadable PDF — Joey Mariano, creative
+  technologist, artist, and educator.
 skills:
   - name: "AJAX"
     color: "#3B82F6"

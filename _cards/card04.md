@@ -1,8 +1,9 @@
 ---
 title: 8static.com Site 
-image: 8static-screenshot.png
+image: 8static-screenshot.jpg
+alt: Screenshot of the 8static.com chiptune festival site
 round_image: false
-category: home design code art
+category: design code art
 size: 2x
 ---
 

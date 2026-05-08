@@ -1,6 +1,7 @@
 ---
 title: On Stage at MAGfest
 image: onStage.jpeg
+alt: Joey Mariano on stage at MAGfest 2025, running visuals while playing guitar
 round_image: false
 category: home music
 size: 2x

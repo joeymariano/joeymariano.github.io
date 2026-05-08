@@ -1,6 +1,7 @@
 ---
 title: Twilio Quest Composer
-image: twilio-quest.png
+image: twilio-quest.jpg
+alt: TwilioQuest title screen — game that taught developers Twilio
 round_image: false
 category: music
 size: 2x

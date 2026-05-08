@@ -1,6 +1,7 @@
 ---
 title: Multimedia Installation
 image: juvenile-amplifier.jpg
+alt: Juvenile Amplifier multimedia installation at Laboral Art Center
 round_image: false
 category: home art design tech
 size: 1x

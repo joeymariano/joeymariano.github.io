@@ -1,6 +1,7 @@
 ---
 title: Newest Album
 image: 4gize-teletext.svg
+alt: Album artwork for the latest nmlstyl release, teletext-style pixel graphics
 round_image: false
 category: home music art
 size: 1x

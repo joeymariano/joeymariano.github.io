@@ -17,6 +17,7 @@
           {% include _card.html
           size=item.size
           image=item.image
+          alt=item.alt
           round_image=item.round_image
           content=item.content
           title=item.title
@@ -31,11 +32,12 @@
     </div>
     <!-- grid container for cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
-      {% for item in site.cards %}
+      {% for item in site.cards reversed %}
         {% if item.category contains "music" or item.category contains "show" %}
           {% include _card.html
           size=item.size
           image=item.image
+          alt=item.alt
           round_image=item.round_image
           content=item.content
           title=item.title

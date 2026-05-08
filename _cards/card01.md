@@ -1,6 +1,7 @@
 ---
 title: Short BIO
 image: joey-profile.jpg
+alt: Portrait of Joey Mariano
 round_image: true
 category: home profile
 size: 1x
