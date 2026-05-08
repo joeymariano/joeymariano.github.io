@@ -1,6 +1,7 @@
 ---
 title: Dotted
 image: self-titled.jpg
+alt: nmlstyl self-titled cover — white pixel sprite over red/blue/yellow paint splatter (track Dotted)
 round_image: false
 category: mediaplayer
 size: 1x

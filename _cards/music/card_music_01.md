@@ -1,6 +1,7 @@
 ---
 title: Sp33k
 image: sp33k-sample.svg
+alt: Pixel-art sample/waveform cover for nmlstyl "Sp33k"
 round_image: false
 category: mediaplayer
 size: 1x

@@ -1,6 +1,7 @@
 ---
 title: Etherial Limb
 image: self-titled.jpg
+alt: nmlstyl self-titled cover — white pixel sprite over red/blue/yellow paint splatter (track Etherial Limb)
 round_image: false
 category: mediaplayer
 size: 1x

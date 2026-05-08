@@ -1,6 +1,7 @@
 ---
 title: Gameboy Foot Controller
 image: gb-foot-controller.png
+alt: Custom Game Boy foot controller built in 2008
 round_image: false
 category: music tech
 size: 2x

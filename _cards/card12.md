@@ -1,6 +1,7 @@
 ---
 title: Code for Stomp Sheild
-image: stomp-build.png
+image: stomp-build.jpg
+alt: Open Music Labs Stomp Shield arpeggiator pedal, hand-assembled
 round_image: false
 category: tech
 size: 1x

@@ -1,6 +1,7 @@
 ---
 title: Art for 8bitPeoples
 image: doomcloud.jpg
+alt: NES-palette pixel art commissioned for 8bitpeoples' Doomcloud release
 round_image: false
 category: home design art
 size: 1x

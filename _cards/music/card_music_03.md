@@ -1,6 +1,7 @@
 ---
 title: Trans Portation
-image: concat.png
+image: concat.jpg
+alt: nmlstyl "concat" cover — drippy black logo, seated portrait, black cat (track Trans Portation)
 round_image: false
 category: mediaplayer
 size: 1x

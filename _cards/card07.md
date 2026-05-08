@@ -1,6 +1,7 @@
 ---
 title: Fantasy Computer Demo
 image: pico8-pic.png
+alt: Frame from a PICO-8 fantasy console demo
 round_image: false
 category: code art
 size: 1x

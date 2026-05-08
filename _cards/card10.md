@@ -1,6 +1,7 @@
 ---
 title: Escape Room Props
 image: knabe-prop.jpg
+alt: ESP32-driven escape-room prop with LEDs, button, switch, and OLED screen
 round_image: false
 category: code
 size: 1x
