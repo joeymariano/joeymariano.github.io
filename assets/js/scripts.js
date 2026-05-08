@@ -203,26 +203,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const button = document.getElementById(btn.id);
         if (button) {
             button.addEventListener('click', function() {
-                if (btn.id === 'randomButton') {
-                    skillDivs.forEach(div => div.style.display = ''); // Make sure all are visible
-                    const parent = skillDivs[0].parentNode;
-                    const arr = Array.from(skillDivs);
-                    // Initialize previousOrder if empty
-                    if (previousOrder.length === 0) {
-                        previousOrder = arr.slice();
+                const container = document.getElementById('skills-container');
+                flipReorder(container, () => {
+                    if (btn.id === 'randomButton') {
+                        skillDivs.forEach(div => div.style.display = ''); // Make sure all are visible
+                        const arr = Array.from(skillDivs);
+                        if (previousOrder.length === 0) {
+                            previousOrder = arr.slice();
+                        }
+                        const newOrder = getDerangement(previousOrder);
+                        newOrder.forEach(div => container.appendChild(div));
+                        previousSkillOrder = newOrder;
+                    } else {
+                        showSkillsByCategory(btn.category);
                     }
-                    // Get a deranged order
-                    const newOrder = getDerangement(previousOrder);
-                    // Reorder in DOM
-                    newOrder.forEach(div => parent.appendChild(div));
-                    // Update previousOrder
-                    previousSkillOrder = newOrder;
-                } else {
-                    showSkillsByCategory(btn.category);
-                }
+                });
             });
         }
     });
+
+    // FLIP: keep tiles visible and glide them from old to new positions on reorder
+    function flipReorder(container, reorderFn) {
+        const items = Array.from(container.children);
+        const before = new Map();
+        items.forEach(el => before.set(el, el.getBoundingClientRect()));
+        reorderFn();
+        items.forEach(el => {
+            const b = before.get(el);
+            const a = el.getBoundingClientRect();
+            const dx = b.left - a.left;
+            const dy = b.top - a.top;
+            if (dx === 0 && dy === 0) return;
+            el.style.transition = 'none';
+            el.style.transform = `translate(${dx}px, ${dy}px)`;
+        });
+        void container.offsetWidth; // force reflow before starting the transition
+        items.forEach(el => {
+            el.style.transition = 'transform 750ms cubic-bezier(0.2, 0.7, 0.2, 1)';
+            el.style.transform = '';
+        });
+    }
 
     // Optionally show all skills on page load
     showAllSkills();
