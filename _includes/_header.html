@@ -3,8 +3,8 @@
         <!-- container -->
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto">
 
-            <!-- mobile row: hamburger left, title right — xl:contents makes wrapper transparent to flexbox on desktop -->
-            <div class="flex flex-row items-center justify-between w-full xl:contents">
+            <!-- mobile row: logo left, title centered, hamburger right — xl:contents makes wrapper transparent to flexbox on desktop -->
+            <div class="md:static relative flex flex-row items-center justify-between w-full xl:contents">
 
                 <!-- L O G O  A N D  T I T L E -->
                 <p class="md:text-xl rounded-xl item-center
@@ -12,8 +12,11 @@
                     <a href="/" class="flex rtl:space-x-reverse items-center">
                         <img src="/assets/img/joey-mariano-logo.svg" class="h-8" alt="nmlstyl logo"/>&nbsp;&nbsp;
                         &nbsp;
-                        <span class="hdr-1-macro nav-link h-10 inline-flex items-center"
-                              style="font-size: clamp(0.55rem, 3.5vw, 1.125rem); letter-spacing: clamp(0.02em, 0.4vw, 0.1em);">{{ site.title }}<span>
+                        <span class="hdr-1-macro nav-link h-10 inline-flex items-center
+                                     absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap
+                                     md:static md:translate-x-0 md:translate-y-0
+                                     transition-transform duration-500 ease-in-out motion-reduce:transition-none"
+                              style="font-size: clamp(0.55rem, 3.5vw, 1.125rem); letter-spacing: clamp(0.02em, 0.4vw, 0.1em);"><span class="ribbon-letter" style="--c:#fde047;--i:0">J</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:1">O</span>&nbsp;<span class="ribbon-letter" style="--c:#3b82f6;--i:2">E</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:3">Y</span>&nbsp;&nbsp;<span class="ribbon-letter" style="--c:#fde047;--i:4">M</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:5">A</span>&nbsp;<span class="ribbon-letter" style="--c:#3b82f6;--i:6">R</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:7">I</span>&nbsp;<span class="ribbon-letter" style="--c:#3b82f6;--i:8">A</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:9">N</span>&nbsp;<span class="ribbon-letter" style="--c:#3b82f6;--i:10">O</span></span>
                     </a>
                 </p>
 

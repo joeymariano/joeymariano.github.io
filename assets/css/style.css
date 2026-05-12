@@ -104,6 +104,21 @@
   animation: contact-border-glow 4s ease-in-out 1 forwards;
 }
 
+/* T I T L E  R I B B O N  T I C K E R */
+.ribbon-letter {
+  color: white;
+  animation: ribbon-ticker 7.8s step-end infinite;
+  animation-delay: calc(var(--i) * 150ms);
+}
+@keyframes ribbon-ticker {
+  0%     { color: white; }
+  1.923% { color: var(--c); }
+  7.692% { color: white; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-letter { animation: none; color: white; }
+}
+
 /* S E E K B A R */
 .seekbar {
   accent-color: #3B82F6;
