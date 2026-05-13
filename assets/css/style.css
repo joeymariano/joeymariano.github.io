@@ -27,6 +27,15 @@
   }
 }
 
+/* H I D E  J O B  S C R O L L E R  B A R */
+#job-scroller {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+#job-scroller::-webkit-scrollbar {
+  display: none;
+}
+
 /* B L A C K  B O O K  S K E L E T O N */
 @keyframes bb-shimmer {
   from { background-position: 0 0; }
