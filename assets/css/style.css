@@ -114,7 +114,7 @@
   pointer-events: none;
   transition: opacity 200ms ease;
 }
-/* Strip Tailwind's drop-shadow + right-margin from buttons while they live inside the modal controls */
+/* Strip the Tailwind drop-shadow + right-margin from buttons while they live inside the modal controls */
 #image-modal-controls button {
   filter: none;
   margin-right: 0;
