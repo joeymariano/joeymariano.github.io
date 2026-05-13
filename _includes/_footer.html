@@ -124,9 +124,9 @@
       if (!prevBtn || !nextBtn || !controls) return;
       bookMode = true;
       buttonsHome = prevBtn.parentElement;
-      // Order: next, prev, X — insert each before the close button
-      controls.insertBefore(nextBtn, closeBtn);
+      // Order: prev, next, X — insert each before the close button
       controls.insertBefore(prevBtn, closeBtn);
+      controls.insertBefore(nextBtn, closeBtn);
     }
 
     function exitBookMode() {
