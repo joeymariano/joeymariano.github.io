@@ -52,9 +52,9 @@
 
 /* C O N T A C T  B O R D E R  A N I M A T I O N */
 /* H A M B U R G E R  →  X  A N I M A T I O N */
-#menu-btn .hamburger-inner,
-#menu-btn .hamburger-inner::before,
-#menu-btn .hamburger-inner::after {
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
   width: 20px;
   height: 2px;
   border-radius: 10px;
@@ -64,18 +64,22 @@
   position: relative;
 }
 
-#menu-btn .hamburger-inner::before,
-#menu-btn .hamburger-inner::after {
+.hamburger-inner::before,
+.hamburger-inner::after {
   content: "";
   position: absolute;
 }
 
-#menu-btn .hamburger-inner::before { transform: translateY(-300%); }
-#menu-btn .hamburger-inner::after  { transform: translateY(300%);  }
+.hamburger-inner::before { transform: translateY(-300%); }
+.hamburger-inner::after  { transform: translateY(300%);  }
 
-#menu-btn.is-open .hamburger-inner          { background: rgba(0,0,0,0); }
-#menu-btn.is-open .hamburger-inner::before  { transform: rotate(45deg);  }
-#menu-btn.is-open .hamburger-inner::after   { transform: rotate(-45deg); }
+/* X state: triggered by #menu-btn.is-open (animated) or .is-x modifier (static) */
+#menu-btn.is-open .hamburger-inner,
+.hamburger-inner.is-x          { background: rgba(0,0,0,0); }
+#menu-btn.is-open .hamburger-inner::before,
+.hamburger-inner.is-x::before  { transform: rotate(45deg);  }
+#menu-btn.is-open .hamburger-inner::after,
+.hamburger-inner.is-x::after   { transform: rotate(-45deg); }
 
 @keyframes nav-hover-cycle {
   0%   { box-shadow: 0 0 0 3px #ef4444; }
@@ -109,6 +113,11 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms ease;
+}
+/* Strip Tailwind's drop-shadow + right-margin from buttons while they live inside the modal controls */
+#image-modal-controls button {
+  filter: none;
+  margin-right: 0;
 }
 #image-modal.is-open {
   opacity: 1;

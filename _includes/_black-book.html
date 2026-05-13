@@ -53,6 +53,29 @@
 	let isAnimating = false;
 	let lastClickTime = 0;
 
+	// Wipes any (pageImg, wipeImg) pair from current → newImgUrl using a clip-path slide.
+	// Exposed on window so the image-modal can drive a parallel wipe on its own images.
+	const WIPE_MS = 400;
+	function wipeImages(pageImg, wipeImg, { newImgUrl, startClip }) {
+		wipeImg.style.transition = "none";
+		wipeImg.style.opacity = "0";
+		wipeImg.style.clipPath = startClip;
+		wipeImg.src = newImgUrl;
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				wipeImg.style.opacity = "1";
+				wipeImg.style.transition = `clip-path ${WIPE_MS}ms cubic-bezier(.77,0,.175,1)`;
+				wipeImg.style.clipPath = "inset(0 0% 0 0%)";
+			});
+		});
+		setTimeout(() => {
+			pageImg.src = newImgUrl;
+			wipeImg.style.transition = "opacity 0.01s";
+			wipeImg.style.opacity = "0";
+		}, WIPE_MS);
+	}
+	window.blackBookWipeImages = wipeImages;
+
 	function runNext() {
 		if (animQueue.length === 0) {
 			isAnimating = false;
@@ -60,37 +83,19 @@
 		}
 		isAnimating = true;
 		const {newPageNumber, direction} = animQueue.shift();
-
-		const fromRight = direction === "next";
-		const startClip = fromRight ? "inset(0 0% 0 100%)" : "inset(0 100% 0 0)";
+		const startClip = direction === "next" ? "inset(0 0% 0 100%)" : "inset(0 100% 0 0)";
 		const newImgUrl = `${baseUrl}${newPageNumber}.jpg`;
+		const detail = { newImgUrl, startClip, direction, newPageNumber };
 
-		// Reset clip and hide BEFORE setting new src (prep for next wipe)
-		blackBookWipe.style.transition = "none";
-		blackBookWipe.style.opacity = "0";
-		blackBookWipe.style.clipPath = startClip;
-		blackBookWipe.src = newImgUrl;
+		// Broadcast so listeners (e.g. the image modal) can mirror the wipe
+		document.dispatchEvent(new CustomEvent('blackbook:wipestart', { detail }));
 
-		requestAnimationFrame(() => {
-			requestAnimationFrame(() => {
-				// Now reveal and animate
-				blackBookWipe.style.opacity = "1";
-				blackBookWipe.style.transition = "clip-path 0.4s cubic-bezier(.77,0,.175,1)";
-				blackBookWipe.style.clipPath = "inset(0 0% 0 0%)";
-			});
-		});
+		wipeImages(blackBookPage, blackBookWipe, detail);
 
 		setTimeout(() => {
-			// Wipe is fully covering — safe to swap underlying image
-			blackBookPage.src = newImgUrl;
 			pageNumber = newPageNumber;
-
-			// Fade out wipe while underlying image is now correct
-			blackBookWipe.style.transition = "opacity 0.01s";
-			blackBookWipe.style.opacity = "0";
-
 			runNext();
-		}, 400);
+		}, WIPE_MS);
 	}
 
 	function wipeToImage(newPageNumber, direction) {
