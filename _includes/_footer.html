@@ -31,12 +31,20 @@
 <div id="image-modal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
      aria-hidden="true" role="dialog" aria-label="Expanded image">
   <div class="relative inline-block">
-    <button id="image-modal-close" type="button"
-            class="absolute top-2 right-2 z-10 w-10 h-10 flex items-center justify-center
-                   text-white text-3xl leading-none font-bold bg-black/70 rounded-full
-                   hover:bg-black ring-2 ring-white/40"
-            aria-label="Close image">&times;</button>
     <img id="image-modal-img" src="" alt="" class="block ring-4 ring-black rounded-3xl" />
+    <img id="image-modal-wipe" src="" alt="" aria-hidden="true"
+         class="absolute inset-0 rounded-3xl pointer-events-none"
+         style="opacity:0;" />
+    <div id="image-modal-controls"
+         class="absolute top-4 right-4 z-10 flex items-center gap-4">
+      <!-- in book mode, JS inserts next then prev before the close button (order left→right: next, prev, X) -->
+      <button id="image-modal-close" type="button"
+              class="w-10 h-10 flex items-center justify-center
+                     bg-black rounded-full ring-2 ring-red-500"
+              aria-label="Close image">
+        <div class="hamburger-inner is-x"></div>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -100,10 +108,38 @@
 <!-- I M A G E  M O D A L  L O G I C -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const modal    = document.getElementById('image-modal');
-    const modalImg = document.getElementById('image-modal-img');
-    const closeBtn = document.getElementById('image-modal-close');
+    const modal     = document.getElementById('image-modal');
+    const modalImg  = document.getElementById('image-modal-img');
+    const modalWipe = document.getElementById('image-modal-wipe');
+    const controls  = document.getElementById('image-modal-controls');
+    const closeBtn  = document.getElementById('image-modal-close');
     if (!modal || !modalImg || !closeBtn) return;
+
+    let bookMode = false;
+    let buttonsHome = null;
+
+    function enterBookMode() {
+      const prevBtn = document.getElementById('prev-page');
+      const nextBtn = document.getElementById('next-page');
+      if (!prevBtn || !nextBtn || !controls) return;
+      bookMode = true;
+      buttonsHome = prevBtn.parentElement;
+      // Order: next, prev, X — insert each before the close button
+      controls.insertBefore(nextBtn, closeBtn);
+      controls.insertBefore(prevBtn, closeBtn);
+    }
+
+    function exitBookMode() {
+      if (!bookMode) return;
+      const prevBtn = document.getElementById('prev-page');
+      const nextBtn = document.getElementById('next-page');
+      if (buttonsHome && prevBtn && nextBtn) {
+        buttonsHome.appendChild(prevBtn);
+        buttonsHome.appendChild(nextBtn);
+      }
+      bookMode = false;
+      buttonsHome = null;
+    }
 
     function fitImage() {
       let nw = modalImg.naturalWidth;
@@ -119,11 +155,27 @@
       modalImg.style.height = h + 'px';
     }
 
-    function openModal(src, alt, roundClass) {
-      modalImg.classList.remove('rounded-full', 'rounded-3xl');
-      modalImg.classList.add(roundClass);
+    function setRoundClass(el, roundClass) {
+      Array.from(el.classList).forEach(function (c) {
+        if (c.indexOf('rounded-') === 0) el.classList.remove(c);
+      });
+      el.classList.add(roundClass);
+    }
+
+    function getRoundClass(img) {
+      for (var i = 0; i < img.classList.length; i++) {
+        var c = img.classList[i];
+        if (c.indexOf('rounded-') === 0) return c;
+      }
+      return 'rounded-3xl';
+    }
+
+    function openModal(src, alt, roundClass, isBookMode) {
+      setRoundClass(modalImg, roundClass);
+      if (modalWipe) setRoundClass(modalWipe, roundClass);
       modalImg.src = src;
       modalImg.alt = alt || '';
+      if (isBookMode) enterBookMode();
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
@@ -132,6 +184,7 @@
     }
 
     function closeModal() {
+      exitBookMode();
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
@@ -140,12 +193,19 @@
       }, 220);
     }
 
-    document.querySelectorAll('.striped-div img').forEach(function (img) {
+    document.querySelectorAll('.striped-div img, #black-book-page').forEach(function (img) {
       img.style.cursor = 'zoom-in';
       img.addEventListener('click', function () {
-        const roundClass = img.classList.contains('rounded-full') ? 'rounded-full' : 'rounded-3xl';
-        openModal(img.src, img.alt, roundClass);
+        openModal(img.src, img.alt, getRoundClass(img), img.id === 'black-book-page');
       });
+    });
+
+    // Mirror the Black Book wipe inside the modal using the same shared routine
+    document.addEventListener('blackbook:wipestart', function (e) {
+      if (!bookMode || !modal.classList.contains('is-open')) return;
+      if (typeof window.blackBookWipeImages === 'function' && modalWipe) {
+        window.blackBookWipeImages(modalImg, modalWipe, e.detail);
+      }
     });
 
     window.addEventListener('resize', function () {
