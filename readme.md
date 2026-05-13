@@ -146,6 +146,50 @@ The PDF export button uses [jsPDF](https://github.com/parallax/jsPDF) loaded fro
 
 ---
 
+### ✨ Interactions & Animations
+
+Small interactive details run across every page, built in vanilla JS in `assets/js/scripts.js` and styled in `assets/css/style.css`. The image modal and card copy logic live in `_includes/_footer.html`.
+
+#### Image Modal
+
+Clicking any card image opens a fullscreen lightbox with a matching curved frame. Controls cluster left-to-right: `[←] [→] [×]`. Prev/next cycle through visible images on the page; open/close uses a wipe transition synced to the modal mask.
+
+#### Card Copy Button
+
+Each card has a small floating copy button (bottom-right) that copies the card's text contents to the clipboard, swapping to a green checkmark on success. Music cards add bottom padding so the icon doesn't overlap the inline audio controller.
+
+#### PDF Generate Button
+
+The `/resume` "Generate PDF" button uses a typewriter expand/collapse animation with sparkle pseudo-elements while jsPDF builds the document. The original `content`-in-`@keyframes` approach was reverted to static sparkle glyphs to avoid a `jekyll-postcss` shell-quoting bug in CI.
+
+#### Skill Sort (FLIP)
+
+On `/resume`, the skill sort buttons (tech / arts / misc) re-order skill pills with a FLIP-style glide — first/last positions are measured and a transform animates the delta so pills physically slide rather than jump.
+
+#### Header Ribbon Ticker
+
+The header title runs a stepped ribbon ticker animation. On mobile the title centers and scales with viewport width, sits on one line with the hamburger, and the hamburger icon animates into an X on menu open.
+
+#### Black Book Skip-Ahead Nav
+
+`/visual-art` page-turn buttons are non-blocking: rapid clicks skip ahead instead of queuing, so navigation stays responsive on large PDFs.
+
+#### Load Sequencing
+
+To prevent layout jumps and out-of-order reveals:
+- Card image space is reserved before the image loads, then each card fades in once its image finishes loading
+- Section headers fade in first, then cards stagger in DOM order
+- On `/visual-art`, heading renders first, then the viewer skeleton, then cards
+- The contact-section animation fires via `IntersectionObserver` once scroll completes
+
+---
+
+### 🖼 Images & Accessibility
+
+Images under `/assets/img/` are compressed for scroll performance, with high-resolution originals preserved under `/assets/img/high_quality/`. Card images use `loading="lazy"` + `decoding="async"`, and non-decorative images (header/footer logos, job icons, resume skills, black-book sketches, cards) carry `alt` attributes. Page metadata (`description`, Open Graph, Twitter card) is set per layout via `_head.html`.
+
+---
+
 ### 📜 License
 
 This software is licensed under the [MIT] license (https://github.com/jekyll/jekyll/blob/master/LICENSE) © [joey mariano](https://joeymariano.github.io).
