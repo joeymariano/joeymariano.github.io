@@ -189,23 +189,29 @@
             const img = new Image();
             img.crossOrigin = 'anonymous';
             img.onload = function () {
-                // crop to square from center, then clip to circle
-                const size = Math.min(img.naturalWidth, img.naturalHeight);
+                // crop to square from center, downsample to ~300px, export as JPEG
+                // (renders at ~75pt in the PDF — 300px is plenty, JPEG keeps file size small)
+                const src = Math.min(img.naturalWidth, img.naturalHeight);
+                const OUT = 300;
                 const canvas = document.createElement('canvas');
-                canvas.width  = size;
-                canvas.height = size;
+                canvas.width  = OUT;
+                canvas.height = OUT;
                 const ctx = canvas.getContext('2d');
+                // white fill before clip — JPEG has no alpha, so the corners outside the
+                // circle would otherwise be black; white blends into the white PDF page
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, OUT, OUT);
                 ctx.beginPath();
-                ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+                ctx.arc(OUT / 2, OUT / 2, OUT / 2, 0, Math.PI * 2);
                 ctx.clip();
                 ctx.drawImage(
                     img,
-                    (img.naturalWidth  - size) / 2,
-                    (img.naturalHeight - size) / 2,
-                    size, size,
-                    0, 0, size, size
+                    (img.naturalWidth  - src) / 2,
+                    (img.naturalHeight - src) / 2,
+                    src, src,
+                    0, 0, OUT, OUT
                 );
-                resolve(canvas.toDataURL('image/png'));
+                resolve(canvas.toDataURL('image/jpeg', 0.85));
             };
             img.onerror = function () { resolve(null); };
             img.src = '/assets/img/joey-profile.jpg';
@@ -409,7 +415,7 @@
         const textW        = colW - (headshot ? imgSize + 12 : 0);
 
         if (headshot) {
-            doc.addImage(headshot, 'PNG', margin, imgDrawY, imgSize, imgSize);
+            doc.addImage(headshot, 'JPEG', margin, imgDrawY, imgSize, imgSize);
         }
 
         setFont(22, DARK, true);
