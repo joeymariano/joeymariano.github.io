@@ -1,5 +1,10 @@
 <!-- job entry -->
-<div class="job-entry relative xl:w-[25vw] l:w-[25vw] m:w-[50vw] s:w-full mb-6 sm:mb-0">
+<div class="job-entry relative xl:w-[25vw] l:w-[25vw] m:w-[50vw] s:w-full mb-6 sm:mb-0"
+     data-pdf-include="{% if include.pdf_include %}true{% else %}false{% endif %}"
+     data-company="{{ include.company }}"
+     data-client="{{ include.client }}"
+     data-company-link="{{ include.link }}"
+     data-client-link="{{ include.client_link }}">
     <div class="flex items-center">
         <!-- choosing color based on tags -->
         {% if include.tags contains "music" or include.tags contains "art" %}
@@ -32,7 +37,7 @@
         <h3 class="text-gray-900 text-white">{{ include.title }}</h3>
 
         {% if include.company %}
-        <h2 class="pt-2 pb-2 text-gray-400">{% if include.link %}<a href="{{ include.link }}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">{{ include.company }}</a>{% else %}{{ include.company }}{% endif %}</h2>
+        <h2 class="pt-2 pb-2 text-gray-400">{% if include.link %}<a href="{{ include.link }}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">{{ include.company }}</a>{% else %}{{ include.company }}{% endif %}{% if include.client %} <span class="text-gray-500">/</span> {% if include.client_link %}<a href="{{ include.client_link }}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">{{ include.client }}</a>{% else %}{{ include.client }}{% endif %}{% endif %}</h2>
 
         {% endif %}
         <time class="block mb-2 text-sm font-normal leading-none text-gray-400 text-gray-500">

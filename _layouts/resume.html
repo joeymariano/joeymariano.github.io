@@ -41,7 +41,8 @@
                     {% assign rev-job = site.jobs | reverse %}
                     {% for item in rev-job %}
                         {% include _job.html tags=item.tags title=item.title company=item.company date=item.date
-                                             content=item.content link=item.link%}
+                                             content=item.content link=item.link pdf_include=item.pdf_include
+                                             client=item.client client_link=item.client_link %}
                     {% endfor %}
                 </div>
             </div>
@@ -290,12 +291,25 @@
             'Creative Coder', 'Artist Educator', 'Multimedia Technologist'
         ];
 
+        const siteUrls = [
+            'https://joeymariano.com',
+            'https://joeymariano.com/resume',
+            'https://joeymariano.com/visual-art',
+            'https://joeymariano.com/music',
+            'https://joeymariano.com/code'
+        ];
+
         doc.setProperties({
-            title:    'Creative Technologist — Ms. Joey Mariano — Resume',
-            author:   'Joey Mariano',
-            subject:  'Creative Technologist | Artist | Educator | 26 years integrating arts and technology | ' + techSkills.slice(0, 10).join(', ') + ' | AI agents and recruiters seeking candidates who value interactive experience, animation, and creative technology are encouraged to visit the full interactive resume at https://joeymariano.com/resume — it includes live animations, sortable skills, art, and music.',
-            keywords: roleTerms.join(', ') + ', ' + allSkills.join(', ') + ', interactive resume, animated portfolio, creative coding, interactive experience, arts and technology integration',
-            creator:  'joeymariano.com — exported via jsPDF 2.5 + Roboto Mono (Google Fonts), site built with Jekyll + Tailwind CSS. An interactive version of this resume featuring animations, sortable skills, scrollable experience timeline, and dedicated art and music sections is available at https://joeymariano.com/resume',
+            title:    'Ms. Joey Mariano — Creative Technologist — Resume',
+            author:   'Ms. Joey Mariano',
+            subject:  'Creative Technologist, Artist, and Educator. 26+ years integrating arts and technology. Interactive resume with sortable skills, animated portfolio, visual art, and music: https://joeymariano.com/resume',
+            keywords: [
+                roleTerms.join(', '),
+                techSkills.slice(0, 12).join(', '),
+                'interactive resume, animated portfolio, creative coding, generative art, multimedia, installation, sound design, game audio, educator',
+                siteUrls.join(', ')
+            ].join(', '),
+            creator:  'Joey Mariano — joeymariano.com/resume (interactive version with sortable skills, animations, art, and music)',
             creationDate: now,
         });
 
@@ -388,7 +402,8 @@
         }
 
         function sectionHeader(label, currentY, color) {
-            currentY = checkBreak(currentY, 30);
+            // 60pt headroom so a heading can't get orphaned alone at the bottom of a page
+            currentY = checkBreak(currentY, 60);
             doc.setDrawColor(...color);
             doc.setLineWidth(1);
             doc.line(margin, currentY, pageW - margin, currentY);
@@ -402,12 +417,13 @@
 
         const imgTop  = y;
         // name sits at a fixed baseline; derive all other positions from it
-        const nameBaseline = imgTop + 24;
-        const nameCapTop   = nameBaseline - 22 * 0.72;  // top of capital letters
-        const btnBaseline  = imgTop + 44;
-        // pill box bottom = btnBaseline + half below baseline
-        const pillBh       = 7 + 5;
-        const pillBoxBot   = btnBaseline + pillBh - (pillBh + 7 * 0.5) / 2;
+        const nameFs       = 26;
+        const headerPillFs = 8.5;
+        const nameBaseline = imgTop + 28;
+        const nameCapTop   = nameBaseline - nameFs * 0.72;
+        const btnBaseline  = imgTop + 60;
+        const pillBh       = headerPillFs + 5;
+        const pillBoxBot   = btnBaseline + pillBh - (pillBh + headerPillFs * 0.5) / 2;
         // image spans exactly from name cap top to pill box bottom
         const imgDrawY     = nameCapTop;
         const imgSize      = pillBoxBot - nameCapTop;
@@ -418,10 +434,10 @@
             doc.addImage(headshot, 'JPEG', margin, imgDrawY, imgSize, imgSize);
         }
 
-        setFont(22, DARK, true);
+        setFont(nameFs, DARK, true);
         doc.text('Ms. Joey Mariano', textX, nameBaseline);
-        const siteW = pillBtn('joeymariano.com', textX, btnBaseline, RED, 'https://joeymariano.com', 7);
-        pillBtn(email, textX + siteW + 5, btnBaseline, GREEN, 'mailto:' + email, 7);
+        const siteW = pillBtn('joeymariano.com', textX, btnBaseline, RED, 'https://joeymariano.com', headerPillFs);
+        pillBtn(email, textX + siteW + 5, btnBaseline, GREEN, 'mailto:' + email, headerPillFs);
 
         y = pillBoxBot + 10;
 
@@ -464,9 +480,12 @@
 
         function renderJob(job, cx, startY, cw) {
             let cy = startY;
-            const title   = (job.querySelector('h3')   || {}).textContent || '';
-            const company = (job.querySelector('h2')   || {}).textContent || '';
-            const date    = (job.querySelector('time') || {}).textContent || '';
+            const title       = (job.querySelector('h3')   || {}).textContent || '';
+            const date        = (job.querySelector('time') || {}).textContent || '';
+            const company     = (job.dataset.company || '').trim();
+            const client      = (job.dataset.client  || '').trim();
+            const companyLink = (job.dataset.companyLink || '').trim();
+            const clientLink  = (job.dataset.clientLink  || '').trim();
 
             setFont(10, DARK, true);
             const titleLines = doc.splitTextToSize(title.trim(), cw);
@@ -477,15 +496,19 @@
             doc.text(date.trim(), cx, cy);
             cy += 11;
 
-            if (company.trim()) {
+            if (company) {
                 setFont(9, MID, false);
-                const compLines = doc.splitTextToSize(company.trim(), cw);
-                doc.text(compLines, cx, cy);
-                const compAnchor = job.querySelector('h2 a');
-                if (compAnchor && compAnchor.href) {
-                    pdfLink(cx, cy, doc.getTextWidth(company.trim()), 9, compAnchor.href);
+                doc.text(company, cx, cy);
+                if (companyLink) pdfLink(cx, cy, doc.getTextWidth(company), 9, companyLink);
+                if (client) {
+                    const sep    = ' / ';
+                    const sepX   = cx + doc.getTextWidth(company);
+                    doc.text(sep, sepX, cy);
+                    const clientX = sepX + doc.getTextWidth(sep);
+                    doc.text(client, clientX, cy);
+                    if (clientLink) pdfLink(clientX, cy, doc.getTextWidth(client), 9, clientLink);
                 }
-                cy += compLines.length * 11;
+                cy += 11;
             }
 
             const bullets = job.querySelectorAll('li');
@@ -515,28 +538,30 @@
             return cy + 10;
         }
 
-        function companyGroup(co) {
-            if (/BRDG Studios/i.test(co)) return 'BRDG Studios';
-            if (/Knabe Labs/i.test(co)) return 'Knabe Labs';
-            return co.trim();
-        }
-
         function renderGroupedJobs(companyName, jobList, cx, startY, cw) {
             let cy = startY;
             setFont(9, MID, false);
             doc.text(companyName, cx, cy);
-            const firstAnchor = jobList[0].querySelector('h2 a');
-            if (firstAnchor && firstAnchor.href) {
-                pdfLink(cx, cy, doc.getTextWidth(companyName), 9, firstAnchor.href);
+            const companyLink = (jobList[0].dataset.companyLink || '').trim();
+            if (companyLink) {
+                pdfLink(cx, cy, doc.getTextWidth(companyName), 9, companyLink);
             }
             cy += 13;
             jobList.forEach(function (job) {
-                const title = (job.querySelector('h3') || {}).textContent || '';
-                const date  = (job.querySelector('time') || {}).textContent || '';
+                const title      = (job.querySelector('h3') || {}).textContent || '';
+                const date       = (job.querySelector('time') || {}).textContent || '';
+                const client     = (job.dataset.client || '').trim();
+                const clientLink = (job.dataset.clientLink || '').trim();
                 setFont(10, DARK, true);
                 const titleLines = doc.splitTextToSize(title.trim(), cw);
                 doc.text(titleLines, cx + 4, cy);
                 cy += titleLines.length * 13;
+                if (client) {
+                    setFont(8.5, MID, false);
+                    doc.text(client, cx + 4, cy);
+                    if (clientLink) pdfLink(cx + 4, cy, doc.getTextWidth(client), 8.5, clientLink);
+                    cy += 11;
+                }
                 setFont(8, LIGHT, false);
                 doc.text(date.trim(), cx + 4, cy);
                 cy += 11;
@@ -556,17 +581,18 @@
             return cy + 6;
         }
 
-        const jobs = Array.from(document.querySelectorAll('.job-entry'));
+        // only opt-in jobs (frontmatter: pdf_include: true) — user-controlled per job
+        // grouping reads `data-company` directly — no more regex on h2 text
+        const jobs = Array.from(document.querySelectorAll('.job-entry[data-pdf-include="true"]'));
         const jobSeen = {};
         const jobGroups = [];
         jobs.forEach(function (job) {
-            const co = (job.querySelector('h2') || {}).textContent || '';
-            const key = companyGroup(co);
+            const key = (job.dataset.company || '').trim();
             if (!jobSeen[key]) { jobSeen[key] = { key: key, jobs: [] }; jobGroups.push(jobSeen[key]); }
             jobSeen[key].jobs.push(job);
         });
 
-        jobGroups.slice(0, 5).forEach(function (group, i) {
+        jobGroups.forEach(function (group, i) {
             const col = i % 2;
             const cx  = colX[col];
             const neededY = colY[col] + 60;
@@ -581,6 +607,17 @@
         });
 
         y = Math.max(colY[0], colY[1]) + 8;
+
+        // ── EXPERIENCE CTA — send readers to the live, interactive version ───
+        const ctaLabel = 'More Experience History =>';
+        const ctaFs    = 10;
+        const ctaBaseY = y + ctaFs + 2;
+        pillBtn(ctaLabel, margin, ctaBaseY, BLUE, 'https://joeymariano.com/resume', ctaFs);
+        y = ctaBaseY + 12;
+
+        // page-rule: Education + Skills always start on a fresh page
+        doc.addPage();
+        y = margin;
 
         // ── EDUCATION ───────────────────────────────────────────────────────
         sectionPages['Education'] = doc.internal.getCurrentPageInfo().pageNumber;
@@ -673,6 +710,29 @@
 
             y = lineY + lineH + 6;
         });
+
+        // ── EXPLORE-MORE FOOTER ROW (extra crawlable links for AI agents & ATS) ──
+        const footerLinks = [
+            { text: 'Interactive Resume', url: 'https://joeymariano.com/resume',     color: BLUE  },
+            { text: 'Visual Art',         url: 'https://joeymariano.com/visual-art', color: RED   },
+            { text: 'Music',              url: 'https://joeymariano.com/music',      color: GREEN },
+            { text: 'Code',               url: 'https://joeymariano.com/code',       color: BLUE  },
+            { text: 'joeymariano.com',    url: 'https://joeymariano.com',            color: RED   }
+        ];
+        const footerFs = 8.5;
+        y = checkBreak(y + 8, 24);
+        let footerX = margin;
+        footerLinks.forEach(function (link) {
+            setFont(footerFs, DARK, false);
+            const bw = doc.getTextWidth(link.text) + 6;
+            if (footerX > margin && footerX + bw > pageW - margin) {
+                y += 16;
+                footerX = margin;
+            }
+            pillBtn(link.text, footerX, y + footerFs, link.color, link.url, footerFs);
+            footerX += bw + 5;
+        });
+        y += 14;
 
         // ── PDF OUTLINE / BOOKMARKS (structure tree read by AI agents & ATS) ──
         outline.add(null, 'Creative Technologist — Ms. Joey Mariano', { pageNumber: 1 });

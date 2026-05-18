@@ -1,9 +1,13 @@
 ---
 title: "Canvasser"
-company: "Equalily Pennsylvania"
+company: "Equality Pennsylvania"
 date: 2016-06-01
-tags: [canvassing, LGBT, advocacy]
+tags: [canvassing, lgbtqia, advocacy]
 location: "Philadelphia, PA"
+link: "https://equalitypa.org"
+pdf_include: false
 ---
 
-- <span class="text-gray-500">&#8853;</span> Worked to raise awareness and support for LGBT causes in Philadelphia neighborhoods.
+- <span class="text-gray-500">&#8853;</span> Conducted door-to-door outreach across Philadelphia neighborhoods
+- <span class="text-gray-500">&#8853;</span> Collected petition signatures for LGBTQIA campaigns
+- <span class="text-gray-500">&#8853;</span> Raised awareness and support for LGBTQIA causes
