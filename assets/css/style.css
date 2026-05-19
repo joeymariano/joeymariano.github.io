@@ -117,6 +117,14 @@
   animation: contact-border-glow 4s ease-in-out 1 forwards;
 }
 
+/* A 1 1 Y :  V I S I B L E  F O C U S  R I N G  (keyboard only, via :focus-visible) */
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 2px solid #3b82f6;   /* blue-500, same as elsewhere in the palette */
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* I M A G E  M O D A L */
 #image-modal {
   opacity: 0;

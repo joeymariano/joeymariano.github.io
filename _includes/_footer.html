@@ -5,7 +5,7 @@
   </div>
 
   <!-- C O N T A C T  A N D  C O P Y R I G H T -->
-  <div class="grid grid-cols-1 md:grid-cols-2 text-sm text-gray-600 text-right">
+  <div class="grid grid-cols-1 md:grid-cols-2 text-sm text-gray-500 text-right">
     <!-- contact jawn -->
     <div class="pt-4 text-left">
       <p class="text-left">
@@ -304,6 +304,8 @@
       document.body.style.overflow = 'hidden';
       if (modalImg.complete && modalImg.naturalWidth) fitImage();
       else modalImg.addEventListener('load', fitImage, { once: true });
+      // a11y: capture previous focus, then trap focus inside the modal
+      trapFocus();
     }
 
     function closeModal() {
@@ -311,6 +313,7 @@
       // detach modal listeners but DO NOT pause — music continues in the source card
       unbindAudio();
       closeInfoPanel();
+      releaseFocus();
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
@@ -321,9 +324,16 @@
 
     document.querySelectorAll('.striped-div img, #black-book-page').forEach(function (img) {
       img.style.cursor = 'zoom-in';
+      // a11y: make the image focusable and operable from the keyboard
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      if (!img.getAttribute('aria-label')) {
+        img.setAttribute('aria-label', 'Open expanded view: ' + (img.alt || 'image'));
+      }
       img.addEventListener('click', function () {
         const card = img.closest('.striped-div');
         let info = null;
+        let cardAudio = null;
         if (card) {
           const titleEl   = card.querySelector('.card-title');
           const contentEl = card.querySelector('.card-contents');
@@ -331,10 +341,63 @@
             title: titleEl   ? titleEl.textContent.trim() : '',
             html:  contentEl ? contentEl.innerHTML : ''
           };
+          cardAudio = card.querySelector('.audio');
         }
-        openModal(img.src, img.alt, getRoundClass(img), img.id === 'black-book-page', info);
+        openModal(img.src, img.alt, getRoundClass(img), img.id === 'black-book-page', info, cardAudio);
+      });
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          img.click();
+        }
       });
     });
+
+    // F O C U S  T R A P  — keep keyboard focus inside the modal while open;
+    // remember where focus was before so we can restore it on close
+    let prevFocus = null;
+    let trapHandler = null;
+    function focusablesInModal() {
+      return Array.from(modal.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )).filter(function (el) {
+        const inInfo = el.closest('#image-modal-info-panel');
+        if (inInfo && !inInfo.classList.contains('is-open')) return false;
+        const inMusic = el.closest('#image-modal-music');
+        if (inMusic && inMusic.classList.contains('hidden')) return false;
+        return true;
+      });
+    }
+    function trapFocus() {
+      prevFocus = document.activeElement;
+      trapHandler = function (e) {
+        if (e.key !== 'Tab') return;
+        const items = focusablesInModal();
+        if (!items.length) return;
+        const first = items[0];
+        const last  = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+      modal.addEventListener('keydown', trapHandler);
+      try { closeBtn.focus(); } catch (e) { /* ignore */ }
+    }
+    function releaseFocus() {
+      if (trapHandler) {
+        modal.removeEventListener('keydown', trapHandler);
+        trapHandler = null;
+      }
+      const target = prevFocus;
+      prevFocus = null;
+      if (target && typeof target.focus === 'function') {
+        try { target.focus(); } catch (e) { /* ignore */ }
+      }
+    }
 
     // Mirror the Black Book wipe inside the modal using the same shared routine
     document.addEventListener('blackbook:wipestart', function (e) {

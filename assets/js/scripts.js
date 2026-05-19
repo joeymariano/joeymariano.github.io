@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // A 1 1 Y // — make the skip-link target programmatically focusable
+    const fadeContent = document.getElementById('fadeContent');
+    if (fadeContent && !fadeContent.hasAttribute('tabindex')) {
+        fadeContent.setAttribute('tabindex', '-1');
+    }
+
     // M E N U //
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
