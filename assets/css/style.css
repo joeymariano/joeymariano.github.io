@@ -123,6 +123,23 @@
   pointer-events: none;
   transition: opacity 200ms ease;
 }
+/* Info panel reveals up from the bottom (pure max-height transition, matches nav) */
+#image-modal-info-panel {
+  bottom: 1rem;          /* sits where the old `i` button used to be */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s linear;
+}
+#image-modal.has-music #image-modal-info-panel {
+  bottom: 5rem;          /* lift above the music-player pill when one is bound */
+}
+#image-modal-info-panel.is-open {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  #image-modal-info-panel { transition: none; }
+}
 /* Strip the Tailwind drop-shadow + right-margin from buttons while they live inside the modal controls */
 #image-modal-controls button {
   filter: none;
@@ -293,7 +310,7 @@
 }
 
 .arrow-btn-macro {
-  @apply mr-4 ring-2 bg-black hover:ring-gray-400 py-1 px-4 rounded-xl drop-shadow-[6px_6px_0px_#222222];
+  @apply mr-4 ring-2 bg-black hover:ring-gray-400 py-1 px-4 rounded-xl;
 }
 
 .top-btn-macro {
@@ -302,7 +319,7 @@
 }
 
 .reg-btn-macro {
-  @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl drop-shadow-[6px_6px_0px_#222222];
+  @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl;
 }
 
 /* P D F  B U T T O N  S P A R K L E S */

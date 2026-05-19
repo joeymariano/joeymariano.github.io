@@ -45,22 +45,22 @@
         <div class="hamburger-inner is-x"></div>
       </button>
     </div>
-    <!-- I N F O  B U T T O N  +  T O G G L A B L E  P A N E L -->
-    <button id="image-modal-info-btn" type="button"
-            class="absolute bottom-4 left-4 z-10 w-10 h-10 flex items-center justify-center
-                   bg-black rounded-full ring-2 ring-blue-500 text-blue-400 italic font-bold text-lg"
-            aria-label="Toggle info" aria-expanded="false">i</button>
+    <!-- I N F O  P A N E L  (eases up from the bottom on modal open; X dismisses) -->
     <div id="image-modal-info-panel"
-         class="absolute bottom-16 left-4 right-4 z-10 hidden
-                bg-black/95 ring-2 ring-blue-500 rounded-2xl p-4
-                max-h-[40vh] overflow-y-auto"
+         class="absolute left-4 right-4 z-10"
          aria-hidden="true">
-      <h3 id="image-modal-info-title" class="text-white font-bold mb-2 text-lg"></h3>
-      <div id="image-modal-info-content" class="text-gray-300 text-sm"></div>
+      <div class="relative p-4 bg-black/95 border-2 border-blue-500 rounded-2xl">
+        <button id="image-modal-info-close" type="button"
+                class="absolute top-2 right-2 w-6 h-6 flex items-center justify-center
+                       text-blue-400 hover:text-white text-xl leading-none"
+                aria-label="Dismiss info">×</button>
+        <h3 id="image-modal-info-title" class="text-white font-bold mb-2 text-lg pr-6"></h3>
+        <div id="image-modal-info-content" class="text-gray-300 text-sm"></div>
+      </div>
     </div>
     <!-- M U S I C  P L A Y E R  (mirrors source card's audio; music continues when modal closes) -->
     <div id="image-modal-music"
-         class="absolute bottom-4 left-16 right-4 z-10 hidden
+         class="absolute bottom-4 left-4 right-4 z-10 hidden
                 bg-black/95 ring-2 ring-blue-500 rounded-full
                 flex items-center gap-3 px-4 py-2">
       <button id="image-modal-music-playpause" type="button"
@@ -143,31 +143,30 @@
     const closeBtn  = document.getElementById('image-modal-close');
     if (!modal || !modalImg || !closeBtn) return;
 
-    const infoBtn     = document.getElementById('image-modal-info-btn');
-    const infoPanel   = document.getElementById('image-modal-info-panel');
-    const infoTitle   = document.getElementById('image-modal-info-title');
-    const infoContent = document.getElementById('image-modal-info-content');
+    const infoPanel    = document.getElementById('image-modal-info-panel');
+    const infoTitle    = document.getElementById('image-modal-info-title');
+    const infoContent  = document.getElementById('image-modal-info-content');
+    const infoCloseBtn = document.getElementById('image-modal-info-close');
+
+    function closeInfoPanel() {
+      if (!infoPanel) return;
+      infoPanel.classList.remove('is-open');
+      infoPanel.setAttribute('aria-hidden', 'true');
+    }
 
     function setInfo(title, html) {
       if (infoTitle)   infoTitle.textContent = title || '';
       if (infoContent) infoContent.innerHTML = html || '';
-      if (!infoBtn || !infoPanel) return;
-      if (!title && !html) {
-        infoBtn.classList.add('hidden');
+      if (!infoPanel) return;
+      if (title || html) {
+        infoPanel.classList.add('is-open');
+        infoPanel.setAttribute('aria-hidden', 'false');
       } else {
-        infoBtn.classList.remove('hidden');
+        closeInfoPanel();
       }
     }
 
-    function toggleInfo() {
-      if (!infoPanel || !infoBtn) return;
-      const wasHidden = infoPanel.classList.contains('hidden');
-      infoPanel.classList.toggle('hidden');
-      infoPanel.setAttribute('aria-hidden', wasHidden ? 'false' : 'true');
-      infoBtn.setAttribute('aria-expanded', wasHidden ? 'true' : 'false');
-    }
-
-    if (infoBtn) infoBtn.addEventListener('click', toggleInfo);
+    if (infoCloseBtn) infoCloseBtn.addEventListener('click', closeInfoPanel);
 
     // M U S I C  P L A Y E R  M I R R O R
     const musicBar       = document.getElementById('image-modal-music');
@@ -189,12 +188,14 @@
       boundAudio = null;
       boundListeners = null;
       if (musicBar) musicBar.classList.add('hidden');
+      modal.classList.remove('has-music');
     }
 
     function bindAudio(audio) {
       unbindAudio();
       if (!audio || !musicBar || !musicPlay || !musicSeek || !musicTime) return;
       boundAudio = audio;
+      modal.classList.add('has-music');
 
       function updateIcons() {
         if (audio.paused) {
@@ -293,13 +294,8 @@
       modalImg.src = src;
       modalImg.alt = alt || '';
       if (isBookMode) enterBookMode();
-      // populate info panel and always start it collapsed
+      // populate info panel (eases up automatically if content present)
       setInfo(info && info.title, info && info.html);
-      if (infoPanel) {
-        infoPanel.classList.add('hidden');
-        infoPanel.setAttribute('aria-hidden', 'true');
-      }
-      if (infoBtn) infoBtn.setAttribute('aria-expanded', 'false');
       // mirror the source card's audio element (or hide the bar if none)
       if (audio) bindAudio(audio);
       else       unbindAudio();
@@ -314,6 +310,7 @@
       exitBookMode();
       // detach modal listeners but DO NOT pause — music continues in the source card
       unbindAudio();
+      closeInfoPanel();
       modal.classList.remove('is-open');
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
