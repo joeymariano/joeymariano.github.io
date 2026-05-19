@@ -54,8 +54,8 @@
             <div class="col-span-1 mb-8">
                 <h1><span class="hdr-1-macro">Education</span></h1>
             </div>
-            <!-- grid for two schools -->
-            <div class="grid grid-cols-2 gap-4">
+            <!-- grid: 3 columns on large screens, collapse to 2 on smaller -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {% for entry in site.data.education %}
                     {% include _edu-entry.html
                     school=entry.school
