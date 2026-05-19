@@ -1,0 +1,47 @@
+# Joey Mariano
+
+> Ms. Joey Mariano — Creative Technologist, Artist, and Educator. 26+ years integrating arts and technology across music, visual art, and code. Based in the Philadelphia / Mid-Atlantic region.
+
+## Pages
+
+- [Home](https://joeymariano.com): Site overview and short bio
+- [Resume](https://joeymariano.com/resume): Interactive resume with experience, education, and sortable skills. Downloadable PDF export with embedded metadata for ATS and AI agents.
+- [Visual Art](https://joeymariano.com/visual-art): Black Book sketch journal (rotating page viewer), pixel art, multimedia installations, design work
+- [Music](https://joeymariano.com/music): Recordings and projects from nmlstyl — chiptune, Game Boy and Sega Genesis programming, guitar, and the TwilioQuest soundtrack
+- [Code](https://joeymariano.com/code): Tech projects — PICO-8 demos, ESP32 escape-room props, Jekyll sites, live-performance rigs, chiptune-style audio code
+
+## Notable Works
+
+- [Juvenile Amplifier (2009)](https://laboralcentrodearte.org/es/obras-y-proyectos/juvenile-amplifier-2009/): Interactive Game Boy speaker installation. Toured Europe after first exhibiting at Laboral Centro de Arte, Gijón, Spain. Featured in the "Playlist" exhibit on music and obsolete technologies.
+- [TwilioQuest Soundtrack](https://www.twilio.com/quest): Composed music for Twilio's open-source learn-to-code game ([GitHub](https://github.com/twilioquest))
+- [Airframe Ultra Environment Art](https://store.steampowered.com/app/2522120/Airframe_Ultra/): Licensed Black Book sketch assets to Akupara Games — used as in-game decoration on motorcycle tracks
+- [Black Book](https://joeymariano.com/visual-art#black-book): Ongoing rotating sketch journal — Posca paint pen drawings scanned at high resolution
+- [nmlstyl](https://nmlstyl.art): Active music project, releases on [Bandcamp](https://nmlstyl.bandcamp.com)
+
+## Recent Roles
+
+- Installation Tech — Knabe Labs / Ministry of Awe (Old City Philadelphia, 2026)
+- Tech Assembly & Physical Computing — BRDG Studios / Nike ACG, Nike's House of Innovation NYC (2025)
+- Physical Computing + Fabrication — Knabe Labs / Queen Mary Escape Room, Los Angeles (2025)
+- Environment Artist — Akupara Games / Airframe Ultra (2025)
+- Cofounder — 8static, monthly chip music event in Philadelphia (2008–2017, occasional revival shows)
+
+## Education
+
+- BM, Jazz Guitar Performance — Rutgers University, Mason Gross School of the Arts (1998–2002), student of Vic Juris
+- Teacher's Assistant apprenticeship under Wil Lindsay — The Hacktory, Philadelphia (2009–2010). Taught Arduino workshops in the FTDI Cable era.
+- Fullstack Web Development — Flatiron School (2017–2018), Women Take Tech Scholarship recipient
+
+## Skills Areas
+
+Physical computing, ESP32, Arduino, soldering, interactive sculpture assembly, escape-room props, AV installation, Q-SYS, networking. Full-stack web development with Ruby on Rails, React.js, JavaScript, Sass, Bootstrap, Squarespace, Jekyll. Music — composition, performance, production, chiptune, Game Boy programming, education. Visual art — Posca paint pens, pixel art, installation, design.
+
+## Contact
+
+- joey@joeymariano.com
+- [GitHub](https://github.com/joeymariano)
+- [Bandcamp (nmlstyl)](https://nmlstyl.bandcamp.com)
+
+## Site Structure
+
+This site is a Jekyll static site with PostCSS/Tailwind, built and deployed via GitHub Actions. Card-based content lives in `_cards/`, job entries in `_jobs/`, and education in `_data/education.yml`. The resume page exports a styled PDF on demand via jsPDF with embedded Roboto Mono.

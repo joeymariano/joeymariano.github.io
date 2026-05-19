@@ -16,6 +16,7 @@ gem "jekyll", "~> 4.3.4"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
+  gem "jekyll-sitemap"
   gem 'jekyll-postcss'
 #   gem "liquid-pry"
 end

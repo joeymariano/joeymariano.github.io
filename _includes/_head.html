@@ -25,6 +25,74 @@
     <script src="/assets/js/scripts.js"></script>
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- S T R U C T U R E D  D A T A  ( JSON-LD ) — for Google rich results + AI agents -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Joey Mariano",
+      "givenName": "Joey",
+      "familyName": "Mariano",
+      "honorificPrefix": "Ms.",
+      "url": "{{ site.url }}",
+      "image": "{{ '/assets/img/joey-profile.jpg' | absolute_url }}",
+      "email": "mailto:{{ site.email }}",
+      "jobTitle": "Creative Technologist",
+      "description": "{{ site.description | strip_newlines }}",
+      "sameAs": [
+        "https://github.com/{{ site.github_username }}",
+        "https://{{ site.bandcamp_username }}.bandcamp.com",
+        "https://nmlstyl.art"
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Rutgers University — Mason Gross School of the Arts",
+          "url": "https://www.masongross.rutgers.edu"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "The Hacktory",
+          "url": "https://works.straytechnologies.com/"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Flatiron School",
+          "url": "https://flatironschool.com"
+        }
+      ],
+      "knowsAbout": [
+        "Creative Technology",
+        "Physical Computing",
+        "Interactive Installations",
+        "ESP32",
+        "Arduino",
+        "Music Production",
+        "Game Audio",
+        "Chiptune",
+        "Front End Development",
+        "Ruby on Rails",
+        "React.js",
+        "Jekyll"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ site.title }}",
+      "url": "{{ site.url }}",
+      "description": "{{ site.description | strip_newlines }}",
+      "inLanguage": "en-US",
+      "author": {
+        "@type": "Person",
+        "name": "Joey Mariano",
+        "url": "{{ site.url }}"
+      }
+    }
+    </script>
     <!-- Defining some symbols -->
     <svg class="hidden">
         <symbol id="backward" viewBox="0 0 16 16">

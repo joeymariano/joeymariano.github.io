@@ -75,6 +75,8 @@ GEM
     jekyll-postcss (0.5.0)
     jekyll-sass-converter (3.1.0)
       sass-embedded (~> 1.75)
+    jekyll-sitemap (1.4.0)
+      jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
     kramdown (2.5.1)
@@ -172,6 +174,7 @@ DEPENDENCIES
   jekyll (~> 4.3.4)
   jekyll-feed (~> 0.12)
   jekyll-postcss
+  jekyll-sitemap
   logger
   ostruct
   tzinfo (>= 1, < 3)

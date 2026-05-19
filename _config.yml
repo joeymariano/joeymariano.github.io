@@ -25,6 +25,7 @@ collections:
 # Build settings
 plugins:
  - jekyll-feed
+ - jekyll-sitemap
  - jekyll-postcss
 
 # Exclude from processing
