@@ -1,4 +1,17 @@
 <div class="{% if include.size == '1x' %}col-span-1{% elsif include.size == '2x' %}md:col-span-2{% endif %} fade-in-item">
+    <!-- S T R U C T U R E D  D A T A — for rich results / AI agents -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "{% if include.music %}MusicRecording{% elsif include.category contains 'art' %}VisualArtwork{% else %}CreativeWork{% endif %}",
+      "name": {{ include.title | jsonify }},
+      "image": {{ '/assets/img/' | append: include.image | absolute_url | jsonify }},
+      "description": {{ include.alt | default: include.title | strip_newlines | jsonify }},
+      {% if include.link %}"url": {{ include.link | jsonify }},
+      {% endif %}{% if include.music %}"byArtist": { "@type": "MusicGroup", "name": "nmlstyl", "url": "https://nmlstyl.art" }{% else %}"creator": { "@type": "Person", "name": "Joey Mariano", "url": "{{ site.url }}" }{% endif %},
+      "inLanguage": "en-US"
+    }
+    </script>
     <!-- container with drop shadow -->
     <div class="striped-div h-full rounded-3xl bg-black p-4 {% if include.music %}pb-10{% endif %} shadow-[8px_8px_0px_#181818] relative">
         <div>
