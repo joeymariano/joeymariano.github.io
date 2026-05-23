@@ -16,12 +16,23 @@
                 <p class="md:text-xl rounded-xl item-center
                     duration-1000 ease-in-out ml-2 min-w-0">
                     <a href="/" class="flex rtl:space-x-reverse items-center gap-8">
-                        <img src="/assets/img/joey-mariano-logo.svg" class="h-8" alt="nmlstyl logo"/>
-                        <span class="hdr-1-macro nav-link h-10 inline-flex items-center
+                        <img src="/assets/img/joey-mariano-logo.svg" class="h-8" alt="Joey Mariano logo"/>
+                        {%- comment -%}
+                          JOEY MARIANO ribbon. Each entry is `LETTER:hex-color`.
+                          The ribbon-ticker animation cycles `--c` (color) staggered by `--i` (index).
+                          An extra &nbsp; after index 3 (Y) separates first/last name.
+                        {%- endcomment -%}
+                        {%- assign ribbon_letters = "J:fde047,O:ef4444,E:3b82f6,Y:ef4444,M:fde047,A:ef4444,R:3b82f6,I:ef4444,A:3b82f6,N:ef4444,O:3b82f6" | split: "," -%}
+                        <span class="hdr-1-macro ribbon-title nav-link h-10 inline-flex items-center
                                      absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap
                                      md:static md:translate-x-0 md:translate-y-0
-                                     transition-transform duration-500 ease-in-out motion-reduce:transition-none"
-                              style="font-size: clamp(0.55rem, 3.5vw, 1.125rem); letter-spacing: clamp(0.02em, 0.4vw, 0.1em);"><span class="ribbon-letter" style="--c:#fde047;--i:0">J</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:1">O</span>&nbsp;<span class="ribbon-letter" style="--c:#3b82f6;--i:2">E</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:3">Y</span>&nbsp;&nbsp;<span class="ribbon-letter" style="--c:#fde047;--i:4">M</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:5">A</span>&nbsp;<span class="ribbon-letter" style="--c:#3b82f6;--i:6">R</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:7">I</span>&nbsp;<span class="ribbon-letter" style="--c:#3b82f6;--i:8">A</span>&nbsp;<span class="ribbon-letter" style="--c:#ef4444;--i:9">N</span>&nbsp;<span class="ribbon-letter" style="--c:#3b82f6;--i:10">O</span></span>
+                                     transition-transform duration-500 ease-in-out motion-reduce:transition-none">
+                          {%- for entry in ribbon_letters -%}
+                            {%- assign parts = entry | split: ":" -%}
+                            <span class="ribbon-letter" style="--c:#{{ parts[1] }};--i:{{ forloop.index0 }}">{{ parts[0] }}</span>
+                            {%- unless forloop.last -%}&nbsp;{% if forloop.index0 == 3 %}&nbsp;{% endif %}{%- endunless -%}
+                          {%- endfor -%}
+                        </span>
                     </a>
                 </p>
 

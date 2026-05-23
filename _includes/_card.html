@@ -17,8 +17,7 @@
         <div>
             <img src="/assets/img/{{ include.image }}" alt="{{ include.alt | default: include.title }}"
              loading="lazy" decoding="async"
-             style="aspect-ratio: auto 4/3;"
-             class="{% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
+             class="aspect-[auto_4/3] {% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
              rounded-3xl{% endif %} ring-4 ring-black w-full cursor-zoom-in">
         </div>
 

@@ -177,6 +177,11 @@ body.modal-open {
 }
 
 /* T I T L E  R I B B O N  T I C K E R */
+.ribbon-title {
+  /* Fluid type scales the JOEY MARIANO header across small → desktop widths. */
+  font-size: clamp(0.55rem, 3.5vw, 1.125rem);
+  letter-spacing: clamp(0.02em, 0.4vw, 0.1em);
+}
 .ribbon-letter {
   color: white;
   animation: ribbon-ticker 7.8s step-end infinite;
@@ -335,9 +340,11 @@ body.modal-open {
 }
 
 /* C A R D  M A R K D O W N  C O N T E N T */
-/* The ⊕ bullet on card lists — keeps it out of the JS that decorates the rest. */
+/* Circled-plus (⊕) bullet on card lists. Escaped as \002295 because the
+   jekyll-postcss socket bridge can't JSON-encode raw multi-byte UTF-8 in
+   build (chokes the same way as `content:` strings in @keyframes). */
 .card-contents li {
-  list-style-type: '⊕ ';
+  list-style-type: "\002295 ";
 }
 
 /* P D F  B U T T O N  S P A R K L E S */
