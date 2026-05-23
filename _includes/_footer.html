@@ -323,8 +323,7 @@
     }
 
     document.querySelectorAll('.striped-div img, #black-book-page').forEach(function (img) {
-      img.style.cursor = 'zoom-in';
-      // a11y: make the image focusable and operable from the keyboard
+      // `cursor-zoom-in` lives on the image markup; a11y wiring stays here since it needs JS.
       img.setAttribute('tabindex', '0');
       img.setAttribute('role', 'button');
       if (!img.getAttribute('aria-label')) {

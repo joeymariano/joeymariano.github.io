@@ -4,7 +4,7 @@
     <!-- Old image (visible, underneath) -->
     <img id="black-book-page"
          src="{{ site.url }}/assets/img/black-book/13.jpg"
-         class="rounded-xl w-full block">
+         class="rounded-xl w-full block cursor-zoom-in">
     <!-- New image (hidden, slides in as wipe, absolutely positioned above) -->
     <img id="black-book-wipe"
          src="{{ site.url }}/assets/img/black-book/14.jpg"
@@ -27,10 +27,9 @@
 	let loadedCount = 0;
 
 	function setButtonsDisabled(disabled) {
+		// Dimming the disabled state is handled by Tailwind's `disabled:opacity-40` on the buttons.
 		prevBtn.disabled = disabled;
 		nextBtn.disabled = disabled;
-		prevBtn.style.opacity = disabled ? "0.4" : "1";
-		nextBtn.style.opacity = disabled ? "0.4" : "1";
 	}
 
 	setButtonsDisabled(true);

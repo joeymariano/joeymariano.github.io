@@ -101,7 +101,7 @@
                     <div class="bg-[#0a0a0a] p-2 text-left rounded-lg"
                         style="filter: drop-shadow(-2px -2px 0px {{ skill.color }});"
                         data-category="{{ skill.category }}">
-                        {% if skill.wiki %}<a href="{{ skill.wiki }}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">{{ skill.name }}</a>{% else %}{{ skill.name }}{% endif %}
+                        {% if skill.wiki %}<a href="{{ skill.wiki }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ skill.name }}</a>{% else %}{{ skill.name }}{% endif %}
                     </div>
                 {% endfor %}
             </div>
