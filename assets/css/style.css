@@ -126,6 +126,10 @@
 }
 
 /* I M A G E  M O D A L */
+/* Lock body scroll while the modal is open (added/removed by image-modal.js). */
+body.modal-open {
+  overflow: hidden;
+}
 #image-modal {
   opacity: 0;
   pointer-events: none;
@@ -328,6 +332,12 @@
 
 .reg-btn-macro {
   @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl;
+}
+
+/* C A R D  M A R K D O W N  C O N T E N T */
+/* The ⊕ bullet on card lists — keeps it out of the JS that decorates the rest. */
+.card-contents li {
+  list-style-type: '⊕ ';
 }
 
 /* P D F  B U T T O N  S P A R K L E S */

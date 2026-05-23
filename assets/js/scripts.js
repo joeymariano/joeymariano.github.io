@@ -203,8 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'artsButton', category: 'arts' },
         { id: 'miscButton', category: 'misc' },
     ];
-    let previousSkillOrder = [];
-    
+
     buttons.forEach(btn => {
         const button = document.getElementById(btn.id);
         if (button) {
@@ -219,7 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         const newOrder = getDerangement(previousOrder);
                         newOrder.forEach(div => container.appendChild(div));
-                        previousSkillOrder = newOrder;
                     } else {
                         showSkillsByCategory(btn.category);
                     }
