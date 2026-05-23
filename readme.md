@@ -190,6 +190,33 @@ Images under `/assets/img/` are compressed for scroll performance, with high-res
 
 ---
 
+### ⚠️ Known Issues
+
+#### `assets/css/style.css` must be pure ASCII
+
+The CI build uses `jekyll-postcss` 0.5.0, which shells out the entire CSS payload as a single-quoted JSON argument to a Node helper. That handoff is fragile and breaks on:
+
+- **Literal single quotes** (`'`) anywhere in the file — even inside comments. JSON does not escape `'`, so any `'` in the CSS terminates the shell argument early. This has bit comment apostrophes (`Tailwind's`) as well as `'⊕ '` style string values.
+- **Non-ASCII bytes** (`→`, `⊕`, em-dashes, smart quotes, etc.), even inside comments. Exactly one pre-existing `→` was tolerated by coincidence; adding a second tipped it over with `syntax error near unexpected token '('`.
+
+**Rule of thumb:** keep `assets/css/style.css` 100% ASCII, double-quoted only. After editing, verify with:
+
+```sh
+grep -nP '[^\x00-\x7F]' assets/css/style.css   # should be empty
+grep -n  "'"             assets/css/style.css   # should be empty
+```
+
+For glyphs that *need* to appear visually:
+
+- **In property values:** use CSS escape sequences. `content: "\00B7";` and `content: "\002295";` both work. Use double quotes around the string.
+- **For bullets like `⊕`:** apply via JS that sets the inline `style=` on the element after render. `assets/js/footer-utils.js` does this for `.card-contents li` — moving that rule into CSS will break CI.
+
+#### PDF sparkle keyframes
+
+The "Generate PDF" button's sparkle animation was originally implemented with `content:` swaps inside `@keyframes`. That also triggered the `jekyll-postcss` shell-quoting bug in CI, so the keyframes were reverted to static glyph swaps. See `#pdf-btn::before/::after` rules in `style.css`.
+
+---
+
 ### 📜 License
 
 This software is licensed under the [MIT] license (https://github.com/jekyll/jekyll/blob/master/LICENSE) © [joey mariano](https://joeymariano.github.io).

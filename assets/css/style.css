@@ -60,7 +60,7 @@
 }
 
 /* C O N T A C T  B O R D E R  A N I M A T I O N */
-/* H A M B U R G E R  →  X  A N I M A T I O N */
+/* H A M B U R G E R  - >  X  A N I M A T I O N */
 .hamburger-inner,
 .hamburger-inner::before,
 .hamburger-inner::after {
@@ -178,7 +178,7 @@ body.modal-open {
 
 /* T I T L E  R I B B O N  T I C K E R */
 .ribbon-title {
-  /* Fluid type scales the JOEY MARIANO header across small → desktop widths. */
+  /* Fluid type scales the JOEY MARIANO header across small to desktop widths. */
   font-size: clamp(0.55rem, 3.5vw, 1.125rem);
   letter-spacing: clamp(0.02em, 0.4vw, 0.1em);
 }
@@ -337,14 +337,6 @@ body.modal-open {
 
 .reg-btn-macro {
   @apply mr-4 ring-2 mb-4 bg-black hover:ring-gray-400 p-2 rounded-xl;
-}
-
-/* C A R D  M A R K D O W N  C O N T E N T */
-/* Circled-plus (⊕) bullet on card lists. Escaped as \002295 because the
-   jekyll-postcss socket bridge can't JSON-encode raw multi-byte UTF-8 in
-   build (chokes the same way as `content:` strings in @keyframes). */
-.card-contents li {
-  list-style-type: "\002295 ";
 }
 
 /* P D F  B U T T O N  S P A R K L E S */

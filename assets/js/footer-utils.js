@@ -75,10 +75,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* ── M A R K D O W N   →   T A I L W I N D   C L A S S E S ──────────────────
+/* ── M A R K D O W N   ->   T A I L W I N D   C L A S S E S ─────────────────
  * Card content is rendered from markdown, so the elements arrive without our
  * styling classes. Walk each `.card-contents` block and decorate the elements
- * inside. The `⊕`-style bullet is set declaratively in style.css.
+ * inside (including the ⊕ list bullet — see note inline).
  * -------------------------------------------------------------------------- */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -91,6 +91,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         content.querySelectorAll('li').forEach(function (el) {
             el.classList.add('mb-1', 'ml-2');
+            // ⊕ bullet is set in JS rather than CSS because the jekyll-postcss
+            // build pipeline can't handle the non-ASCII byte in style.css.
+            el.setAttribute('style', "list-style-type: '⊕ ';");
         });
         content.querySelectorAll('a').forEach(function (el) {
             el.classList.add('text-blue-400', 'hover:text-blue-200', 'transition', 'duration-150');
