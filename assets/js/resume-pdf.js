@@ -209,14 +209,11 @@ async function generateResumePDF() {
      * indexers. Pulled live from the DOM so it stays in sync with the page.
      * ----------------------------------------------------------------------- */
 
-    const allSkills = Array.from(document.querySelectorAll('#skills-container [data-category]'))
-        .map(function (n) { return n.textContent.trim(); });
     const techSkills = Array.from(document.querySelectorAll('#skills-container [data-category="tech"]'))
         .map(function (n) { return n.textContent.trim(); });
 
-    const now     = new Date();
-    const isoDate = now.toISOString();
-    const stamp   = now.getFullYear()
+    const now   = new Date();
+    const stamp = now.getFullYear()
                   + '-' + String(now.getMonth() + 1).padStart(2, '0')
                   + '-' + String(now.getDate()).padStart(2, '0')
                   + '_' + String(now.getHours()).padStart(2, '0')

@@ -25,12 +25,10 @@
 
     <p class="text-gray-400 text-sm">{{ include.years }}</p>
 
-    <p>
-        <ul>
-            {% for bullet_point in include.details %}
-            <li><span class="text-gray-500">&#8853;</span> {{ bullet_point }}</li>
-            {% endfor %}
-        </ul>
-    </p>
+    <ul>
+        {% for bullet_point in include.details %}
+        <li><span class="text-gray-500">&#8853;</span> {{ bullet_point }}</li>
+        {% endfor %}
+    </ul>
 </div>
 

@@ -58,15 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // T O P  B U T T O N //
     const topButton = document.getElementById('top-button');
-    
-    if (!topButton) return;
-    
-    topButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    if (topButton) {
+        topButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    });
+    }
     
     
     // A U D I O -- P L A Y E R //
@@ -77,56 +73,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const playIcons = document.getElementsByClassName('playIcon');
     const pauseIcons = document.getElementsByClassName('pauseIcon');
 
-    // 'if (audios)' prevents errors from occuring since not every card page has a 'music' entry
-    if (audios) {
-        // iteration over all the audio instances
-        for (let i = 0; i < audios.length; i++) {
-            const audio = audios[i];
-            const playPause = playPauses[i];
-            const seekbar = seekbars[i];
-            const currentTime = currentTimes[i];
-            const playIcon = playIcons[i];
-            const pauseIcon = pauseIcons[i];
-            
-            if (audio && playPause && seekbar && currentTime && playIcon && pauseIcon) {
-                playPause.addEventListener('click', () => {
-                    // Always stop all tracks before playing a new one
-                    for (let j = 0; j < audios.length; j++) {
-                        if (j !== i) {
-                            audios[j].pause();
-                            audios[j].currentTime = 0; // Optionally reset time
-                        }
+    // Empty HTMLCollection is fine — the loop just no-ops.
+    for (let i = 0; i < audios.length; i++) {
+        const audio = audios[i];
+        const playPause = playPauses[i];
+        const seekbar = seekbars[i];
+        const currentTime = currentTimes[i];
+        const playIcon = playIcons[i];
+        const pauseIcon = pauseIcons[i];
+
+        if (audio && playPause && seekbar && currentTime && playIcon && pauseIcon) {
+            playPause.addEventListener('click', () => {
+                // Stop every other track before playing this one.
+                for (let j = 0; j < audios.length; j++) {
+                    if (j !== i) {
+                        audios[j].pause();
+                        audios[j].currentTime = 0;
                     }
-                    if (audio.paused) {
-                        audio.play();
-                    } else {
-                        audio.pause();
-                    }
-                });
-                
-                // Sync icon when play/pause state changes
-                audio.addEventListener('play', () => {
-                    playIcon.classList.add('hidden');
-                    pauseIcon.classList.remove('hidden');
-                    playPause.setAttribute('aria-label', 'Pause');
-                });
-                audio.addEventListener('pause', () => {
-                    playIcon.classList.remove('hidden');
-                    pauseIcon.classList.add('hidden');
-                    playPause.setAttribute('aria-label', 'Play');
-                });
-                
-                audio.addEventListener('timeupdate', () => {
-                    seekbar.value = (audio.currentTime / audio.duration) * 100 || 0;
-                    let minutes = Math.floor(audio.currentTime / 60);
-                    let seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
-                    currentTime.textContent = `${minutes}:${seconds}`;
-                });
-                
-                seekbar.addEventListener('input', () => {
-                    audio.currentTime = (seekbar.value / 100) * audio.duration;
-                });
-            }
+                }
+                if (audio.paused) audio.play();
+                else              audio.pause();
+            });
+
+            audio.addEventListener('play', () => {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                playPause.setAttribute('aria-label', 'Pause');
+            });
+            audio.addEventListener('pause', () => {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                playPause.setAttribute('aria-label', 'Play');
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                seekbar.value = (audio.currentTime / audio.duration) * 100 || 0;
+                const minutes = Math.floor(audio.currentTime / 60);
+                const seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+                currentTime.textContent = `${minutes}:${seconds}`;
+            });
+
+            seekbar.addEventListener('input', () => {
+                audio.currentTime = (seekbar.value / 100) * audio.duration;
+            });
         }
     }
 
@@ -135,26 +124,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const jobBtnBack = document.getElementById('job-btn-back');
     const jobBtnForward = document.getElementById('job-btn-forward');
     const jobScroller = document.getElementById('job-scroller');
-    // Keep track of previous order
     let previousOrder = [];
 
-    // Debounce value in milliseconds
-    const DEBOUNCE_DELAY = 500; // Change this value as needed
-    
+    const SCROLL_THROTTLE_MS = 500;
+
     if (jobBtnBack && jobScroller) {
-        jobBtnBack.addEventListener('click', debounce(() => {
-            snapJobScroller(-1); // Snap to previous job
-        }, DEBOUNCE_DELAY));
+        jobBtnBack.addEventListener('click', throttle(() => snapJobScroller(-1), SCROLL_THROTTLE_MS));
     }
-    
+
     if (jobBtnForward && jobScroller) {
-        jobBtnForward.addEventListener('click', debounce(() => {
-            snapJobScroller(1); // Snap to next job
-        }, DEBOUNCE_DELAY));
+        jobBtnForward.addEventListener('click', throttle(() => snapJobScroller(1), SCROLL_THROTTLE_MS));
     }
-    
-    // helper to debounce rapid clicks
-    function debounce(fn, delay) {
+
+    // Leading-edge throttle: fires once, then ignores calls within `delay` ms.
+    function throttle(fn, delay) {
         let lastCall = 0;
         return function(...args) {
             const now = Date.now();
