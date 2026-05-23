@@ -8,24 +8,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // M E N U //
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
-    const duration = 400; // ms, must match CSS!!
-    
+    const duration = 400; // must match #menu transition in style.css
+
     menuBtn.addEventListener('click', function() {
         if (menu.classList.contains('show')) {
-            // animate collapse
             menu.classList.remove('show');
             menuBtn.classList.remove('is-open');
-            // after transition, add hidden
-            setTimeout(() => {
-                menu.classList.add('hidden');
-            }, duration);
+            // Defer `hidden` until the collapse transition finishes.
+            setTimeout(() => menu.classList.add('hidden'), duration);
         } else {
-            // unhide immediately, then animate expand
             menu.classList.remove('hidden');
             menuBtn.classList.add('is-open');
-            setTimeout(() => {
-                menu.classList.add('show');
-            });
+            setTimeout(() => menu.classList.add('show'));
         }
     });
     
@@ -147,34 +141,24 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
     
-    // get the width of a job entry (responsive)
     function getJobEntryWidth() {
         const jobEntry = jobScroller ? jobScroller.querySelector('.job-entry') : null;
-        if (jobEntry) {
-            return jobEntry.offsetWidth;
-        }
-        // fallback to window width / 4 if no jobEntry found
+        if (jobEntry) return jobEntry.offsetWidth;
         return window.innerWidth / 4;
     }
-    
-    // calculate the snapped scroll position
+
     function getSnappedScrollLeft(direction = 0) {
         if (!jobScroller) return 0;
         const jobWidth = getJobEntryWidth();
-        const currentScroll = jobScroller.scrollLeft;
-        // Find the nearest job start position
-        let snapIndex = Math.round(currentScroll / jobWidth);
-        if (direction === -1) snapIndex = Math.max(0, snapIndex - 1); // Back
-        if (direction === 1) snapIndex = snapIndex + 1; // Forward
+        let snapIndex = Math.round(jobScroller.scrollLeft / jobWidth);
+        if (direction === -1) snapIndex = Math.max(0, snapIndex - 1);
+        if (direction === 1)  snapIndex = snapIndex + 1;
         return snapIndex * jobWidth;
     }
-    
-    // snap scroll function
+
     function snapJobScroller(direction = 0) {
-        if (jobScroller) {
-            const snapLeft = getSnappedScrollLeft(direction);
-            jobScroller.scrollTo({ left: snapLeft, behavior: 'smooth' });
-        }
+        if (!jobScroller) return;
+        jobScroller.scrollTo({ left: getSnappedScrollLeft(direction), behavior: 'smooth' });
     }
     
     
@@ -194,13 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const container = document.getElementById('skills-container');
                 flipReorder(container, () => {
                     if (btn.id === 'randomButton') {
-                        skillDivs.forEach(div => div.style.display = ''); // Make sure all are visible
+                        skillDivs.forEach(div => div.style.display = '');
                         const arr = Array.from(skillDivs);
-                        if (previousOrder.length === 0) {
-                            previousOrder = arr.slice();
-                        }
-                        const newOrder = getDerangement(previousOrder);
-                        newOrder.forEach(div => container.appendChild(div));
+                        if (previousOrder.length === 0) previousOrder = arr.slice();
+                        getDerangement(previousOrder).forEach(div => container.appendChild(div));
                     } else {
                         showSkillsByCategory(btn.category);
                     }
@@ -231,41 +212,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Optionally show all skills on page load
     showAllSkills();
 
-    // show all skills (helper)
     function showAllSkills() {
         skillDivs.forEach(div => div.style.display = '');
     }
-    
+
     function showSkillsByCategory(category) {
-        const container = document.getElementById('skills-container'); // adjust if your container ID differs
-        
-        // separate skillDivs into chosen category and others
+        const container = document.getElementById('skills-container');
         const categorized = [];
         const others = [];
         skillDivs.forEach(div => {
-            if (div.getAttribute('data-category') === category) {
-                categorized.push(div);
-            } else {
-                others.push(div);
-            }
+            if (div.getAttribute('data-category') === category) categorized.push(div);
+            else                                                others.push(div);
         });
-        // append categorized first, then others
-        categorized.concat(others).forEach(div => {
-            container.appendChild(div);
-        });
+        categorized.concat(others).forEach(div => container.appendChild(div));
     }
-    
+
+    // Random shuffle that's guaranteed to be a derangement (no element keeps its
+    // original index), so a "Random" click visibly reorders every tile.
     function getDerangement(arr) {
-        // generate a random permutation that is a derangement (no element stays in the same position)
         let deranged;
         let attempts = 0;
         do {
             deranged = arr.slice().sort(() => Math.random() - 0.5);
             attempts++;
-            // if any element stays in its old position, rerun
         } while (deranged.some((el, idx) => el === arr[idx]) && attempts < 100);
         return deranged;
     }
