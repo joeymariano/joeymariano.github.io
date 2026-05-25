@@ -7,15 +7,14 @@
     - "studied Jazz Guitar performance at Mason Gross School of the Arts within Rutgers University"
     - "student of Vic Juris"
 - school: "The Hacktory"
-  degree: "Teacher's Assistant — Apprenticeship under Wil Lindsay - Independent Coding Lessons"
+  degree: 'Teacher''s Assistant & Apprenticeship under <a href="https://www.rider.edu/about/faculty-staff-directory/wil-lindsay" target="_blank" rel="noopener" class="underline">Wil Lindsay</a>'
   years: "2009 - 2010"
   color: "blue-500"
-  url: "https://works.straytechnologies.com/"
   details:
     - "hands-on apprenticeship learning Processing [Processing.org]"
-    - "Teacher's Assistant to Wil Lindsay in Arduino workshops"
+    - 'Teacher''s Assistant to <a href="https://www.rider.edu/about/faculty-staff-directory/wil-lindsay" target="_blank" rel="noopener" class="underline">Wil Lindsay</a> in Arduino workshops'
     - "helped students with electrical connections and software"
-  url: "https://www.rider.edu/about/faculty-staff-directory/wil-lindsay"
+  url: "https://web.archive.org/web/20090319103423/http://thehacktory.org/"
 - school: "Flatiron School"
   degree: "Fullstack Web Development"
   years: "2017-2018"
