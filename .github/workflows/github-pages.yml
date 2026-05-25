@@ -28,6 +28,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # jekyll-postcss shells out with the CSS single-quoted as a JSON payload,
+      # which breaks on apostrophes and any multi-byte char (em dash, arrow, etc.).
+      # Fail fast here with a clear message instead of a cryptic build error.
+      - name: Check style.css is ASCII-only
+        run: |
+          # Flag anything outside printable ASCII (space..tilde) plus tab.
+          # NOTE: do NOT use [:print:] here -- on macOS grep it treats multi-byte
+          # chars as printable and misses them; the literal byte range is reliable.
+          grep -n $'[^ -~\t]' assets/css/style.css && \
+            { echo "::error::style.css has non-ASCII chars (above). Use -- -> etc."; exit 1; }
+          grep -n "'" assets/css/style.css && \
+            { echo "::error::style.css has apostrophes (above). Rephrase to remove."; exit 1; }
+          echo "style.css OK"
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:

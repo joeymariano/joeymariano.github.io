@@ -2,7 +2,7 @@
  *  I M A G E   M O D A L
  *  ----------------------------------------------------------------------------
  *  Click any card image (or the Black Book page) to open an expanded view
- *  with optional info panel, audio mirror, and Black-Book page-turn controls.
+ *  with optional audio mirror and Black-Book page-turn controls.
  *
  *  Markup lives in _includes/_footer.html (#image-modal and friends).
  * ========================================================================== */
@@ -14,34 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const controls  = document.getElementById('image-modal-controls');
     const closeBtn  = document.getElementById('image-modal-close');
     if (!modal || !modalImg || !closeBtn) return;
-
-
-    /* ── I N F O   P A N E L ────────────────────────────────────────────── */
-
-    const infoPanel    = document.getElementById('image-modal-info-panel');
-    const infoTitle    = document.getElementById('image-modal-info-title');
-    const infoContent  = document.getElementById('image-modal-info-content');
-    const infoCloseBtn = document.getElementById('image-modal-info-close');
-
-    function closeInfoPanel() {
-        if (!infoPanel) return;
-        infoPanel.classList.remove('is-open');
-        infoPanel.setAttribute('aria-hidden', 'true');
-    }
-
-    function setInfo(title, html) {
-        if (infoTitle)   infoTitle.textContent = title || '';
-        if (infoContent) infoContent.innerHTML = html || '';
-        if (!infoPanel) return;
-        if (title || html) {
-            infoPanel.classList.add('is-open');
-            infoPanel.setAttribute('aria-hidden', 'false');
-        } else {
-            closeInfoPanel();
-        }
-    }
-
-    if (infoCloseBtn) infoCloseBtn.addEventListener('click', closeInfoPanel);
 
 
     /* ── M U S I C   P L A Y E R   M I R R O R ──────────────────────────────
@@ -188,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ── O P E N   /   C L O S E ───────────────────────────────────────────── */
 
-    function openModal(src, alt, roundClass, isBookMode, info, audio) {
+    function openModal(src, alt, roundClass, isBookMode, audio) {
         setRoundClass(modalImg, roundClass);
         if (modalWipe) setRoundClass(modalWipe, roundClass);
 
@@ -196,12 +168,12 @@ document.addEventListener('DOMContentLoaded', function () {
         modalImg.alt = alt || '';
 
         if (isBookMode) enterBookMode();
-        setInfo(info && info.title, info && info.html);
 
         // Mirror the source card's audio (or hide the bar if none).
         if (audio) bindAudio(audio);
         else       unbindAudio();
 
+        modal.classList.remove('is-closing');
         modal.classList.add('is-open');
         modal.setAttribute('aria-hidden', 'false');
         document.body.classList.add('modal-open');
@@ -216,17 +188,22 @@ document.addEventListener('DOMContentLoaded', function () {
     function closeModal() {
         exitBookMode();
         unbindAudio(); // detach listeners; music keeps playing in the source card
-        closeInfoPanel();
         releaseFocus();
 
+        // Swap to the closing state in one tick: the X spins out (~0.3s), then the
+        // modal wipes back up (CSS delays the clip-path transition so the X goes first).
         modal.classList.remove('is-open');
+        modal.classList.add('is-closing');
         modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
 
-        // Clear the src after the fade so the next open doesn't briefly show the old image.
+        // After the full X-out + wipe sequence (~0.5s), reset state and clear the
+        // src so the next open doesn't briefly show the old image.
         setTimeout(function () {
-            if (!modal.classList.contains('is-open')) modalImg.src = '';
-        }, 220);
+            if (modal.classList.contains('is-open')) return; // reopened mid-close
+            modal.classList.remove('is-closing');
+            modalImg.src = '';
+        }, 500);
     }
 
 
@@ -242,18 +219,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         img.addEventListener('click', function () {
             const card = img.closest('.striped-div');
-            let info = null;
-            let cardAudio = null;
-            if (card) {
-                const titleEl   = card.querySelector('.card-title');
-                const contentEl = card.querySelector('.card-contents');
-                info = {
-                    title: titleEl   ? titleEl.textContent.trim() : '',
-                    html:  contentEl ? contentEl.innerHTML : ''
-                };
-                cardAudio = card.querySelector('.audio');
-            }
-            openModal(img.src, img.alt, getRoundClass(img), img.id === 'black-book-page', info, cardAudio);
+            const cardAudio = card ? card.querySelector('.audio') : null;
+            openModal(img.src, img.alt, getRoundClass(img), img.id === 'black-book-page', cardAudio);
         });
 
         img.addEventListener('keydown', function (e) {
@@ -277,8 +244,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return Array.from(modal.querySelectorAll(
             'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
         )).filter(function (el) {
-            const inInfo = el.closest('#image-modal-info-panel');
-            if (inInfo && !inInfo.classList.contains('is-open')) return false;
             const inMusic = el.closest('#image-modal-music');
             if (inMusic && inMusic.classList.contains('hidden')) return false;
             return true;

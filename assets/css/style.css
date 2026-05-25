@@ -130,27 +130,13 @@
 body.modal-open {
   overflow: hidden;
 }
+/* Entrance: hard-edged top-down wipe (same feel as the nav reveal, 0.4s linear).
+   Hidden = clipped to a sliver at the very top; open = clip-path opens downward. */
 #image-modal {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 200ms ease;
-}
-/* Info panel reveals up from the bottom (pure max-height transition, matches nav) */
-#image-modal-info-panel {
-  bottom: 1rem;          /* sits where the old `i` button used to be */
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s linear;
-}
-#image-modal.has-music #image-modal-info-panel {
-  bottom: 5rem;          /* lift above the music-player pill when one is bound */
-}
-#image-modal-info-panel.is-open {
-  max-height: 40vh;
-  overflow-y: auto;
-}
-@media (prefers-reduced-motion: reduce) {
-  #image-modal-info-panel { transition: none; }
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.4s linear;
 }
 /* Strip the Tailwind drop-shadow + right-margin from buttons while they live inside the modal controls */
 #image-modal-controls button {
@@ -158,8 +144,17 @@ body.modal-open {
   margin-right: 0;
 }
 #image-modal.is-open {
-  opacity: 1;
+  opacity: 1;            /* instant -- the clip-path does the reveal, not a fade */
   pointer-events: auto;
+  clip-path: inset(0 0 0 0);
+}
+/* CLOSE: wipe back up -- the reverse of the entrance (collapses bottom-to-top, like
+   the nav menu closing). Delayed 0.3s so the close-button X spins out first. */
+#image-modal.is-closing {
+  opacity: 1;            /* no fade -- the wipe hides it */
+  pointer-events: none;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.28s linear 0.2s;
 }
 #image-modal img {
   /* JS sets explicit width/height to match the rendered image bounds
@@ -171,16 +166,57 @@ body.modal-open {
 #image-modal.is-open img {
   transform: scale(1);
 }
+
+/* --- C L O S E - B U T T O N   X   ( draws in / spins out ) ----------------
+   Reuses the hamburger two-stroke anatomy (::before/::after of .hamburger-inner),
+   scoped to the modal so the nav is untouched. The middle bar stays hidden.
+   --xa is each stroke final angle, so one keyframe set drives both diagonals. */
+#image-modal-close .hamburger-inner { background-color: transparent; }
+#image-modal-close .hamburger-inner::before { --xa: 45deg;  }
+#image-modal-close .hamburger-inner::after  { --xa: -45deg; }
+#image-modal-close .hamburger-inner::before,
+#image-modal-close .hamburger-inner::after {
+  /* resting state = full X (also the no-JS / reduced-motion fallback) */
+  transform: rotate(var(--xa)) scaleX(1);
+}
+@keyframes modal-x-in {
+  0%   { transform: rotate(0deg)      scaleX(0); opacity: 0; }  /* nothing */
+  35%  { transform: rotate(0deg)      scaleX(1); opacity: 1; }  /* one horizontal line */
+  100% { transform: rotate(var(--xa)) scaleX(1); }              /* angles apart into the X */
+}
+@keyframes modal-x-out {
+  0%   { transform: rotate(var(--xa)) scaleX(1); opacity: 1; }
+  55%  { transform: rotate(0deg)      scaleX(1); opacity: 1; }  /* spins back to horizontal, cancels */
+  100% { transform: rotate(0deg)      scaleX(0); opacity: 0; }  /* shrinks to nothing */
+}
+/* draws in just after the wipe lands */
+#image-modal.is-open #image-modal-close .hamburger-inner::before,
+#image-modal.is-open #image-modal-close .hamburger-inner::after {
+  animation: modal-x-in 0.35s ease-out 0.25s both;
+}
+/* spins out first thing on close */
+#image-modal.is-closing #image-modal-close .hamburger-inner::before,
+#image-modal.is-closing #image-modal-close .hamburger-inner::after {
+  animation: modal-x-out 0.2s ease-in both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   #image-modal,
+  #image-modal.is-open,
+  #image-modal.is-closing { transition: none; clip-path: none; }
+  #image-modal.is-closing { opacity: 0; }   /* hide instantly -- no wipe to do it */
   #image-modal img { transition: none; transform: none; }
+  #image-modal.is-open  #image-modal-close .hamburger-inner::before,
+  #image-modal.is-open  #image-modal-close .hamburger-inner::after,
+  #image-modal.is-closing #image-modal-close .hamburger-inner::before,
+  #image-modal.is-closing #image-modal-close .hamburger-inner::after { animation: none; }
 }
 
 /* T I T L E  R I B B O N  T I C K E R */
 .ribbon-title {
   /* Self-contained nav-title pill. Carries its own pill look (was .hdr-1-macro,
      the shared page-heading macro) so size/spacing/padding can scale down on small
-     screens — the macro hard-locked them at 18px / 0.1em and overrode this rule. */
+     screens -- the macro hard-locked them at 18px / 0.1em and overrode this rule. */
   @apply bg-black uppercase rounded-xl ring-4 ring-[#333333];
   font-size: clamp(0.8rem, 3.2vw, 1.125rem);
   letter-spacing: 0.1em;

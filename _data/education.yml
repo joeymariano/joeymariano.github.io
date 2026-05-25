@@ -11,7 +11,7 @@
   years: "2009 - 2010"
   color: "blue-500"
   details:
-    - "hands-on apprenticeship learning Processing [Processing.org]"
+    - 'hands-on apprenticeship learning <a href="https://processing.org" target="_blank" rel="noopener" class="underline">Processing</a>'
     - 'Teacher''s Assistant to <a href="https://www.rider.edu/about/faculty-staff-directory/wil-lindsay" target="_blank" rel="noopener" class="underline">Wil Lindsay</a> in Arduino workshops'
     - "helped students with electrical connections and software"
   url: "https://web.archive.org/web/20090319103423/http://thehacktory.org/"
@@ -23,3 +23,4 @@
   details:
     - "received a Women Take Tech Scholarship"
     - "completed intensive bootcamp program"
+    - "learned Ruby, Javascript, Bootstrap, Sinatra, OmniAuth, Nokogiri, CLI programming, SQL"
