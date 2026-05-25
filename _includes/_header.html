@@ -13,8 +13,7 @@
             <div class="md:static relative flex flex-row items-center justify-between w-full xl:contents">
 
                 <!-- L O G O  A N D  T I T L E -->
-                <p class="md:text-xl rounded-xl item-center
-                    duration-1000 ease-in-out ml-2 min-w-0">
+                <div class="ml-2 min-w-0">
                     <a href="/" class="flex rtl:space-x-reverse items-center gap-8">
                         <img src="/assets/img/joey-mariano-logo.svg" class="h-8" alt="Joey Mariano logo"/>
                         {%- comment -%}
@@ -23,7 +22,7 @@
                           An extra &nbsp; after index 3 (Y) separates first/last name.
                         {%- endcomment -%}
                         {%- assign ribbon_letters = "J:fde047,O:ef4444,E:3b82f6,Y:ef4444,M:fde047,A:ef4444,R:3b82f6,I:ef4444,A:3b82f6,N:ef4444,O:3b82f6" | split: "," -%}
-                        <span class="hdr-1-macro ribbon-title nav-link h-10 inline-flex items-center
+                        <span class="ribbon-title nav-link h-10 inline-flex items-center
                                      absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap
                                      md:static md:translate-x-0 md:translate-y-0
                                      transition-transform duration-500 ease-in-out motion-reduce:transition-none">
@@ -34,7 +33,7 @@
                           {%- endfor -%}
                         </span>
                     </a>
-                </p>
+                </div>
 
                 <!-- H A M B U R G E R -->
                 <button id="menu-btn" data-collapse-toggle="navbar-default" type="button"

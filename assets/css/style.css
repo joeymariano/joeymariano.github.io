@@ -178,9 +178,13 @@ body.modal-open {
 
 /* T I T L E  R I B B O N  T I C K E R */
 .ribbon-title {
-  /* Fluid type scales the JOEY MARIANO header across small to desktop widths. */
-  font-size: clamp(0.55rem, 3.5vw, 1.125rem);
-  letter-spacing: clamp(0.02em, 0.4vw, 0.1em);
+  /* Self-contained nav-title pill. Carries its own pill look (was .hdr-1-macro,
+     the shared page-heading macro) so size/spacing/padding can scale down on small
+     screens — the macro hard-locked them at 18px / 0.1em and overrode this rule. */
+  @apply bg-black uppercase rounded-xl ring-4 ring-[#333333];
+  font-size: clamp(0.8rem, 3.2vw, 1.125rem);
+  letter-spacing: 0.1em;
+  padding: clamp(0.2rem, 1.2vw, 0.5rem) clamp(0.4rem, 2vw, 0.75rem);
 }
 .ribbon-letter {
   color: white;
