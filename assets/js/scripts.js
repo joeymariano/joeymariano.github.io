@@ -78,13 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (audio && playPause && seekbar && currentTime && playIcon && pauseIcon) {
             playPause.addEventListener('click', () => {
-                // Stop every other track before playing this one.
-                for (let j = 0; j < audios.length; j++) {
-                    if (j !== i) {
-                        audios[j].pause();
-                        audios[j].currentTime = 0;
-                    }
-                }
                 if (audio.paused) audio.play();
                 else              audio.pause();
             });
@@ -111,6 +104,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 audio.currentTime = (seekbar.value / 100) * audio.duration;
             });
         }
+    }
+
+    // S I N G L E - T R A C K  I N V A R I A N T //
+    // The one rule that guarantees "never more than one song at a time": the
+    // instant ANY audio starts, pause and rewind every other one. Every play
+    // trigger — card buttons, the image modal's mirrored controls, anything
+    // added later — funnels through the element's own `play` event, so no
+    // single trigger has to remember to stop the others, and none can leave
+    // two tracks overlapping.
+    for (let i = 0; i < audios.length; i++) {
+        audios[i].addEventListener('play', () => {
+            for (let j = 0; j < audios.length; j++) {
+                if (audios[j] !== audios[i]) {
+                    audios[j].pause();
+                    audios[j].currentTime = 0;
+                }
+            }
+        });
     }
 
     

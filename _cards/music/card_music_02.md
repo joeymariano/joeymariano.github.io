@@ -1,6 +1,6 @@
 ---
 title: Reptile Surf
-image: sp33k-sample.svg
+image: 4gize-teletext.svg
 alt: Pixel-art sample/waveform cover for nmlstyl "Reptile Surf"
 round_image: false
 category: mediaplayer

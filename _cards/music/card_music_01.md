@@ -1,6 +1,6 @@
 ---
 title: Sp33k
-image: sp33k-sample.svg
+image: 4gize-teletext.svg
 alt: Pixel-art sample/waveform cover for nmlstyl "Sp33k"
 round_image: false
 category: mediaplayer

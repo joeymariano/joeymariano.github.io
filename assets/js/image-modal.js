@@ -81,20 +81,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (musicPlay) musicPlay.addEventListener('click', function () {
         if (!boundAudio) return;
-        if (boundAudio.paused) {
-            // Stop every other track first (mirrors the card controller in scripts.js),
-            // so the modal never leaves another card's song playing underneath it.
-            var allAudio = document.getElementsByClassName('audio');
-            for (var k = 0; k < allAudio.length; k++) {
-                if (allAudio[k] !== boundAudio) {
-                    allAudio[k].pause();
-                    allAudio[k].currentTime = 0;
-                }
-            }
-            boundAudio.play();
-        } else {
-            boundAudio.pause();
-        }
+        // Just toggle. The single-track invariant in scripts.js (an `play`
+        // listener on every audio) pauses every other track the moment this
+        // one starts, so the modal can never leave another song playing under it.
+        if (boundAudio.paused) boundAudio.play();
+        else                   boundAudio.pause();
     });
 
     if (musicSeek) musicSeek.addEventListener('input', function () {
