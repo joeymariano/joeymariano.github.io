@@ -81,8 +81,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (musicPlay) musicPlay.addEventListener('click', function () {
         if (!boundAudio) return;
-        if (boundAudio.paused) boundAudio.play();
-        else                   boundAudio.pause();
+        if (boundAudio.paused) {
+            // Stop every other track first (mirrors the card controller in scripts.js),
+            // so the modal never leaves another card's song playing underneath it.
+            var allAudio = document.getElementsByClassName('audio');
+            for (var k = 0; k < allAudio.length; k++) {
+                if (allAudio[k] !== boundAudio) {
+                    allAudio[k].pause();
+                    allAudio[k].currentTime = 0;
+                }
+            }
+            boundAudio.play();
+        } else {
+            boundAudio.pause();
+        }
     });
 
     if (musicSeek) musicSeek.addEventListener('input', function () {
@@ -187,20 +199,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function closeModal() {
         exitBookMode();
-        unbindAudio(); // detach listeners; music keeps playing in the source card
         releaseFocus();
 
-        // Swap to the closing state in one tick: the X spins out (~0.3s), then the
+        // Swap to the closing state in one tick: the X spins out (~0.2s), then the
         // modal wipes back up (CSS delays the clip-path transition so the X goes first).
         modal.classList.remove('is-open');
         modal.classList.add('is-closing');
         modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
 
-        // After the full X-out + wipe sequence (~0.5s), reset state and clear the
-        // src so the next open doesn't briefly show the old image.
+        // After the full X-out + wipe sequence (~0.5s): detach the audio mirror
+        // (music keeps playing in the source card), reset state, clear the src.
+        // unbindAudio is deferred to here so the player bar stays visible and keeps
+        // updating while the modal wipes away, instead of popping out instantly.
         setTimeout(function () {
             if (modal.classList.contains('is-open')) return; // reopened mid-close
+            unbindAudio();
             modal.classList.remove('is-closing');
             modalImg.src = '';
         }, 500);

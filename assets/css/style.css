@@ -160,11 +160,6 @@ body.modal-open {
   /* JS sets explicit width/height to match the rendered image bounds
      so border-radius curves the visible image, not empty space. */
   display: block;
-  transform: scale(0.97);
-  transition: transform 200ms ease;
-}
-#image-modal.is-open img {
-  transform: scale(1);
 }
 
 /* --- C L O S E - B U T T O N   X   ( draws in / spins out ) ----------------
@@ -205,7 +200,6 @@ body.modal-open {
   #image-modal.is-open,
   #image-modal.is-closing { transition: none; clip-path: none; }
   #image-modal.is-closing { opacity: 0; }   /* hide instantly -- no wipe to do it */
-  #image-modal img { transition: none; transform: none; }
   #image-modal.is-open  #image-modal-close .hamburger-inner::before,
   #image-modal.is-open  #image-modal-close .hamburger-inner::after,
   #image-modal.is-closing #image-modal-close .hamburger-inner::before,
