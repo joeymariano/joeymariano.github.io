@@ -94,7 +94,7 @@
 @keyframes nav-hover-cycle {
   0%   { box-shadow: 0 0 0 3px #ef4444; }
   33%  { box-shadow: 0 0 0 3px #3b82f6; }
-  66%  { box-shadow: 0 0 0 3px #fcd34d; }
+  66%  { box-shadow: 0 0 0 3px #fde047; }
   100% { box-shadow: 0 0 0 3px #ef4444; }
 }
 
@@ -110,7 +110,7 @@
   0%   { box-shadow: 0 0 0 0px transparent; }
   15%  { box-shadow: 0 0 0 3px #ef4444; }
   50%  { box-shadow: 0 0 0 3px #3b82f6; }
-  80%  { box-shadow: 0 0 0 3px #fcd34d; }
+  80%  { box-shadow: 0 0 0 3px #fde047; }
   100% { box-shadow: 0 0 0 0px transparent; }
 }
 
@@ -326,7 +326,7 @@ body.modal-open {
             black 5px 125px,      /* Black base */
             #EF4444 5px 130px,    /* Second stripe (red) */
             black 5px 135px,      /* Black base */
-            #FCD34D 5px 140px,    /* Third stripe (yellow) */
+            #FDE047 5px 140px,    /* Third stripe (yellow) */
             black 80px 100%       /* Black base for the rest */
     );
 }
