@@ -30,20 +30,21 @@
 <!-- I M A G E  M O D A L -->
 <div id="image-modal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
      aria-hidden="true" role="dialog" aria-label="Expanded image">
+  <!-- Controls anchored to the screen's top-right corner (clear of the image), not the image itself. -->
+  <div id="image-modal-controls"
+       class="absolute top-4 right-4 z-10 flex items-center gap-4">
+    <!-- in book mode, JS inserts next then prev before the close button (order left→right: next, prev, X) -->
+    <button id="image-modal-close" type="button"
+            class="w-10 h-10 flex items-center justify-center
+                   bg-black rounded-full ring-2 ring-red-500"
+            aria-label="Close image">
+      <div class="hamburger-inner"></div>
+    </button>
+  </div>
   <div class="relative inline-block">
     <img id="image-modal-img" src="" alt="" class="block ring-4 ring-black rounded-3xl" />
     <img id="image-modal-wipe" src="" alt="" aria-hidden="true"
          class="absolute inset-0 rounded-3xl pointer-events-none opacity-0" />
-    <div id="image-modal-controls"
-         class="absolute top-4 right-4 z-10 flex items-center gap-4">
-      <!-- in book mode, JS inserts next then prev before the close button (order left→right: next, prev, X) -->
-      <button id="image-modal-close" type="button"
-              class="w-10 h-10 flex items-center justify-center
-                     bg-black rounded-full ring-2 ring-red-500"
-              aria-label="Close image">
-        <div class="hamburger-inner"></div>
-      </button>
-    </div>
     <!-- M U S I C  P L A Y E R  (mirrors source card's audio; music continues when modal closes) -->
     <div id="image-modal-music"
          class="absolute bottom-4 left-4 right-4 z-10 hidden
