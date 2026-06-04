@@ -23,7 +23,7 @@
 
     {% if upcoming_count > 0 %}
       <p class="text-gray-500 text-sm font-semibold mb-6">Upcoming shows</p>
-      <ol class="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <ol class="list-none p-0 m-0 grid grid-cols-2 lg:grid-cols-6 gap-4">
         {% for show in sorted %}
           {% assign ev = show.datetime | date: '%s' | plus: 0 %}
           {% if ev >= now %}{% include _show-row.html show=show past=false %}{% endif %}
@@ -31,11 +31,11 @@
       </ol>
     {% else %}
       <p class="text-gray-500 text-sm font-semibold mb-6">No upcoming dates booked &mdash; here are some recent shows.</p>
-      <ol class="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <ol class="list-none p-0 m-0 grid grid-cols-2 lg:grid-cols-6 gap-4">
         {% assign recent = sorted | reverse %}
         {% assign shown = 0 %}
         {% for show in recent %}
-          {% if shown < 8 %}
+          {% if shown < 12 %}
             {% include _show-row.html show=show past=true %}
             {% assign shown = shown | plus: 1 %}
           {% endif %}
