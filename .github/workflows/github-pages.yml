@@ -5,6 +5,13 @@ on:
   push:
     branches: ["main"]
 
+  # Redeploy after the show-fetch workflow commits an updated archive. Commits made
+  # with the built-in GITHUB_TOKEN don't fire `push`, so trigger the deploy directly
+  # off that workflow finishing — otherwise daily show updates never reach the site.
+  workflow_run:
+    workflows: ["Fetch live shows"]
+    types: [completed]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
