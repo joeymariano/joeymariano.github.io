@@ -1,0 +1,461 @@
+[
+  {
+    "id": "7854402",
+    "artist": "animal style",
+    "accent": "#EF4444",
+    "datetime": "2013-11-01T20:30:00",
+    "venue": "The Fire",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/7854402"
+  },
+  {
+    "id": "8036214",
+    "artist": "animal style",
+    "accent": "#EF4444",
+    "datetime": "2013-11-30T19:00:00",
+    "venue": "Underground Arts",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/8036214"
+  },
+  {
+    "id": "100208040",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2018-10-27T19:00:15",
+    "venue": "Bit Crushed",
+    "location": "Buffalo, NY",
+    "url": "https://www.bandsintown.com/e/100208040"
+  },
+  {
+    "id": "100626783",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2019-01-11T19:00:06",
+    "venue": "Babycastles",
+    "location": "New York, NY",
+    "url": "https://www.bandsintown.com/e/100626783"
+  },
+  {
+    "id": "1013060559",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2019-01-19T20:00:00",
+    "venue": "PhilaMOCA",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/1013060559"
+  },
+  {
+    "id": "101195087",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2019-05-26T21:00:00",
+    "venue": "Pine Box Rock Shop",
+    "location": "Brooklyn, NY",
+    "url": "https://www.bandsintown.com/e/101195087"
+  },
+  {
+    "id": "102139678",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2020-02-28T20:00:00",
+    "venue": "Century",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/102139678"
+  },
+  {
+    "id": "103766416",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2022-09-30T19:00:00",
+    "venue": "Philadelphia Insectarium and Butterfly Pavilion",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/103766416"
+  },
+  {
+    "id": "1027635881",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2023-03-23T19:00:00",
+    "venue": "DNA Lounge",
+    "location": "San Francisco, CA",
+    "url": "https://www.bandsintown.com/e/1027635881"
+  },
+  {
+    "id": "104299212",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2023-04-21T19:00:00",
+    "venue": "nmlstyl at Wonderville",
+    "location": "Brooklyn, NY",
+    "url": "https://www.bandsintown.com/e/104299212"
+  },
+  {
+    "id": "104456367",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2023-06-03T14:00:00",
+    "venue": "West Philadelphia Porchfest 2023",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/104456367"
+  },
+  {
+    "id": "1028574851",
+    "artist": "animal style",
+    "accent": "#EF4444",
+    "datetime": "2023-06-25T20:00:00",
+    "venue": "Bourbon on Division",
+    "location": "Chicago, IL",
+    "url": "https://www.bandsintown.com/e/1028574851"
+  },
+  {
+    "id": "105177420",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-02-23T20:00:00",
+    "venue": "Radio Room",
+    "location": "Greenville, SC",
+    "url": "https://www.bandsintown.com/e/105177420"
+  },
+  {
+    "id": "105177423",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-02-24T20:00:00",
+    "venue": "The Whirling Tiger",
+    "location": "Louisville, KY",
+    "url": "https://www.bandsintown.com/e/105177423"
+  },
+  {
+    "id": "105177425",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-02-25T20:00:00",
+    "venue": "The Southgate House Revival (Sanctuary)",
+    "location": "Newport, KY",
+    "url": "https://www.bandsintown.com/e/105177425"
+  },
+  {
+    "id": "1030844590",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-02-26T19:00:00",
+    "venue": "Mahall's",
+    "location": "Lakewood, OH",
+    "url": "https://www.bandsintown.com/e/1030844590"
+  },
+  {
+    "id": "105177421",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-02-27T20:00:00",
+    "venue": "Rec Room",
+    "location": "Buffalo, NY",
+    "url": "https://www.bandsintown.com/e/105177421"
+  },
+  {
+    "id": "105177424",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-02-28T20:00:00",
+    "venue": "The Song & Dance",
+    "location": "Syracuse, NY",
+    "url": "https://www.bandsintown.com/e/105177424"
+  },
+  {
+    "id": "105177416",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-02-29T20:00:00",
+    "venue": "Portland House Of Music and Events (HOME)",
+    "location": "Portland, ME",
+    "url": "https://www.bandsintown.com/e/105177416"
+  },
+  {
+    "id": "105177414",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-03-01T21:00:00",
+    "venue": "Press Room",
+    "location": "Portsmouth, NH",
+    "url": "https://www.bandsintown.com/e/105177414"
+  },
+  {
+    "id": "105177419",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-03-02T20:00:00",
+    "venue": "The Met",
+    "location": "Cranston, RI",
+    "url": "https://www.bandsintown.com/e/105177419"
+  },
+  {
+    "id": "105177418",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-03-03T20:00:00",
+    "venue": "Park City Music Hall",
+    "location": "Bridgeport, CT",
+    "url": "https://www.bandsintown.com/e/105177418"
+  },
+  {
+    "id": "105177415",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-03-05T20:00:00",
+    "venue": "89 North Music Venue",
+    "location": "Patchogue, NY",
+    "url": "https://www.bandsintown.com/e/105177415"
+  },
+  {
+    "id": "105177422",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-03-06T20:00:00",
+    "venue": "Wonder Bar",
+    "location": "Asbury Park, NJ",
+    "url": "https://www.bandsintown.com/e/105177422"
+  },
+  {
+    "id": "105177417",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-03-07T20:00:00",
+    "venue": "Elkton Music Hall",
+    "location": "Elkton, MD",
+    "url": "https://www.bandsintown.com/e/105177417"
+  },
+  {
+    "id": "1030850355",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-03-08T20:00:00",
+    "venue": "Pearl Street Warehouse",
+    "location": "Washington, DC",
+    "url": "https://www.bandsintown.com/e/1030850355"
+  },
+  {
+    "id": "105607916",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-06-08T14:00:00",
+    "venue": "Porch Fest (West Philly)",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/105607916"
+  },
+  {
+    "id": "105291937",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-09-07T19:30:00",
+    "venue": "nmlstyl album release party",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/105291937"
+  },
+  {
+    "id": "1032054700",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2024-09-08T20:00:00",
+    "venue": "The Queen",
+    "location": "Wilmington, DE",
+    "url": "https://www.bandsintown.com/e/1032054700"
+  },
+  {
+    "id": "106702429",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-04-11T19:00:00",
+    "venue": "Chiptune Comes to Ann Arbor",
+    "location": "Ann Arbor, MI",
+    "url": "https://www.bandsintown.com/e/106702429"
+  },
+  {
+    "id": "106777559",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-04-25T20:00:00",
+    "venue": "The Radio Room",
+    "location": "Greenville, SC",
+    "url": "https://www.bandsintown.com/e/106777559"
+  },
+  {
+    "id": "106777570",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-04-26T20:00:00",
+    "venue": "The Burl",
+    "location": "Lexington, KY",
+    "url": "https://www.bandsintown.com/e/106777570"
+  },
+  {
+    "id": "106777566",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-04-27T20:00:00",
+    "venue": "The Whirling Tiger",
+    "location": "Louisville, KY",
+    "url": "https://www.bandsintown.com/e/106777566"
+  },
+  {
+    "id": "106777562",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-04-29T20:00:00",
+    "venue": "Frankie's",
+    "location": "Toledo, OH",
+    "url": "https://www.bandsintown.com/e/106777562"
+  },
+  {
+    "id": "106777555",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-04-30T20:00:00",
+    "venue": "Mahall's",
+    "location": "Lakewood, OH",
+    "url": "https://www.bandsintown.com/e/106777555"
+  },
+  {
+    "id": "106777563",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-01T20:00:00",
+    "venue": "Buffalo Iron Works",
+    "location": "Buffalo, NY",
+    "url": "https://www.bandsintown.com/e/106777563"
+  },
+  {
+    "id": "106777557",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-02T20:00:00",
+    "venue": "The Song & Dance",
+    "location": "Syracuse, NY",
+    "url": "https://www.bandsintown.com/e/106777557"
+  },
+  {
+    "id": "106777561",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-03T20:00:00",
+    "venue": "Empire Live",
+    "location": "Albany, NY",
+    "url": "https://www.bandsintown.com/e/106777561"
+  },
+  {
+    "id": "106777556",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-04T20:00:00",
+    "venue": "Portland House of Music",
+    "location": "Portland, ME",
+    "url": "https://www.bandsintown.com/e/106777556"
+  },
+  {
+    "id": "106777554",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-06T20:00:00",
+    "venue": "Fete Music Hall",
+    "location": "Providence, RI",
+    "url": "https://www.bandsintown.com/e/106777554"
+  },
+  {
+    "id": "106777568",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-07T20:00:00",
+    "venue": "The Drake",
+    "location": "Amherst, MA",
+    "url": "https://www.bandsintown.com/e/106777568"
+  },
+  {
+    "id": "106777558",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-08T20:00:00",
+    "venue": "3S Artspace",
+    "location": "Portsmouth, NH",
+    "url": "https://www.bandsintown.com/e/106777558"
+  },
+  {
+    "id": "106777569",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-12T20:00:00",
+    "venue": "Park City Music Hall",
+    "location": "Bridgeport, CT",
+    "url": "https://www.bandsintown.com/e/106777569"
+  },
+  {
+    "id": "106777564",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-13T20:00:00",
+    "venue": "Amityville Music Hall",
+    "location": "Amityville, NY",
+    "url": "https://www.bandsintown.com/e/106777564"
+  },
+  {
+    "id": "106777560",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-14T20:00:00",
+    "venue": "Wonder Bar",
+    "location": "Asbury Park, NJ",
+    "url": "https://www.bandsintown.com/e/106777560"
+  },
+  {
+    "id": "106777571",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-15T20:00:00",
+    "venue": "Elkton Music Hall",
+    "location": "Elkton, MD",
+    "url": "https://www.bandsintown.com/e/106777571"
+  },
+  {
+    "id": "106777565",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-16T20:00:00",
+    "venue": "Mickey's Black Box",
+    "location": "Lititz, PA",
+    "url": "https://www.bandsintown.com/e/106777565"
+  },
+  {
+    "id": "106777567",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-05-17T20:00:00",
+    "venue": "Pearl Street Warehouse",
+    "location": "Washington, DC",
+    "url": "https://www.bandsintown.com/e/106777567"
+  },
+  {
+    "id": "107002844",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-08-22T19:00:00",
+    "venue": ".WAV Fest",
+    "location": "Seattle, WA",
+    "url": "https://www.bandsintown.com/e/107002844"
+  },
+  {
+    "id": "1036327413",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2025-11-22T18:00:00",
+    "venue": "MilkBoy",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/1036327413"
+  },
+  {
+    "id": "1038057372",
+    "artist": "nmlstyl",
+    "accent": "#3B82F6",
+    "datetime": "2026-03-01T19:00:00",
+    "venue": "Underground Arts",
+    "location": "Philadelphia, PA",
+    "url": "https://www.bandsintown.com/e/1038057372"
+  }
+]

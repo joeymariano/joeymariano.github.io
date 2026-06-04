@@ -1,0 +1,49 @@
+name: Fetch live shows
+
+on:
+  # Daily pull. The committed archive only grows, so cadence just controls freshness.
+  schedule:
+    - cron: "0 9 * * *" # 09:00 UTC daily
+  # Allow manual runs from the Actions tab.
+  workflow_dispatch:
+
+# Needed so the job can commit the refreshed archive back to the repo.
+permissions:
+  contents: write
+
+# Don't overlap with another in-flight run.
+concurrency:
+  group: "fetch-shows"
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch + merge shows into _data/shows.json
+        run: node scripts/fetch-shows.mjs
+        env:
+          # One key per act. Set these in repo Settings → Secrets and variables → Actions.
+          # An act whose secret is unset is simply skipped.
+          BANDSINTOWN_APP_ID_NMLSTYL: ${{ secrets.BANDSINTOWN_APP_ID_NMLSTYL }}
+          BANDSINTOWN_APP_ID_ANIMAL_STYLE: ${{ secrets.BANDSINTOWN_APP_ID_ANIMAL_STYLE }}
+
+      - name: Commit archive if it changed
+        run: |
+          if [[ -n "$(git status --porcelain _data/shows.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add _data/shows.json
+            git commit -m "chore: update live shows archive"
+            git push
+          else
+            echo "No new or changed shows."
+          fi

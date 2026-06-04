@@ -7,9 +7,9 @@
 
   <div id="fadeContent" class="pl-8 pr-8">
 
-    <!-- R E C O R D I N G S -->
+    <!-- S A M P L E S -->
     <div class="mb-8 ">
-       <h1><span class="hdr-1-macro">Recordings</span></h1>
+       <h1><span class="hdr-1-macro">Samples</span></h1>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense mb-10">
       {% for item in site.cards %}
@@ -25,6 +25,8 @@
         {% endif %}
       {% endfor %}
     </div>
+
+    {% include _live-shows.html %}
 
     <!-- M U S I C  C A R D S -->
     <div class="mb-8">

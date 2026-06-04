@@ -1,0 +1,73 @@
+<!-- L I V E  S H O W S -->
+<!-- Rendered at build time from _data/shows.json — an append-only archive kept
+     current by .github/workflows/fetch-shows.yml (a daily Bandsintown pull for
+     nmlstyl + animal style). The committed file is the source of truth, so shows
+     persist and the section keeps working even if Bandsintown is unreachable.
+     Upcoming dates show first; with none booked it falls back to recent shows. -->
+<section class="mb-12" aria-labelledby="live-shows-heading">
+  <div class="mb-8">
+    <h1 id="live-shows-heading"><span class="hdr-1-macro">Live Shows</span></h1>
+  </div>
+
+  {% assign shows = site.data.shows %}
+  {% if shows and shows.size > 0 %}
+    {% assign now = 'now' | date: '%s' | plus: 0 %}
+    {% assign sorted = shows | sort: 'datetime' %}
+
+    {% comment %} Count what's still in the future to pick upcoming vs. past mode. {% endcomment %}
+    {% assign upcoming_count = 0 %}
+    {% for show in sorted %}
+      {% assign ev = show.datetime | date: '%s' | plus: 0 %}
+      {% if ev >= now %}{% assign upcoming_count = upcoming_count | plus: 1 %}{% endif %}
+    {% endfor %}
+
+    {% if upcoming_count > 0 %}
+      <p class="text-gray-500 text-sm font-semibold mb-6">Upcoming shows</p>
+      <ol class="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {% for show in sorted %}
+          {% assign ev = show.datetime | date: '%s' | plus: 0 %}
+          {% if ev >= now %}{% include _show-row.html show=show past=false %}{% endif %}
+        {% endfor %}
+      </ol>
+    {% else %}
+      <p class="text-gray-500 text-sm font-semibold mb-6">No upcoming dates booked &mdash; here are some recent shows.</p>
+      <ol class="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {% assign recent = sorted | reverse %}
+        {% assign shown = 0 %}
+        {% for show in recent %}
+          {% if shown < 8 %}
+            {% include _show-row.html show=show past=true %}
+            {% assign shown = shown | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+      </ol>
+    {% endif %}
+  {% else %}
+    <p class="text-gray-500 text-sm font-semibold">No shows to display right now &mdash; check back soon.</p>
+  {% endif %}
+
+  <!-- Full archives on the source platforms (always shown — not just what's pulled above). -->
+  <div class="mt-8 flex flex-col gap-2">
+    <span class="uppercase tracking-widest text-xs text-gray-600 font-semibold">Full show history</span>
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+      <span class="uppercase tracking-widest text-xs font-semibold" style="color:#3B82F6">nmlstyl</span>
+      <a href="https://www.bandsintown.com/a/14173939-nmlstyl" target="_blank" rel="noopener"
+         aria-label="nmlstyl on Bandsintown"
+         class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Bandsintown</a>
+      <span class="text-gray-700" aria-hidden="true">&middot;</span>
+      <a href="https://www.songkick.com/artists/8980439-nmlstyl" target="_blank" rel="noopener"
+         aria-label="nmlstyl on Songkick"
+         class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Songkick</a>
+    </div>
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+      <span class="uppercase tracking-widest text-xs font-semibold" style="color:#EF4444">animal style</span>
+      <a href="https://www.bandsintown.com/a/13342-animal-style" target="_blank" rel="noopener"
+         aria-label="animal style on Bandsintown"
+         class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Bandsintown</a>
+      <span class="text-gray-700" aria-hidden="true">&middot;</span>
+      <a href="https://www.songkick.com/artists/605451-animal-style" target="_blank" rel="noopener"
+         aria-label="animal style on Songkick"
+         class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Songkick</a>
+    </div>
+  </div>
+</section>
