@@ -1,7 +1,6 @@
 {% comment %}
   One Live Shows card. Params:
     include.show — a record from _data/shows.json
-    include.past — true to label the CTA "Details" instead of "Tickets"
   Inherits .fade-in-item so the global stagger in scripts.js fades it in.
 {% endcomment %}
 {% assign show = include.show %}
@@ -21,7 +20,7 @@
       <p class="text-xs uppercase tracking-widest mt-1" style="color:#FCD34D">{{ show.artist | escape }}</p>
       {% if show.url and show.url != "" %}
         <a href="{{ show.url | escape }}" target="_blank" rel="noopener"
-           class="inline-block mt-2 text-blue-400 hover:text-blue-200 transition duration-150 no-underline"><span class="text-gray-500">&oplus;</span> {% if include.past %}Details{% else %}Tickets{% endif %}</a>
+           class="inline-block mt-2 text-blue-400 hover:text-blue-200 transition duration-150 no-underline"><span class="text-gray-500">&oplus;</span> Details</a>
       {% endif %}
     </div>
   </div>

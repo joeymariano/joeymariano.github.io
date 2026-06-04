@@ -3,7 +3,7 @@
      current by .github/workflows/fetch-shows.yml (a daily Bandsintown pull for
      nmlstyl + animal style). The committed file is the source of truth, so shows
      persist and the section keeps working even if Bandsintown is unreachable.
-     Upcoming dates show first; with none booked it falls back to recent shows. -->
+     Upcoming dates show first, followed by recent past shows. -->
 <section class="mb-12" aria-labelledby="live-shows-heading">
   <div class="mb-8">
     <h1 id="live-shows-heading"><span class="hdr-1-macro">Live Shows</span></h1>
@@ -14,40 +14,46 @@
     {% assign now = 'now' | date: '%s' | plus: 0 %}
     {% assign sorted = shows | sort: 'datetime' %}
 
-    {% comment %} Count what's still in the future to pick upcoming vs. past mode. {% endcomment %}
+    {% comment %} Tally upcoming vs. past so each block only renders when it has shows. {% endcomment %}
     {% assign upcoming_count = 0 %}
     {% for show in sorted %}
       {% assign ev = show.datetime | date: '%s' | plus: 0 %}
       {% if ev >= now %}{% assign upcoming_count = upcoming_count | plus: 1 %}{% endif %}
     {% endfor %}
+    {% assign past_count = sorted.size | minus: upcoming_count %}
 
+    {% comment %} Upcoming block — only when there are future dates. {% endcomment %}
     {% if upcoming_count > 0 %}
-      <p class="text-gray-500 text-sm font-semibold mb-6">Upcoming shows</p>
+      <p class="inline-block bg-black rounded-lg px-3 py-1 text-gray-500 text-sm font-semibold mb-6">Upcoming shows</p>
       <ol class="list-none p-0 m-0 grid grid-cols-2 lg:grid-cols-6 gap-4">
         {% for show in sorted %}
           {% assign ev = show.datetime | date: '%s' | plus: 0 %}
-          {% if ev >= now %}{% include _show-row.html show=show past=false %}{% endif %}
+          {% if ev >= now %}{% include _show-row.html show=show %}{% endif %}
         {% endfor %}
       </ol>
-    {% else %}
-      <p class="text-gray-500 text-sm font-semibold mb-6">No upcoming dates booked &mdash; here are some recent shows.</p>
+    {% endif %}
+
+    {% comment %} Past block — always shown (up to 12 most recent), even alongside upcoming. {% endcomment %}
+    {% if past_count > 0 %}
+      <p class="inline-block bg-black rounded-lg px-3 py-1 text-gray-500 text-sm font-semibold mb-6 {% if upcoming_count > 0 %}mt-10{% endif %}">{% if upcoming_count > 0 %}Past shows{% else %}No upcoming dates booked &mdash; here are some recent shows.{% endif %}</p>
       <ol class="list-none p-0 m-0 grid grid-cols-2 lg:grid-cols-6 gap-4">
         {% assign recent = sorted | reverse %}
         {% assign shown = 0 %}
         {% for show in recent %}
-          {% if shown < 12 %}
-            {% include _show-row.html show=show past=true %}
+          {% assign ev = show.datetime | date: '%s' | plus: 0 %}
+          {% if ev < now and shown < 12 %}
+            {% include _show-row.html show=show %}
             {% assign shown = shown | plus: 1 %}
           {% endif %}
         {% endfor %}
       </ol>
     {% endif %}
   {% else %}
-    <p class="text-gray-500 text-sm font-semibold">No shows to display right now &mdash; check back soon.</p>
+    <p class="inline-block bg-black rounded-lg px-3 py-1 text-gray-500 text-sm font-semibold">No shows to display right now &mdash; check back soon.</p>
   {% endif %}
 
   <!-- Full archives on the source platforms (always shown — not just what's pulled above). -->
-  <div class="mt-8 flex flex-col gap-2">
+  <div class="mt-8 inline-flex flex-col gap-2 bg-black rounded-xl p-4">
     <span class="uppercase tracking-widest text-xs text-gray-600 font-semibold">Full show history</span>
     <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
       <span class="uppercase tracking-widest text-xs font-semibold" style="color:#3B82F6">nmlstyl</span>
