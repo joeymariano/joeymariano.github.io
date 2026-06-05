@@ -23,7 +23,7 @@
 
     // baseUrl is rendered by Liquid from the parent include — this file is a
     // plain JS asset, so we derive it from the current page's image instead.
-    const baseUrl = blackBookPage.src.replace(/\d+\.jpg$/, '');
+    const baseUrl = blackBookPage.src.replace(/\d+\.webp$/, '');
 
 
     /* ── P R E L O A D ──────────────────────────────────────────────────────
@@ -44,7 +44,7 @@
 
     for (let i = 0; i < NUM_PAGES; i++) {
         const img = new window.Image();
-        img.src = baseUrl + i + '.jpg';
+        img.src = baseUrl + i + '.webp';
         img.onload = img.onerror = function () {
             imageCache[i] = img;
             loadedCount++;
@@ -111,7 +111,7 @@
         const target    = pendingTarget;
         const direction = target > pageNumber ? 'next' : 'prev';
         const startClip = direction === 'next' ? 'inset(0 0% 0 100%)' : 'inset(0 100% 0 0)';
-        const newImgUrl = baseUrl + target + '.jpg';
+        const newImgUrl = baseUrl + target + '.webp';
         const detail    = { newImgUrl: newImgUrl, startClip: startClip, direction: direction, newPageNumber: target };
 
         // Broadcast so listeners (e.g. the image modal) can mirror the wipe.
