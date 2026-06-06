@@ -1,0 +1,56 @@
+/* N A V  A N I M A T I O N */
+@media (max-width: 1280px) {
+  #menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s linear; /* timeout must math the js function */
+  }
+  #menu.show {
+    max-height: 500px;
+  }
+}
+
+/* H A M B U R G E R  - >  X  A N I M A T I O N */
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  width: 20px;
+  height: 2px;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: all 0.15s linear;
+  display: block;
+  position: relative;
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: "";
+  position: absolute;
+}
+
+.hamburger-inner::before { transform: translateY(-300%); }
+.hamburger-inner::after  { transform: translateY(300%);  }
+
+/* X state: triggered by #menu-btn.is-open (animated) or .is-x modifier (static) */
+#menu-btn.is-open .hamburger-inner,
+.hamburger-inner.is-x          { background: rgba(0,0,0,0); }
+#menu-btn.is-open .hamburger-inner::before,
+.hamburger-inner.is-x::before  { transform: rotate(45deg);  }
+#menu-btn.is-open .hamburger-inner::after,
+.hamburger-inner.is-x::after   { transform: rotate(-45deg); }
+
+@keyframes nav-hover-cycle {
+  0%   { box-shadow: 0 0 0 3px #ef4444; }
+  33%  { box-shadow: 0 0 0 3px #3b82f6; }
+  66%  { box-shadow: 0 0 0 3px #fde047; }
+  100% { box-shadow: 0 0 0 3px #ef4444; }
+}
+
+.nav-link {
+  transition: box-shadow 0.3s ease-out;
+}
+
+.nav-link:hover {
+  animation: nav-hover-cycle 1.5s ease-in-out infinite;
+}

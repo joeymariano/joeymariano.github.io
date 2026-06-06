@@ -1,0 +1,23 @@
+/* S T A G G E R E D  F A D E - I N */
+.fade-in-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.fade-in-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* C O N T A C T  B O R D E R  A N I M A T I O N */
+@keyframes contact-border-glow {
+  0%   { box-shadow: 0 0 0 0px transparent; }
+  15%  { box-shadow: 0 0 0 3px #ef4444; }
+  50%  { box-shadow: 0 0 0 3px #3b82f6; }
+  80%  { box-shadow: 0 0 0 3px #fde047; }
+  100% { box-shadow: 0 0 0 0px transparent; }
+}
+
+.contact-blink {
+  animation: contact-border-glow 4s ease-in-out 1 forwards;
+}

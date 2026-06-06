@@ -34,6 +34,7 @@ plugins:
 # the internal "default list."
 exclude:
  - _originals/
+ - assets/css/partials/
  - .sass-cache/
  - .jekyll-cache/
  - gemfiles/

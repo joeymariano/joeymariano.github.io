@@ -1,0 +1,16 @@
+/* A 1 1 Y :  V I S I B L E  F O C U S  R I N G  (keyboard only, via :focus-visible) */
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 2px solid #3b82f6;   /* blue-500, same as elsewhere in the palette */
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* H I D E  J O B  S C R O L L E R  B A R */
+#job-scroller {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+#job-scroller::-webkit-scrollbar {
+  display: none;
+}
