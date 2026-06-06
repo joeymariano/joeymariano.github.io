@@ -128,13 +128,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ── S I Z I N G   +   C O R N E R   R A D I U S ──────────────────────── */
 
-    // Fit the image into 95% of the viewport while preserving aspect ratio.
+    // Fit the image inside the modal's padded box while preserving aspect ratio.
+    // We measure the modal element itself (position:fixed; inset-0) rather than
+    // window.innerWidth/innerHeight: on mobile the window dimensions track the
+    // *visual* viewport, which jumps when the URL bar shows/hides — that made the
+    // image expand and jump right after a page-turn wipe. The fixed modal box
+    // tracks the stable layout viewport instead. Subtracting the real padding
+    // also keeps the computed size from exceeding the content area (which would
+    // otherwise get clamped by `max-width:100%` and distort the aspect ratio).
     function fitImage() {
         let nw = modalImg.naturalWidth;
         let nh = modalImg.naturalHeight;
         if (!nw || !nh) { nw = nh = 1; } // SVGs without intrinsic dims → square fallback
-        const vw = window.innerWidth * 0.95;
-        const vh = window.innerHeight * 0.95;
+        const cs   = getComputedStyle(modal);
+        const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+        const padY = parseFloat(cs.paddingTop)  + parseFloat(cs.paddingBottom);
+        const vw = modal.clientWidth  - padX;
+        const vh = modal.clientHeight - padY;
         const ratio = nw / nh;
         let w, h;
         if (vw / ratio <= vh) { w = vw; h = vw / ratio; }
