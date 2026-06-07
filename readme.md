@@ -46,9 +46,9 @@ Renders all cards where `category` contains `home` in a responsive 1→2→4 col
 
 ---
 
-### 💻 Code / Tech Page (`/code`)
+### 💻 Code / Tech Page (`/tech`)
 
-Layout: `_layouts/code.html` — source: `code.md`
+Layout: `_layouts/code.html` — source: `tech.md`
 
 Renders all cards where `category` contains `code` or `tech` under a "Tech Related" heading. Same responsive grid as home.
 

@@ -230,7 +230,7 @@ async function generateResumePDF() {
         'https://joeymariano.com/resume',
         'https://joeymariano.com/visual-art',
         'https://joeymariano.com/music',
-        'https://joeymariano.com/code'
+        'https://joeymariano.com/tech'
     ];
 
     doc.setProperties({
@@ -711,7 +711,7 @@ async function generateResumePDF() {
         { text: 'Interactive Resume', url: 'https://joeymariano.com/resume',     color: BLUE  },
         { text: 'Visual Art',         url: 'https://joeymariano.com/visual-art', color: RED   },
         { text: 'Music',              url: 'https://joeymariano.com/music',      color: GREEN },
-        { text: 'Code',               url: 'https://joeymariano.com/code',       color: BLUE  },
+        { text: 'Code',               url: 'https://joeymariano.com/tech',       color: BLUE  },
         { text: 'joeymariano.com',    url: 'https://joeymariano.com',            color: RED   }
     ];
     const footerFs = 8.5;
