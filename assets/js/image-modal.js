@@ -311,6 +311,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
+    /* ── B O O K - M O D E   T A P   Z O N E S ───────────────────────────────
+     * In book mode, the left half of the modal image acts as prev and the right
+     * half as next. We forward to the existing prev/next buttons so the wipe,
+     * click-queue, and all page-turn logic stay exactly as-is. Only active while
+     * the Black Book is open; otherwise clicking the image does nothing.
+     * ----------------------------------------------------------------------- */
+
+    modalImg.addEventListener('click', function (e) {
+        if (!bookMode) return;
+        const rect = modalImg.getBoundingClientRect();
+        const onLeft = (e.clientX - rect.left) < rect.width / 2;
+        const btn = document.getElementById(onLeft ? 'prev-page' : 'next-page');
+        if (btn) btn.click();
+    });
+
+
     /* ── G L O B A L   L I S T E N E R S ────────────────────────────────── */
 
     window.addEventListener('resize', function () {
