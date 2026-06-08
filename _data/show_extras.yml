@@ -30,18 +30,6 @@
     - Cheap Dinosaurs
     - Chipocrite
 
-- id: "8static-fest-2013"      # 8static Festival, 1st annual — First Unitarian Church
+- id: "8static-festival"       # 8static Festival — annual chiptune fest (2013–2016)
   highlight: true
-  note: "1st annual"
-
-- id: "8static-fest-2014"      # 8static Festival, 2nd annual
-  highlight: true
-  note: "2nd annual"
-
-- id: "8static-fest-2015"      # 8static Festival, 3rd annual
-  highlight: true
-  note: "3rd annual"
-
-- id: "8static-fest-2016"      # 8static Festival, 4th annual
-  highlight: true
-  note: "4th annual"
+  note: "Annual chiptune festival · 2013–2016"

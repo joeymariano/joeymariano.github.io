@@ -3,6 +3,11 @@
   @apply ring-[#333333] ring-4 py-2 px-3 uppercase rounded-xl bg-black tracking-widest text-lg;
 }
 
+/* Mini heading — same look as .hdr-1-macro, ~30% smaller (for sub-section labels). */
+.hdr-2-macro {
+  @apply ring-[#333333] ring-[3px] py-1.5 px-2.5 rounded-lg bg-black tracking-widest text-[0.8rem];
+}
+
 .arrow-btn-macro {
   @apply mr-4 ring-2 bg-black hover:ring-gray-400 py-1 px-4 rounded-xl;
 }

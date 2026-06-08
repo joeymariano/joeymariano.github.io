@@ -9,8 +9,7 @@
 {% assign show = include.show %}
 {% if include.wide %}
 <li class="fade-in-item">
-  <div class="striped-div rounded-2xl bg-black p-3 shadow-[6px_6px_0px_#181818]"
-       style="outline:2px solid {{ show.accent | default: '#FDE047' }};outline-offset:2px">
+  <div class="striped-div rounded-2xl bg-black p-3">
     <div class="bg-black rounded-xl px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2">
       {% if include.highlight %}<span class="text-base leading-none shrink-0" style="color:{{ show.accent | default: '#FDE047' }}">&#9733;</span>{% endif %}
       <!-- date block -->
@@ -39,8 +38,7 @@
 </li>
 {% else %}
 <li class="fade-in-item">
-  <div class="striped-div h-full rounded-2xl bg-black p-4 flex flex-col gap-3"
-       {% if include.highlight %}style="outline:2px solid {{ show.accent | default: '#FDE047' }};outline-offset:2px"{% endif %}>
+  <div class="striped-div h-full rounded-2xl bg-black p-4 flex flex-col gap-3">
     <!-- date + venue + location + artist + link, all on one black panel (legible over the stripes) -->
     <div class="bg-black rounded-xl p-3 flex-1">
       {% if include.highlight %}
