@@ -1,13 +1,51 @@
 {% comment %}
-  One Live Shows card. Params:
-    include.show — a record from _data/shows.json
+  One Live Shows entry. Params:
+    include.show      — a record from _data/shows.json
+    include.wide      — true for a full-width, single-line row (used for Upcoming)
+    include.highlight — true to mark a notable show (accent outline + ★) [card mode]
+    include.note      — optional short caption [card mode]
   Inherits .fade-in-item so the global stagger in scripts.js fades it in.
 {% endcomment %}
 {% assign show = include.show %}
+{% if include.wide %}
 <li class="fade-in-item">
-  <div class="striped-div h-full rounded-2xl bg-black p-4 flex flex-col gap-3">
+  <div class="striped-div rounded-2xl bg-black p-3 shadow-[6px_6px_0px_#181818]"
+       style="outline:2px solid {{ show.accent | default: '#FDE047' }};outline-offset:2px">
+    <div class="bg-black rounded-xl px-4 py-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+      {% if include.highlight %}<span class="text-base leading-none shrink-0" style="color:{{ show.accent | default: '#FDE047' }}">&#9733;</span>{% endif %}
+      <!-- date block -->
+      <div class="flex items-baseline gap-2 shrink-0">
+        <span class="text-xs uppercase tracking-widest text-gray-500">{{ show.datetime | date: "%b" | upcase }}</span>
+        <span class="text-3xl font-bold text-white leading-none">{{ show.datetime | date: "%-d" }}</span>
+        <span class="text-xs text-gray-500">{{ show.datetime | date: "%Y" }}</span>
+        <span class="text-xs text-gray-500">&middot; {{ show.datetime | date: "%-I:%M %p" }}</span>
+      </div>
+      <!-- venue + location (takes the remaining width) -->
+      <div class="flex-1 min-w-[8rem]">
+        <span class="text-white font-bold">{{ show.venue | escape }}</span>
+        {% if show.location and show.location != "" %}<span class="text-gray-400 text-sm"> &middot; {{ show.location | escape }}</span>{% endif %}
+      </div>
+      <!-- artist + lineup -->
+      <span class="text-xs tracking-widest shrink-0" style="color:#FDE047">{{ show.artist | escape }}</span>
+      {% if include.lineup %}<span class="text-gray-500 text-sm shrink-0">with {{ include.lineup | join: " · " | escape }}</span>{% endif %}
+      {% if include.note and include.note != "" %}<span class="text-gray-300 text-sm shrink-0">{{ include.note | escape }}</span>{% endif %}
+      <!-- details -->
+      {% if show.url and show.url != "" %}
+        <a href="{{ show.url | escape }}" target="_blank" rel="noopener"
+           class="shrink-0 text-blue-400 hover:text-blue-200 transition duration-150 no-underline"><span class="text-gray-500">&oplus;</span> Details</a>
+      {% endif %}
+    </div>
+  </div>
+</li>
+{% else %}
+<li class="fade-in-item">
+  <div class="striped-div h-full rounded-2xl bg-black p-4 flex flex-col gap-3"
+       {% if include.highlight %}style="outline:2px solid {{ show.accent | default: '#FDE047' }};outline-offset:2px"{% endif %}>
     <!-- date + venue + location + artist + link, all on one black panel (legible over the stripes) -->
     <div class="bg-black rounded-xl p-3 flex-1">
+      {% if include.highlight %}
+      <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color:{{ show.accent | default: '#FDE047' }}">&#9733; Highlight</p>
+      {% endif %}
       <div class="flex items-baseline gap-2 mb-1">
         <span class="text-xs uppercase tracking-widest text-gray-500">{{ show.datetime | date: "%b" | upcase }}</span>
         <span class="text-xl font-bold text-white leading-none">{{ show.datetime | date: "%-d" }}</span>
@@ -17,7 +55,13 @@
       {% if show.location and show.location != "" %}
         <p class="text-sm text-gray-400">{{ show.location | escape }}</p>
       {% endif %}
-      <p class="text-xs uppercase tracking-widest mt-1" style="color:#FDE047">{{ show.artist | escape }}</p>
+      <p class="text-xs tracking-widest mt-1" style="color:#FDE047">{{ show.artist | escape }}</p>
+      {% if include.lineup %}
+        <p class="text-xs text-gray-500 mt-1">with {{ include.lineup | join: " · " | escape }}</p>
+      {% endif %}
+      {% if include.note and include.note != "" %}
+        <p class="text-sm text-gray-300 mt-2">{{ include.note | escape }}</p>
+      {% endif %}
       {% if show.url and show.url != "" %}
         <a href="{{ show.url | escape }}" target="_blank" rel="noopener"
            class="inline-block mt-2 text-blue-400 hover:text-blue-200 transition duration-150 no-underline"><span class="text-gray-500">&oplus;</span> Details</a>
@@ -25,3 +69,4 @@
     </div>
   </div>
 </li>
+{% endif %}

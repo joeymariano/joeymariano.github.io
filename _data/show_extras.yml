@@ -1,0 +1,47 @@
+# Curated extra info for specific shows, keyed by Bandsintown event id (the `id`
+# in _data/shows.json) so it survives the daily regeneration of shows.json by
+# .github/workflows/fetch-shows.yml. All fields optional:
+#   highlight: true  → shown first in "Past Shows" with an accent outline + ★
+#   note: "..."      → short caption
+#   lineup: [..]     → other performers / bill, rendered as "with A · B · C"
+# Look up ids in _data/shows.json. Add entries freely.
+
+- id: "magfest-2025-nmlstyl"   # Super MAGFest 2025 — National Harbor, MD
+  highlight: true
+  note: "Full set on YouTube"
+  lineup:
+    - Yusef Kelliebrew
+
+- id: "107002844"              # .WAV Fest — Seattle, WA (2025)
+  highlight: true
+
+- id: "1027635881"             # POW! @ DNA Lounge — San Francisco, CA (2023)
+  highlight: true
+  note: "POW!"
+
+- id: "tetris-cira-2014"       # Tetris on the Cira Centre — Philly Tech Week (2014)
+  highlight: true
+  note: "Music for the world-record building-scale Tetris"
+
+- id: "franklin-8bit-2018"     # Science After Hours: 8-Bit — The Franklin Institute (2018)
+  highlight: true
+  note: "8-Bit Science After Hours"
+  lineup:
+    - Cheap Dinosaurs
+    - Chipocrite
+
+- id: "8static-fest-2013"      # 8static Festival, 1st annual — First Unitarian Church
+  highlight: true
+  note: "1st annual"
+
+- id: "8static-fest-2014"      # 8static Festival, 2nd annual
+  highlight: true
+  note: "2nd annual"
+
+- id: "8static-fest-2015"      # 8static Festival, 3rd annual
+  highlight: true
+  note: "3rd annual"
+
+- id: "8static-fest-2016"      # 8static Festival, 4th annual
+  highlight: true
+  note: "4th annual"

@@ -1,0 +1,172 @@
+# Discography for the music page. Rendered by _includes/_release.html as
+# horizontal timelines (newest first), reusing the resume "job entry" look with
+# the album cover as the timeline node. Era drives the ring color (nmlstyl =
+# blue, animal style = red, other/compilation = yellow), matching Live Shows.
+# Covers live in assets/img/discography/. Dates/links/credits verified from
+# Bandcamp / Internet Archive / VGMdb.
+#
+# Per entry: title, year, era (nmlstyl | animal style | blank), cover (optional —
+# falls back to a pixel icon), url (optional), role (optional subtitle note).
+
+# ── Solo releases ──────────────────────────────────────────────────────────
+albums:
+  - title: sp33k
+    year: 2024
+    era: nmlstyl
+    cover: sp33k.jpg
+    url: https://nmlstyl.bandcamp.com/album/sp33k
+
+  - title: petraglyph
+    year: 2023
+    era: nmlstyl
+    cover: petraglyph.jpg
+    url: https://nmlstyl.bandcamp.com/album/petraglyph
+
+  - title: counterbeats && drips
+    year: 2022
+    era: nmlstyl
+    cover: counterbeats-drips.jpg
+    url: https://nmlstyl.bandcamp.com/album/counterbeats-drips
+
+  - title: workplace ergonomics
+    year: 2018
+    era: nmlstyl
+    cover: workplace-ergonomics.jpg
+    url: https://nmlstyl.bandcamp.com/album/workplace-ergonomics
+
+  - title: nmlstyl.concat
+    year: 2017
+    era: nmlstyl
+    cover: nmlstyl-concat.jpg
+    url: https://nmlstyl.bandcamp.com/album/nmlstyl-concat
+
+  - title: nmlstyl
+    year: 2016
+    era: nmlstyl
+    cover: nmlstyl.jpg
+    url: https://nmlstyl.bandcamp.com/album/nmlstyl
+
+  - title: Trenchvent
+    year: 2011
+    era: animal style
+    cover: trenchvent.jpg
+    url: https://animalstyle.bandcamp.com/album/trenchvent
+
+  - title: Teletime
+    year: 2010
+    era: animal style
+    cover: teletime.jpg
+    url: https://animalstyle.bandcamp.com/album/teletime
+
+  - title: Gameboy Madrigals
+    year: 2008
+    era: animal style
+    role: "II / Pause netlabel (II19)"
+    cover: gameboy-madrigals.jpg
+    url: https://archive.org/details/02-plastic-penchant
+
+  - title: Open Air
+    year: 2008
+    era: animal style
+    cover: open-air.jpg
+    url: https://animalstyle.bandcamp.com/album/open-air
+
+  - title: What is Species
+    year: 2007
+    era: animal style
+    cover: what-is-species.jpg
+    url: https://animalstyle.bandcamp.com/album/what-is-species
+
+# ── Compilations / other projects / appears on ─────────────────────────────
+# Entries without cover/url fall back to a pixel icon and plain text — drop in a
+# link (and a cover file) when you have one.
+appearances:
+  - title: ChipT4T
+    year: 2023
+    era: nmlstyl
+    role: "nmlstyl × Game Genie Sokolov — ParaDAC"
+    cover: chipt4t.jpg
+    url: https://chipt4t.bandcamp.com/album/chipt4t
+
+  - title: Sicktunes
+    year: 2022
+    role: "Cheap Dinosaurs · guitar"
+    cover: sicktunes-2.jpg
+    url: https://cheapdinosaurs.bandcamp.com/album/sicktunes-2
+
+  - title: All Stars EP
+    year: 2018
+    era: nmlstyl
+    role: "p0cky br0s · Benadryl Funk (feat. nmlstyl)"
+    cover: all-stars-ep.jpg
+    url: https://p0ckybr0s.bandcamp.com/album/all-stars-ep
+
+  - title: High Strangeness
+    year: 2016
+    role: "Cheap Dinosaurs · guitar"
+    cover: high-strangeness.jpg
+    url: https://cheapdinosaurs.bandcamp.com/album/high-strangeness
+
+  - title: Panic Zillabot
+    year: 2016
+    role: "Autoscroll · guitar"
+    cover: panic-zillabot.jpg
+    url: https://autoscroll.bandcamp.com/album/panic-zillabot
+
+  - title: Triangle Trash
+    year: 2014
+    role: "guitar, circuit bending"
+    cover: triangle-trash.jpg
+    url: https://8static.bandcamp.com/album/triangle-trash
+
+  - title: Cheap Dinosaurs Plays Goblin
+    year: 2012
+    role: "Cheap Dinosaurs · guitar"
+    cover: cheap-dinosaurs-goblin.jpg
+    url: https://cheapdinosaurs.bandcamp.com/album/cheap-dinosaurs-plays-goblin
+
+  - title: Autoscroll
+    year: 2012
+    role: "Autoscroll · produced, mixed, mastered & art"
+    cover: autoscroll.jpg
+    url: https://autoscroll.bandcamp.com/album/autoscroll
+
+  - title: Cheap Dinosaurs
+    year: 2011
+    role: "Cheap Dinosaurs · guitar"
+    cover: cheap-dinosaurs.jpg
+    url: https://datagarden.bandcamp.com/album/cheap-dinosaurs
+
+  - title: Philly Chip Vol. 1
+    year: 2010
+    era: animal style
+    role: "“Bacteria Battery” · 8static"
+    cover: philly-chip-vol-1.jpg
+    url: https://8static.bandcamp.com/album/8static-philly-chip-vol-1
+
+  - title: Sea of Ice
+    year: 2009
+    era: animal style
+    role: "“Ancient Accumulator” · II / Pause netlabel (II25)"
+    cover: sea-of-ice.jpg
+    url: https://web.archive.org/web/20121016201815/http://iimusic.net/catalog/2009/02/sea-of-ice
+
+  - title: Heartcode
+    year: 2008
+    era: animal style
+    role: "“Stalactite” · II / Pause netlabel (II22)"
+    cover: heartcode.jpg
+    url: https://web.archive.org/web/20121021013911/http://iimusic.net/catalog/2008/06/heartcode
+
+  - title: TOWN
+    year: 2007
+    era: animal style
+    role: "“HITBRITE” · II / Pause netlabel (II04)"
+    cover: town.jpg
+    url: https://web.archive.org/web/20130124151410/http://iimusic.net/catalog/2007/08/town
+
+  - title: Power Up! — 8 Bit Video Game Tribute
+    year: 2006
+    role: compilation
+    cover: power-up.jpg
+    url: https://open.spotify.com/album/671Oubl23vBEO8dBXcWmXv

@@ -7,6 +7,9 @@
 
   <div id="fadeContent" class="pl-8 pr-8">
 
+    <!-- U P C O M I N G  S H O W S  (disappears when there are none) -->
+    {% include _live-shows.html mode="upcoming" %}
+
     <!-- S A M P L E S -->
     <div class="mb-8 ">
        <h1><span class="hdr-1-macro">Samples</span></h1>
@@ -26,7 +29,33 @@
       {% endfor %}
     </div>
 
-    {% include _live-shows.html %}
+    <!-- D I S C O G R A P H Y -->
+    <section class="mb-12 fade-in-item" aria-labelledby="discography-heading">
+      <div class="mb-8">
+        <h1 id="discography-heading"><span class="hdr-1-macro">Discography</span></h1>
+      </div>
+      <!-- horizontal scrollable timeline (newest first), like the resume jobs -->
+      <div class="overflow-x-scroll">
+        <div class="w-max items-top flex p-1">
+          {% for rel in site.data.discography.albums %}
+            {% include _release.html release=rel last=forloop.last %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- compilations / appears on -->
+      <p class="inline-block bg-black rounded-lg px-3 py-1 text-gray-500 text-sm font-semibold mt-10 mb-6">Compilations &amp; appearances</p>
+      <div class="overflow-x-scroll">
+        <div class="w-max items-top flex p-1">
+          {% for rel in site.data.discography.appearances %}
+            {% include _release.html release=rel last=forloop.last %}
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- P A S T  S H O W S -->
+    {% include _live-shows.html mode="past" %}
 
     <!-- M U S I C  C A R D S -->
     <div class="mb-8">
