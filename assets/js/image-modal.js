@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const modalWipe = document.getElementById('image-modal-wipe');
     const controls  = document.getElementById('image-modal-controls');
     const closeBtn  = document.getElementById('image-modal-close');
+    const modalVideo = document.getElementById('image-modal-video');
     if (!modal || !modalImg || !closeBtn) return;
 
 
@@ -136,10 +137,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // tracks the stable layout viewport instead. Subtracting the real padding
     // also keeps the computed size from exceeding the content area (which would
     // otherwise get clamped by `max-width:100%` and distort the aspect ratio).
-    function fitImage() {
-        let nw = modalImg.naturalWidth;
-        let nh = modalImg.naturalHeight;
-        if (!nw || !nh) { nw = nh = 1; } // SVGs without intrinsic dims → square fallback
+    function fitTo(el, nw, nh) {
+        if (!nw || !nh) { nw = nh = 1; } // unknown intrinsic dims (e.g. SVG) → square fallback
         const cs   = getComputedStyle(modal);
         const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
         const padY = parseFloat(cs.paddingTop)  + parseFloat(cs.paddingBottom);
@@ -149,9 +148,16 @@ document.addEventListener('DOMContentLoaded', function () {
         let w, h;
         if (vw / ratio <= vh) { w = vw; h = vw / ratio; }
         else                  { h = vh; w = vh * ratio; }
-        modalImg.style.width  = w + 'px';
-        modalImg.style.height = h + 'px';
+        // Don't upscale past the source resolution — enlarging media beyond its
+        // natural pixels just makes it blurry. Cap to 100% and let it sit centered.
+        // (Skipped when natural dims are unknown, which read as the 1×1 fallback.)
+        if (nw > 1 && w > nw) { w = nw; h = nh; }
+        el.style.width  = w + 'px';
+        el.style.height = h + 'px';
     }
+
+    function fitImage() { fitTo(modalImg, modalImg.naturalWidth, modalImg.naturalHeight); }
+    function fitVideo() { fitTo(modalVideo, modalVideo.videoWidth, modalVideo.videoHeight); }
 
     // Mirror the source image's rounded-X class onto the modal image so the
     // modal matches the card's corner radius (full-round vs 3xl, etc).
@@ -173,7 +179,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ── O P E N   /   C L O S E ───────────────────────────────────────────── */
 
+    // Stop and detach the modal video, returning the modal to image mode.
+    function hideModalVideo() {
+        if (!modalVideo) return;
+        modalVideo.pause();
+        modalVideo.removeAttribute('src');
+        modalVideo.load();           // release the buffered media
+        modalVideo.classList.add('hidden');
+        modalImg.classList.remove('hidden');
+    }
+
+    // Open a card's <video> in the modal (muted, looping, capped at 100%).
+    function openModalVideo(src, label, roundClass) {
+        if (!modalVideo) return;
+        unbindAudio();               // videos carry no audio mirror
+        setRoundClass(modalVideo, roundClass);
+        modalImg.classList.add('hidden');
+        modalVideo.classList.remove('hidden');
+        modalVideo.setAttribute('aria-label', label || '');
+        modalVideo.src = src;
+
+        modal.classList.remove('is-closing');
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+
+        modalVideo.play().catch(function () { /* autoplay may be deferred */ });
+        if (modalVideo.videoWidth) fitVideo();
+        else modalVideo.addEventListener('loadedmetadata', fitVideo, { once: true });
+
+        trapFocus();
+    }
+
     function openModal(src, alt, roundClass, isBookMode, audio) {
+        hideModalVideo();
         setRoundClass(modalImg, roundClass);
         if (modalWipe) setRoundClass(modalWipe, roundClass);
 
@@ -209,6 +248,8 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('modal-open');
 
+        if (modalVideo) modalVideo.pause(); // stop playback as the modal wipes away
+
         // After the full X-out + wipe sequence (~0.5s): detach the audio mirror
         // (music keeps playing in the source card), reset state, clear the src.
         // unbindAudio is deferred to here so the player bar stays visible and keeps
@@ -216,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             if (modal.classList.contains('is-open')) return; // reopened mid-close
             unbindAudio();
+            hideModalVideo();
             modal.classList.remove('is-closing');
             modalImg.src = '';
         }, 500);
@@ -242,6 +284,27 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 img.click();
+            }
+        });
+    });
+
+    // Card <video>s open in the modal too (e.g. the live-visuals card).
+    document.querySelectorAll('.striped-div video').forEach(function (vid) {
+        vid.classList.add('cursor-zoom-in');
+        vid.setAttribute('tabindex', '0');
+        vid.setAttribute('role', 'button');
+        if (!vid.getAttribute('aria-label')) {
+            vid.setAttribute('aria-label', 'Open expanded view: video');
+        }
+
+        vid.addEventListener('click', function () {
+            openModalVideo(vid.currentSrc || vid.src, vid.getAttribute('aria-label'), getRoundClass(vid));
+        });
+
+        vid.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                vid.click();
             }
         });
     });
@@ -330,7 +393,9 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ── G L O B A L   L I S T E N E R S ────────────────────────────────── */
 
     window.addEventListener('resize', function () {
-        if (modal.classList.contains('is-open')) fitImage();
+        if (!modal.classList.contains('is-open')) return;
+        if (modalVideo && !modalVideo.classList.contains('hidden')) fitVideo();
+        else fitImage();
     });
 
     closeBtn.addEventListener('click', closeModal);

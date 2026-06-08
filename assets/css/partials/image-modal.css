@@ -29,9 +29,12 @@ body.modal-open {
   clip-path: inset(0 0 100% 0);
   transition: clip-path 0.28s linear 0.2s;
 }
-#image-modal img {
+#image-modal img:not(.hidden) {
   /* JS sets explicit width/height to match the rendered image bounds
-     so border-radius curves the visible image, not empty space. */
+     so border-radius curves the visible image, not empty space.
+     The :not(.hidden) guard lets JS actually hide the image in video mode —
+     without it this rule outweighs the .hidden utility and the stale image
+     stays in the layout, pushing the video off-screen. */
   display: block;
 }
 

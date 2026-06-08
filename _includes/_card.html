@@ -15,10 +15,18 @@
     <!-- container with drop shadow -->
     <div class="striped-div h-full rounded-3xl bg-black p-4 {% if include.music %}pb-10{% endif %} shadow-[8px_8px_0px_#181818] relative">
         <div>
+            {% if include.video %}
+            <video src="/assets/img/{{ include.video }}" poster="/assets/img/{{ include.image }}"
+             autoplay loop muted playsinline preload="metadata"
+             aria-label="{{ include.alt | default: include.title }}"
+             class="aspect-[auto_4/3] {% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
+             rounded-3xl{% endif %} ring-4 ring-black w-full"></video>
+            {% else %}
             <img src="/assets/img/{{ include.image }}" alt="{{ include.alt | default: include.title }}"
              loading="lazy" decoding="async"
              class="aspect-[auto_4/3] {% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
              rounded-3xl{% endif %} ring-4 ring-black w-full cursor-zoom-in">
+            {% endif %}
         </div>
 
         <!-- content is a squiggle line created by tricky CSS -->
