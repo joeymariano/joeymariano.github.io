@@ -4,35 +4,50 @@
 // a short trail that fades logarithmically, drawn with additive blending (the
 // sketch's `leds[idx] +=`, here canvas 'lighter') so overlapping trails mix.
 //
-// Behavior: a single train of four sprites — yellow, red, green, blue in order,
-// each following the one ahead — laps the card border a few times at boot, then
-// fades out. A one-shot flourish, not a perpetual loop.
+// Behavior: a single sprite with a long tail that cycles through the palette in
+// order (yellow → red → green → blue, head to tail-end). Starting at a random
+// point on the edge, it laps the card border once, then the head drives off and
+// the tail drains away behind it. A one-shot flourish, not a perpetual loop.
 (function () {
   'use strict';
 
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Train order, front to back: yellow → red → green → blue. Site palette;
+  // Tail gradient, head → end: yellow → red → green → blue. Site palette;
   // green is Tailwind green-400 (#4ade80) to match the resume "↓ PDF" button.
   const COLORS = [
-    [253, 224, 71],  // yellow #FDE047 (leads)
+    [253, 224, 71],  // yellow #FDE047 (head)
     [239, 68,  68],  // red    #EF4444
     [74,  222, 128], // green  #4ADE80
-    [59,  130, 246], // blue   #3B82F6
+    [59,  130, 246], // blue   #3B82F6 (tail end)
   ];
-  const TRAIL_LEN = 6;    // pixels behind each head
-  const SPACING   = 9;    // LED gap between consecutive sprites in the train
-  const LED       = 5;    // size of one "LED" square, in CSS px
-  const INSET     = 4;    // centers the strip in the card's black lane (p-2 = 8px)
+  const TRAIL_LEN = 120;  // LEDs in the tail (longer count keeps the tail length now that LEDs are finer)
+  const LED       = 2;    // size of one "LED" square, in CSS px (also the sample spacing)
+  const INSET     = 4;    // centers the strip in the card's transparent lane (p-2 = 8px)
   const RADIUS    = 16;   // matches the lane's Tailwind rounded-2xl (1rem)
-  const LAPS      = 4;    // full loops around the border at boot
-  const LAP_MS    = 1000; // time for one lap
-  const FADE_MS   = 800;  // fade-out after the final lap
+  const LAPS      = 1;    // full loops around the border at boot
+  const LAP_MS    = 2667; // time for one lap (a further 25% slower)
+  const EXIT_MS   = 800;  // tail drain (head-first) after the final lap
   const SVGNS     = 'http://www.w3.org/2000/svg';
 
-  function logFalloff(t) {
-    // same curve as the sketch: fast fade near the head, lingering tail
-    return 1 - Math.log(t + 1) / Math.log(TRAIL_LEN + 1);
+  function tailAlpha(t) {
+    // brightest at the head, soft taper to the tip — keeps every color visible
+    return Math.sqrt(1 - t / TRAIL_LEN);
+  }
+
+  // Color at tail position t: lerp across COLORS evenly from head to tip.
+  function tailColor(t) {
+    const segs = COLORS.length - 1;
+    const cp = (t / (TRAIL_LEN - 1)) * segs;
+    const i0 = Math.min(segs, Math.floor(cp));
+    const i1 = Math.min(segs, i0 + 1);
+    const f = cp - i0;
+    const a = COLORS[i0], b = COLORS[i1];
+    return [
+      Math.round(a[0] + (b[0] - a[0]) * f),
+      Math.round(a[1] + (b[1] - a[1]) * f),
+      Math.round(a[2] + (b[2] - a[2]) * f),
+    ];
   }
 
   function setup(card) {
@@ -68,7 +83,7 @@
         `V ${y + r} A ${r},${r} 0 0 1 ${x + r},${y} Z`);
 
       const total = probe.getTotalLength();
-      const count = Math.max(SPACING * COLORS.length + TRAIL_LEN, Math.round(total / LED));
+      const count = Math.max(TRAIL_LEN + 8, Math.round(total / LED));
       leds = [];
       for (let i = 0; i < count; i++) {
         const p = probe.getPointAtLength((i / count) * total);
@@ -76,29 +91,31 @@
       }
     }
 
-    // Draw the whole train for a given lead position, at a given opacity.
-    function paint(leadPos, alpha) {
+    // Draw the tail for a given lead position. minT is the front-most tail index
+    // still alive — during the exit phase it climbs from 0 → TRAIL_LEN so the
+    // head disappears first and the tail drains away behind it.
+    function paint(leadPos, minT) {
       const n = leds.length;
       if (!n) return;
+      const from = Math.max(0, Math.ceil(minT));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.globalAlpha = alpha;
       ctx.globalCompositeOperation = 'lighter'; // additive, like the sketch
-      for (let s = 0; s < COLORS.length; s++) {
-        const head = leadPos - s * SPACING; // each sprite trails the one ahead
-        const [cr, cg, cb] = COLORS[s];
+      // Walk from the tip back toward the head so the bright head paints last.
+      for (let t = TRAIL_LEN - 1; t >= from; t--) {
+        const idx = ((Math.floor(leadPos - t)) % n + n) % n;
+        // Brightness is relative to the front of the *visible* tail, so as it
+        // drains the leading edge stays bright — it shortens, it doesn't fade.
+        const a = tailAlpha(t - from);
+        const [cr, cg, cb] = tailColor(t);
+        const px = leds[idx];
         ctx.shadowColor = `rgb(${cr},${cg},${cb})`;
-        for (let t = 0; t < TRAIL_LEN; t++) {
-          const idx = ((Math.floor(head - t)) % n + n) % n;
-          const a = logFalloff(t);
-          const px = leds[idx];
-          ctx.shadowBlur = 5 * a;
-          ctx.fillStyle = `rgba(${cr},${cg},${cb},${a})`;
-          ctx.fillRect(px.x - LED / 2, px.y - LED / 2, LED - 1, LED - 1);
-        }
+        ctx.shadowBlur = 5 * a;
+        ctx.fillStyle = `rgba(${cr},${cg},${cb},${a})`;
+        // full LED size (not LED-1) so the squares tile with no black gaps
+        ctx.fillRect(px.x - LED / 2, px.y - LED / 2, LED, LED);
       }
       ctx.shadowBlur = 0;
-      ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = 'source-over';
     }
 
@@ -107,12 +124,14 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Run the one-shot: LAPS laps at LAP_MS each, then fade over FADE_MS.
+    // Run the one-shot: start at a random point, LAPS laps at LAP_MS each, then
+    // drain the tail (head-first) over EXIT_MS.
     function run() {
       rebuild();
       const n = leds.length;
       if (!n) return;
-      if (REDUCED) { paint(0, 1); return; } // static frame, no motion
+      const startOffset = Math.random() * n; // begin at a random point on the edge
+      if (REDUCED) { paint(startOffset, 0); return; } // static frame, no motion
 
       const speed = n / LAP_MS;   // LEDs per ms
       const runMs = LAPS * LAP_MS;
@@ -121,11 +140,12 @@
       function frame(now) {
         if (start === null) start = now;
         const e = now - start;
+        const leadPos = startOffset + e * speed; // keeps moving while it drains
         if (e <= runMs) {
-          paint(e * speed, 1);
+          paint(leadPos, 0);
           requestAnimationFrame(frame);
-        } else if (e <= runMs + FADE_MS) {
-          paint(runMs * speed, 1 - (e - runMs) / FADE_MS);
+        } else if (e <= runMs + EXIT_MS) {
+          paint(leadPos, ((e - runMs) / EXIT_MS) * TRAIL_LEN);
           requestAnimationFrame(frame);
         } else {
           clear();

@@ -41,9 +41,9 @@
 </li>
 {% elsif include.split %}
 <li class="fade-in-item">
-  {% comment %} When tracer is on, an outer black ring is the LED "lane" — the
-     sprites crawl here, separate from the striped card that sits on top. {% endcomment %}
-  {% if include.tracer %}<div class="led-tracer relative h-full rounded-2xl bg-black p-2"><canvas class="led-tracer-canvas pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true"></canvas>{% endif %}
+  {% comment %} When tracer is on, an outer transparent ring is the LED "lane" —
+     the sprites crawl here, separate from the striped card that sits on top. {% endcomment %}
+  {% if include.tracer %}<div class="led-tracer relative h-full rounded-2xl p-2"><canvas class="led-tracer-canvas pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true"></canvas>{% endif %}
   <div class="striped-div h-full {% if include.tracer %}rounded-xl{% else %}rounded-2xl{% endif %} bg-black p-4 relative z-10">
     <div class="bg-black {% if include.tracer %}rounded-lg{% else %}rounded-xl{% endif %} p-3 h-full flex items-start justify-between gap-4">
       <!-- left: date + venue + location -->
