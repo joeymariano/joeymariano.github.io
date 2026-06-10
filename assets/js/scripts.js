@@ -253,6 +253,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     
+    // A W A R D  S T A R  B O U N C E
+    // Each honors-section star does a little Panel-de-Pon landing bounce the
+    // first time it scrolls into view, staggered left-to-right.
+    const awardStars = document.querySelectorAll('.award-star');
+    if (awardStars.length && 'IntersectionObserver' in window) {
+        const starObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('bounce');
+                starObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.6 });
+        awardStars.forEach((star, i) => {
+            star.style.setProperty('--bounce-delay', (i * 0.1) + 's');
+            starObserver.observe(star);
+        });
+    }
+
     // S T A G G E R E D  F A D E - I N
     // Each card waits for both its stagger delay AND its image to load before becoming visible
     document.querySelectorAll('.fade-in-item').forEach((el, i) => {

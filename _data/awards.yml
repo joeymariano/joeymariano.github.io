@@ -1,0 +1,33 @@
+# Honors & Awards shown on /resume and mirrored into the PDF export
+# (assets/js/resume-pdf.js reads the rendered section from the DOM).
+# Per entry:
+#   title      — the honor
+#   issuer     — who issued it
+#   date       — when (free text, e.g. "Feb 2016")
+#   color      — ring accent: yellow-300 | blue-500 | red-500
+#   url        — optional source link
+#   associated — optional related project
+#   details    — optional bullet list
+- title: "Nominated for a Philly Geek Award"
+  issuer: "Geekadelphia"
+  date: "Feb 2016"
+  color: "yellow-300"
+  url: "https://www.phillygeekawards.com/nominees/8-static-festival/"
+  associated: "8static"
+  details:
+    - "For the 8-static Festival, a three-day celebration of 8-bit music and visuals in Philadelphia"
+
+- title: "Met $10,000 Kickstarter Goal"
+  issuer: "Kickstarter"
+  date: "Sep 2015"
+  color: "blue-500"
+  associated: "8static"
+  details:
+    - "Raised $11,741 for 8static Festival 2014"
+
+- title: "Winner of the Open Spark Competition"
+  issuer: "Open Spark"
+  date: "May 2011"
+  color: "red-500"
+  details:
+    - "Music played through 13-foot Tesla coils"

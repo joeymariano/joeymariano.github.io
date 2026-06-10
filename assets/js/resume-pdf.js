@@ -646,6 +646,52 @@ async function generateResumePDF() {
     }
 
 
+    /* ── H O N O R S   &   A W A R D S ─────────────────────────────────────── */
+
+    const honorsGrid = document.querySelector('#honors-content .grid');
+    if (honorsGrid && honorsGrid.children.length) {
+        sectionPages['Honors'] = doc.internal.getCurrentPageInfo().pageNumber;
+        y = sectionHeader('HONORS & AWARDS', y, BLUE);
+
+        const awards = honorsGrid.children;
+        for (let i = 0; i < awards.length; i++) {
+            const award = awards[i];
+            y = checkBreak(y, 50);
+
+            const title  = (award.querySelector('h3') || {}).textContent || '';
+            const issuer = (award.querySelector('h2') || {}).textContent || '';
+            const assocEl = award.querySelector('p');
+            const assoc  = assocEl ? assocEl.textContent.trim() : '';
+
+            // Title (linked if there's an <a> inside the heading)
+            setFont(10, DARK, true);
+            const titleText = title.trim();
+            doc.text(titleText, margin, y);
+            const anchor = award.querySelector('h3 a');
+            if (anchor && anchor.href) {
+                pdfLink(margin, y, doc.getTextWidth(titleText), 10, anchor.href);
+            }
+            y += 13;
+
+            if (issuer.trim()) y = textBlock(issuer.trim(), margin, y, colW, 9, MID, false);
+            if (assoc)         y = textBlock(assoc, margin, y, colW, 8, LIGHT, false);
+
+            const bullets = award.querySelectorAll('li');
+            bullets.forEach(function (li) {
+                const raw = li.textContent.replace(/⊕/g, '').trim();
+                if (!raw) return;
+                y = checkBreak(y, 16);
+                setFont(8.5, LIGHT, false);
+                const lines = doc.splitTextToSize('• ' + raw, colW - 12);
+                doc.text(lines, margin + 8, y);
+                y += lines.length * 11 + 2;
+            });
+
+            y += 10;
+        }
+    }
+
+
     /* ── S K I L L S ───────────────────────────────────────────────────────── */
 
     sectionPages['Skills'] = doc.internal.getCurrentPageInfo().pageNumber;
@@ -734,7 +780,7 @@ async function generateResumePDF() {
     // PDF structure tree — picked up by AI agents and ATS systems.
 
     outline.add(null, 'Creative Technologist — Ms. Joey Mariano', { pageNumber: 1 });
-    ['Bio', 'Experience', 'Education', 'Skills'].forEach(function (name) {
+    ['Bio', 'Experience', 'Education', 'Honors', 'Skills'].forEach(function (name) {
         if (sectionPages[name]) {
             outline.add(null, name, { pageNumber: sectionPages[name] });
         }

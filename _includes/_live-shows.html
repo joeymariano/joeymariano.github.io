@@ -9,9 +9,10 @@
      being regenerated.
 
      Two modes (set via include.mode):
-       "upcoming" — future dates only, as full-width single-line rows. The whole
-                    section DISAPPEARS when there are none, so it can sit at the
-                    very top of /music without leaving a hole.
+       "upcoming" — future dates only, as cards capped at half-width (1 col on
+                    mobile, 2 cols from sm up). The whole section DISAPPEARS when
+                    there are none, so it can sit at the very top of /music
+                    without leaving a hole.
        "past"     — highlighted shows first, then recent past shows, then
                     full-history links. -->
 {% assign shows = site.data.shows %}
@@ -31,12 +32,12 @@
       <div class="mb-8">
         <h1 id="upcoming-shows-heading"><span class="hdr-1-macro">Upcoming Show{% if upcoming_count > 1 %}s{% endif %}</span></h1>
       </div>
-      <ol class="list-none p-0 m-0 flex flex-col gap-4">
+      <ol class="list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-2 gap-4">
         {% for show in sorted %}
           {% assign ev = show.datetime | date: '%s' | plus: 0 %}
           {% if ev >= now %}
             {% assign ex = extras | where: 'id', show.id | first %}
-            {% include _show-row.html show=show wide=true lineup=ex.lineup %}
+            {% include _show-row.html show=show split=true tracer=true lineup=ex.lineup %}
           {% endif %}
         {% endfor %}
       </ol>
@@ -61,14 +62,15 @@
         {% if ev < now and hl_ids contains show.id %}{% assign hl_count = hl_count | plus: 1 %}{% endif %}
       {% endfor %}
       {% if hl_count > 0 %}
-        {% comment %} Width scales to the count: 1 = full-width wide row (like Upcoming),
-           2 = 50% each, 3-4+ = 25% each. Same gap as Recent shows. {% endcomment %}
+        {% comment %} Width scales to the count, full-width on mobile: 1 = full-width
+           wide row (like Upcoming), 2 = 50% each, 3-4+ = 25% each. Same gap as
+           Recent shows. {% endcomment %}
         {% if hl_count == 1 %}
-          {% assign hl_layout = 'flex flex-col' %}{% assign hl_wide = true %}
+          {% assign hl_layout = 'flex flex-col' %}{% assign hl_wide = true %}{% assign hl_split = false %}
         {% elsif hl_count == 2 %}
-          {% assign hl_layout = 'grid grid-cols-1 sm:grid-cols-2' %}{% assign hl_wide = false %}
+          {% assign hl_layout = 'grid grid-cols-1 sm:grid-cols-2' %}{% assign hl_wide = false %}{% assign hl_split = true %}
         {% else %}
-          {% assign hl_layout = 'grid grid-cols-2 lg:grid-cols-4' %}{% assign hl_wide = false %}
+          {% assign hl_layout = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' %}{% assign hl_wide = false %}{% assign hl_split = false %}
         {% endif %}
         <h2 class="mb-6"><span class="hdr-2-macro">Highlights</span></h2>
         <ol class="list-none p-0 m-0 {{ hl_layout }} gap-6 lg:gap-8 mb-10">
@@ -76,7 +78,7 @@
             {% assign ev = show.datetime | date: '%s' | plus: 0 %}
             {% if ev < now and hl_ids contains show.id %}
               {% assign ex = extras | where: 'id', show.id | first %}
-              {% include _show-row.html show=show highlight=true wide=hl_wide note=ex.note lineup=ex.lineup %}
+              {% include _show-row.html show=show highlight=true wide=hl_wide split=hl_split note=ex.note lineup=ex.lineup %}
             {% endif %}
           {% endfor %}
         </ol>
@@ -84,7 +86,7 @@
 
       {% comment %} Recent past shows (up to 12), skipping any already shown as a highlight. {% endcomment %}
       <h2 class="mb-6"><span class="hdr-2-macro">Recent Shows</span></h2>
-      <ol class="list-none p-0 m-0 grid grid-cols-2 lg:grid-cols-6 gap-4">
+      <ol class="list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
         {% assign shown = 0 %}
         {% for show in recent %}
           {% assign ev = show.datetime | date: '%s' | plus: 0 %}
@@ -101,25 +103,40 @@
       <!-- Full archives on the source platforms (always shown — not just what's pulled above). -->
       <div class="mt-8 inline-flex flex-col gap-2 bg-black rounded-xl p-4">
         <span class="uppercase tracking-widest text-xs text-gray-600 font-semibold">Full show history</span>
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <div class="flex flex-col gap-1">
           <span class="uppercase tracking-widest text-xs font-semibold" style="color:#3B82F6">nmlstyl</span>
-          <a href="https://www.bandsintown.com/a/14173939-nmlstyl" target="_blank" rel="noopener"
-             aria-label="nmlstyl on Bandsintown"
-             class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Bandsintown</a>
-          <span class="text-gray-700" aria-hidden="true">&middot;</span>
-          <a href="https://www.songkick.com/artists/8980439-nmlstyl" target="_blank" rel="noopener"
-             aria-label="nmlstyl on Songkick"
-             class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Songkick</a>
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+            <a href="https://www.bandsintown.com/a/14173939-nmlstyl" target="_blank" rel="noopener"
+               aria-label="nmlstyl on Bandsintown"
+               class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Bandsintown</a>
+            <span class="text-gray-700" aria-hidden="true">&middot;</span>
+            <a href="https://www.songkick.com/artists/8980439-nmlstyl" target="_blank" rel="noopener"
+               aria-label="nmlstyl on Songkick"
+               class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Songkick</a>
+          </div>
         </div>
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <div class="flex flex-col gap-1">
           <span class="uppercase tracking-widest text-xs font-semibold" style="color:#EF4444">animal style</span>
-          <a href="https://www.bandsintown.com/a/13342-animal-style" target="_blank" rel="noopener"
-             aria-label="animal style on Bandsintown"
-             class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Bandsintown</a>
-          <span class="text-gray-700" aria-hidden="true">&middot;</span>
-          <a href="https://www.songkick.com/artists/605451-animal-style" target="_blank" rel="noopener"
-             aria-label="animal style on Songkick"
-             class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Songkick</a>
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+            <a href="https://www.bandsintown.com/a/13342-animal-style" target="_blank" rel="noopener"
+               aria-label="animal style on Bandsintown"
+               class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Bandsintown</a>
+            <span class="text-gray-700" aria-hidden="true">&middot;</span>
+            <a href="https://www.songkick.com/artists/605451-animal-style" target="_blank" rel="noopener"
+               aria-label="animal style on Songkick"
+               class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Songkick</a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <span class="flex items-baseline gap-2">
+            <span class="uppercase tracking-widest text-xs font-semibold" style="color:#FDE047">Cheap Dinosaurs</span>
+            <span class="text-xs text-gray-600">2005&ndash;2024</span>
+          </span>
+          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+            <a href="https://www.bandsintown.com/a/564062-cheap-dinosaurs" target="_blank" rel="noopener"
+               aria-label="Cheap Dinosaurs on Bandsintown"
+               class="text-gray-400 hover:text-white underline underline-offset-4 decoration-gray-700 hover:decoration-current transition">Bandsintown</a>
+          </div>
         </div>
       </div>
     </section>

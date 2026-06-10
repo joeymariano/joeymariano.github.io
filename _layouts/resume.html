@@ -19,9 +19,9 @@
 
         <!-- E X P E R I E N C E -->
         <div id="experience-content" class="mb-8 fade-in-item">
-            <div class="grid grid-cols-1 lg:grid-cols-3 pb-4">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 mb-8">
                 <!-- title -->
-                <div class="col-span-1 mb-8">
+                <div class="col-span-1">
                     <h1><span class="hdr-1-macro">Experience</span></h1>
                 </div>
                 <!-- L+R buttons -->
@@ -51,7 +51,7 @@
         <!-- E D U C A T I O N -->
         <div id="education-content" class="mb-8 fade-in-item">
             <!-- title -->
-            <div class="col-span-1 mb-8">
+            <div class="mb-8">
                 <h1><span class="hdr-1-macro">Education</span></h1>
             </div>
             <!-- grid: 3 columns on large screens, collapse to 2 on smaller -->
@@ -69,11 +69,33 @@
             </div>
         </div>
 
+        <!-- H O N O R S  &  A W A R D S -->
+        <div id="honors-content" class="mb-8 fade-in-item">
+            <!-- title -->
+            <div class="mb-8">
+                <h1><span class="hdr-1-macro">Honors &amp; Awards</span></h1>
+            </div>
+            <!-- grid: 3 columns on large screens, collapse to 2 on smaller -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for entry in site.data.awards %}
+                    {% include _award-entry.html
+                    title=entry.title
+                    issuer=entry.issuer
+                    date=entry.date
+                    color=entry.color
+                    url=entry.url
+                    associated=entry.associated
+                    details=entry.details
+                    %}
+                {% endfor %}
+            </div>
+        </div>
+
        <!-- S K I L L S -->
-        <div id="skills-section" class="fade-in-item">
-            <div class="grid grid-cols-1 lg:grid-cols-3 mb-8">
+        <div id="skills-section" class="mb-8 fade-in-item">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-4 mb-8">
                 <!-- title -->
-                <div class="col-span-1 mb-8">
+                <div class="col-span-1">
                     <h1><span class="hdr-1-macro">Skills</span></h1>
                 </div>
                 <!-- buttons-->

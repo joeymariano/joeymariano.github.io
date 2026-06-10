@@ -21,3 +21,25 @@
 .contact-blink {
   animation: contact-border-glow 4s ease-in-out 1 forwards;
 }
+
+/* A W A R D  S T A R  B O U N C E
+   Panel-de-Pon-style landing: the star drops in, squashes on impact, then
+   settles. Triggered (with a per-star stagger delay) when scrolled into view.
+   transform-origin bottom so the squash flattens onto the tile floor. */
+@keyframes award-star-bounce {
+  0%   { transform: translateY(-45%) scaleY(1.12) scaleX(0.90); }
+  35%  { transform: translateY(0)    scaleY(1)    scaleX(1); }
+  50%  { transform: translateY(0)    scaleY(0.78) scaleX(1.18); }
+  68%  { transform: translateY(-18%) scaleY(1.06) scaleX(0.96); }
+  84%  { transform: translateY(0)    scaleY(0.92) scaleX(1.06); }
+  100% { transform: translateY(0)    scaleY(1)    scaleX(1); }
+}
+.award-star { transform-origin: center bottom; }
+.award-star.bounce {
+  animation: award-star-bounce 0.7s cubic-bezier(0.25, 0.7, 0.35, 1) both;
+  animation-delay: var(--bounce-delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .award-star.bounce { animation: none; }
+}
