@@ -11,6 +11,7 @@
 (function () {
   'use strict';
 
+  const Site = window.Site;
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Tail gradient, head → end: yellow → red → green → blue. Site palette;
@@ -165,14 +166,7 @@
     }
 
     // Play once, the first time the card scrolls into view.
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries, obs) => {
-        if (entries[0].isIntersecting) { obs.disconnect(); run(); }
-      }, { threshold: 0 });
-      io.observe(card);
-    } else {
-      run();
-    }
+    Site.onceInView(card, run, { threshold: 0 });
 
     // Keep the sampled border in sync if the card resizes before/while running.
     if ('ResizeObserver' in window) {

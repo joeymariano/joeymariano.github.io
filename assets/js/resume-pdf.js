@@ -366,8 +366,7 @@ async function generateResumePDF() {
      * ----------------------------------------------------------------------- */
 
     // Email is assembled from char codes to slow down naive scrapers.
-    const ascii = [106,111,101,121,64,106,111,101,121,109,97,114,105,97,110,111,46,99,111,109];
-    const email = String.fromCharCode(...ascii);
+    const email = window.Site.contactEmail();
 
     const imgTop        = y;
     const nameFs        = 26;

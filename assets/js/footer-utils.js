@@ -56,15 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
  * -------------------------------------------------------------------------- */
 
 document.addEventListener('DOMContentLoaded', function () {
-    const ascii = [
-        106, 111, 101, 121,               // 'joey'
-        64,                               // '@'
-        106, 111, 101, 121,               // 'joey'
-        109, 97, 114, 105, 97, 110, 111,  // 'mariano'
-        46,                               // '.'
-        99, 111, 109                      // 'com'
-    ];
-    const email = String.fromCharCode(...ascii);
+    const email = window.Site.contactEmail();
 
     const link = document.getElementById('email');
     if (!link) return;

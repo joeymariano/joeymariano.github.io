@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const Site = window.Site;
+
     // A 1 1 Y // — make the skip-link target programmatically focusable
     const fadeContent = document.getElementById('fadeContent');
     if (fadeContent && !fadeContent.hasAttribute('tabindex')) {
@@ -34,19 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
             footer.scrollIntoView({ behavior: 'smooth' });
 
             // wait until footer is fully in view before triggering animation
-            const observer = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) {
-                    observer.disconnect();
-                    if (contactSpan) {
-                        contactSpan.classList.remove('contact-blink');
-                        void contactSpan.offsetWidth; // force reflow to restart animation
-                        contactSpan.classList.add('contact-blink');
-                        setTimeout(() => contactSpan.classList.remove('contact-blink'), 4000);
-                    }
-                }
+            Site.onceInView(footer, () => {
+                if (!contactSpan) return;
+                contactSpan.classList.remove('contact-blink');
+                void contactSpan.offsetWidth; // force reflow to restart animation
+                contactSpan.classList.add('contact-blink');
+                setTimeout(() => contactSpan.classList.remove('contact-blink'), 4000);
             }, { threshold: 0.9 });
-
-            observer.observe(footer);
         });
     }
 
@@ -77,31 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const pauseIcon = pauseIcons[i];
 
         if (audio && playPause && seekbar && currentTime && playIcon && pauseIcon) {
-            playPause.addEventListener('click', () => {
-                if (audio.paused) audio.play();
-                else              audio.pause();
-            });
-
-            audio.addEventListener('play', () => {
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-                playPause.setAttribute('aria-label', 'Pause');
-            });
-            audio.addEventListener('pause', () => {
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-                playPause.setAttribute('aria-label', 'Play');
-            });
-
-            audio.addEventListener('timeupdate', () => {
-                seekbar.value = (audio.currentTime / audio.duration) * 100 || 0;
-                const minutes = Math.floor(audio.currentTime / 60);
-                const seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
-                currentTime.textContent = `${minutes}:${seconds}`;
-            });
-
-            seekbar.addEventListener('input', () => {
-                audio.currentTime = (seekbar.value / 100) * audio.duration;
+            // Card players live for the page lifetime, so the detach() is ignored.
+            Site.bindAudioControls(audio, {
+                playPause, seekbar, timeLabel: currentTime, playIcon, pauseIcon,
             });
         }
     }
@@ -256,20 +230,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // A W A R D  S T A R  B O U N C E
     // Each honors-section star does a little Panel-de-Pon landing bounce the
     // first time it scrolls into view, staggered left-to-right.
-    const awardStars = document.querySelectorAll('.award-star');
-    if (awardStars.length && 'IntersectionObserver' in window) {
-        const starObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('bounce');
-                starObserver.unobserve(entry.target);
-            });
-        }, { threshold: 0.6 });
-        awardStars.forEach((star, i) => {
-            star.style.setProperty('--bounce-delay', (i * 0.1) + 's');
-            starObserver.observe(star);
-        });
-    }
+    document.querySelectorAll('.award-star').forEach((star, i) => {
+        star.style.setProperty('--bounce-delay', (i * 0.1) + 's');
+        Site.onceInView(star, () => star.classList.add('bounce'), { threshold: 0.6 });
+    });
 
     // S T A G G E R E D  F A D E - I N
     // Each card waits for both its stagger delay AND its image to load before becoming visible

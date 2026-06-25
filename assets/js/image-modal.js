@@ -8,6 +8,7 @@
  * ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', function () {
+    const Site      = window.Site;
     const modal     = document.getElementById('image-modal');
     const modalImg  = document.getElementById('image-modal-img');
     const modalWipe = document.getElementById('image-modal-wipe');
@@ -30,69 +31,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const musicPlayIcon  = musicPlay ? musicPlay.querySelector('.image-modal-play-icon')  : null;
     const musicPauseIcon = musicPlay ? musicPlay.querySelector('.image-modal-pause-icon') : null;
 
-    let boundAudio = null;
-    let boundListeners = null;
+    let detachAudio = null;
 
     function unbindAudio() {
-        if (boundAudio && boundListeners) {
-            boundAudio.removeEventListener('play',       boundListeners.onPlay);
-            boundAudio.removeEventListener('pause',      boundListeners.onPause);
-            boundAudio.removeEventListener('timeupdate', boundListeners.onTime);
-        }
-        boundAudio = null;
-        boundListeners = null;
+        if (detachAudio) detachAudio();
+        detachAudio = null;
         if (musicBar) musicBar.classList.add('hidden');
         modal.classList.remove('has-music');
     }
 
+    // Mirror a card's <audio> onto the modal's bar via the shared controller.
+    // No need to stop other tracks here: the single-track invariant in scripts.js
+    // (a `play` listener on every audio) pauses every other one the moment this
+    // starts, so the modal can never leave another song playing under it.
     function bindAudio(audio) {
         unbindAudio();
         if (!audio || !musicBar || !musicPlay || !musicSeek || !musicTime) return;
-
-        boundAudio = audio;
         modal.classList.add('has-music');
-
-        function updateIcons() {
-            if (audio.paused) {
-                musicPlayIcon.classList.remove('hidden');
-                musicPauseIcon.classList.add('hidden');
-                musicPlay.setAttribute('aria-label', 'Play');
-            } else {
-                musicPlayIcon.classList.add('hidden');
-                musicPauseIcon.classList.remove('hidden');
-                musicPlay.setAttribute('aria-label', 'Pause');
-            }
-        }
-
-        function updateTime() {
-            musicSeek.value = (audio.currentTime / audio.duration) * 100 || 0;
-            const m = Math.floor(audio.currentTime / 60);
-            const s = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
-            musicTime.textContent = m + ':' + s;
-        }
-
-        updateIcons();
-        updateTime();
-        audio.addEventListener('play',       updateIcons);
-        audio.addEventListener('pause',      updateIcons);
-        audio.addEventListener('timeupdate', updateTime);
-        boundListeners = { onPlay: updateIcons, onPause: updateIcons, onTime: updateTime };
+        detachAudio = Site.bindAudioControls(audio, {
+            playPause: musicPlay,
+            seekbar:   musicSeek,
+            timeLabel: musicTime,
+            playIcon:  musicPlayIcon,
+            pauseIcon: musicPauseIcon,
+        });
         musicBar.classList.remove('hidden');
     }
-
-    if (musicPlay) musicPlay.addEventListener('click', function () {
-        if (!boundAudio) return;
-        // Just toggle. The single-track invariant in scripts.js (an `play`
-        // listener on every audio) pauses every other track the moment this
-        // one starts, so the modal can never leave another song playing under it.
-        if (boundAudio.paused) boundAudio.play();
-        else                   boundAudio.pause();
-    });
-
-    if (musicSeek) musicSeek.addEventListener('input', function () {
-        if (!boundAudio || !boundAudio.duration) return;
-        boundAudio.currentTime = (musicSeek.value / 100) * boundAudio.duration;
-    });
 
 
     /* ── B O O K   M O D E ──────────────────────────────────────────────────
@@ -275,46 +239,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ── T R I G G E R S   ( click any card image to open ) ──────────────── */
 
+    // `cursor-zoom-in` lives on the image markup; the a11y/click wiring needs JS.
     document.querySelectorAll('.striped-div img, #black-book-page').forEach(function (img) {
-        // `cursor-zoom-in` lives on the image markup; a11y wiring stays here since it needs JS.
-        img.setAttribute('tabindex', '0');
-        img.setAttribute('role', 'button');
-        if (!img.getAttribute('aria-label')) {
-            img.setAttribute('aria-label', 'Open expanded view: ' + (img.alt || 'image'));
-        }
-
-        img.addEventListener('click', function () {
+        Site.makeActivatable(img, 'Open expanded view: ' + (img.alt || 'image'), function () {
             const card = img.closest('.striped-div');
             const cardAudio = card ? card.querySelector('.audio') : null;
             openModal(img.src, img.alt, getRoundClass(img), img.id === 'black-book-page', cardAudio);
-        });
-
-        img.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                img.click();
-            }
         });
     });
 
     // Card <video>s open in the modal too (e.g. the live-visuals card).
     document.querySelectorAll('.striped-div video').forEach(function (vid) {
         vid.classList.add('cursor-zoom-in');
-        vid.setAttribute('tabindex', '0');
-        vid.setAttribute('role', 'button');
-        if (!vid.getAttribute('aria-label')) {
-            vid.setAttribute('aria-label', 'Open expanded view: video');
-        }
-
-        vid.addEventListener('click', function () {
+        Site.makeActivatable(vid, 'Open expanded view: video', function () {
             openModalVideo(vid.currentSrc || vid.src, vid.getAttribute('aria-label'), getRoundClass(vid));
-        });
-
-        vid.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                vid.click();
-            }
         });
     });
 
