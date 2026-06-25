@@ -26,7 +26,7 @@
   const INSET     = 4;    // centers the strip in the card's transparent lane (p-2 = 8px)
   const RADIUS    = 16;   // matches the lane's Tailwind rounded-2xl (1rem)
   const LAPS      = 1;    // full loops around the border at boot
-  const LAP_MS    = 2667; // time for one lap (a further 25% slower)
+  const LAP_MS    = 2667; // time for one lap (a further 25% slower)im
   const EXIT_MS   = 800;  // tail drain (head-first) after the final lap
   const SVGNS     = 'http://www.w3.org/2000/svg';
 
@@ -36,13 +36,23 @@
   }
 
   // Color at tail position t: lerp across COLORS evenly from head to tip.
+  // Treats COLORS as evenly spaced gradient stops and returns the blended RGB
+  // for any point between them. t = 0 is the head, t = TRAIL_LEN-1 is the tip.
   function tailColor(t) {
+    // Number of gaps between stops (4 colors → 3 segments to interpolate across).
     const segs = COLORS.length - 1;
+    // Map t (0 .. TRAIL_LEN-1) onto a continuous color position (0 .. segs).
+    // e.g. with segs=3: head→0.0, tip→3.0, middle of the tail→~1.5.
     const cp = (t / (TRAIL_LEN - 1)) * segs;
+    // The stop just below cp (the segment's start color). min() clamps the tip.
     const i0 = Math.min(segs, Math.floor(cp));
+    // The stop just above (the segment's end color), also clamped to the last stop.
     const i1 = Math.min(segs, i0 + 1);
+    // How far we are between i0 and i1: 0.0 = exactly i0, ~1.0 = almost i1.
     const f = cp - i0;
+    // a = start color, b = end color of this segment.
     const a = COLORS[i0], b = COLORS[i1];
+    // Linear interpolation per channel: a + (b - a) * f, rounded to a whole byte.
     return [
       Math.round(a[0] + (b[0] - a[0]) * f),
       Math.round(a[1] + (b[1] - a[1]) * f),

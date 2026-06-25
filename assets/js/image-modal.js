@@ -137,8 +137,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // tracks the stable layout viewport instead. Subtracting the real padding
     // also keeps the computed size from exceeding the content area (which would
     // otherwise get clamped by `max-width:100%` and distort the aspect ratio).
-    function fitTo(el, nw, nh) {
-        if (!nw || !nh) { nw = nh = 1; } // unknown intrinsic dims (e.g. SVG) → square fallback
+    function fitTo(el, nw, nh, vector) {
+        if (!nw || !nh) { nw = nh = 1; } // unknown intrinsic dims → square fallback
         const cs   = getComputedStyle(modal);
         const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
         const padY = parseFloat(cs.paddingTop)  + parseFloat(cs.paddingBottom);
@@ -151,12 +151,21 @@ document.addEventListener('DOMContentLoaded', function () {
         // Don't upscale past the source resolution — enlarging media beyond its
         // natural pixels just makes it blurry. Cap to 100% and let it sit centered.
         // (Skipped when natural dims are unknown, which read as the 1×1 fallback.)
-        if (nw > 1 && w > nw) { w = nw; h = nh; }
+        // Vector sources (SVG) scale without blur, so let them fill the box: an SVG
+        // with a viewBox reports its viewBox size as naturalWidth/Height (e.g. 128px
+        // pixel art), which would otherwise clamp the modal image down to that size.
+        if (!vector && nw > 1 && w > nw) { w = nw; h = nh; }
         el.style.width  = w + 'px';
         el.style.height = h + 'px';
     }
 
-    function fitImage() { fitTo(modalImg, modalImg.naturalWidth, modalImg.naturalHeight); }
+    // SVGs are vector; match .svg before any query string or fragment.
+    function isSvgSrc(src) { return /\.svg(\?|#|$)/i.test(src || ''); }
+
+    function fitImage() {
+        fitTo(modalImg, modalImg.naturalWidth, modalImg.naturalHeight,
+              isSvgSrc(modalImg.currentSrc || modalImg.src));
+    }
     function fitVideo() { fitTo(modalVideo, modalVideo.videoWidth, modalVideo.videoHeight); }
 
     // Mirror the source image's rounded-X class onto the modal image so the
