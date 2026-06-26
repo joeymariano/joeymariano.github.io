@@ -57,22 +57,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // A U D I O -- P L A Y E R //
     const audios = document.getElementsByClassName('audio');
-    const playPauses = document.getElementsByClassName('playPause');
-    const seekbars = document.getElementsByClassName('seekbar');
-    const currentTimes = document.getElementsByClassName('currentTime');
-    const playIcons = document.getElementsByClassName('playIcon');
-    const pauseIcons = document.getElementsByClassName('pauseIcon');
 
+    // Each player finds its own controls within its .media-controller, so a
+    // player never depends on the DOM order of six parallel class collections.
     // Empty HTMLCollection is fine — the loop just no-ops.
-    for (let i = 0; i < audios.length; i++) {
-        const audio = audios[i];
-        const playPause = playPauses[i];
-        const seekbar = seekbars[i];
-        const currentTime = currentTimes[i];
-        const playIcon = playIcons[i];
-        const pauseIcon = pauseIcons[i];
+    for (const audio of audios) {
+        const ctrl = audio.closest('.media-controller');
+        if (!ctrl) continue;
+        const playPause   = ctrl.querySelector('.playPause');
+        const seekbar     = ctrl.querySelector('.seekbar');
+        const currentTime = ctrl.querySelector('.currentTime');
+        const playIcon    = ctrl.querySelector('.playIcon');
+        const pauseIcon   = ctrl.querySelector('.pauseIcon');
 
-        if (audio && playPause && seekbar && currentTime && playIcon && pauseIcon) {
+        if (playPause && seekbar && currentTime && playIcon && pauseIcon) {
             // Card players live for the page lifetime, so the detach() is ignored.
             Site.bindAudioControls(audio, {
                 playPause, seekbar, timeLabel: currentTime, playIcon, pauseIcon,

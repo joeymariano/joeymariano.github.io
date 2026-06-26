@@ -347,6 +347,24 @@ async function generateResumePDF() {
         return currentY;
     }
 
+    // Render an element's <li> children as "• text" lines at (x, startY), each
+    // wrapped to `width`. Returns the y after the last bullet. Single-column
+    // sections (Education/Honors) pass paginate=true to break across pages; the
+    // horizontally-scrolled job columns pass false.
+    function renderBullets(container, x, width, startY, paginate) {
+        let yy = startY;
+        container.querySelectorAll('li').forEach(function (li) {
+            const raw = li.textContent.replace(/⊕/g, '').trim();
+            if (!raw) return;
+            if (paginate) yy = checkBreak(yy, 16);
+            setFont(8.5, LIGHT, false);
+            const lines = doc.splitTextToSize('• ' + raw, width);
+            doc.text(lines, x, yy);
+            yy += lines.length * 11 + 2;
+        });
+        return yy;
+    }
+
     // Section header: colored rule + bold label. Includes 60pt headroom so a
     // heading can't be orphaned alone at the bottom of a page.
     function sectionHeader(label, currentY, color) {
@@ -475,14 +493,7 @@ async function generateResumePDF() {
 
         // Bullet list (or fall back to a paragraph if no bullets)
         const bullets = job.querySelectorAll('li');
-        bullets.forEach(function (li) {
-            const raw = li.textContent.replace(/⊕/g, '').trim();
-            if (!raw) return;
-            setFont(8.5, LIGHT, false);
-            const lines = doc.splitTextToSize('• ' + raw, cw - 8);
-            doc.text(lines, cx + 6, cy);
-            cy += lines.length * 11 + 2;
-        });
+        cy = renderBullets(job, cx + 6, cw - 8, cy, false);
 
         if (!bullets.length) {
             const para  = (job.querySelector('p') || {}).textContent || '';
@@ -537,15 +548,7 @@ async function generateResumePDF() {
             doc.text(date.trim(), cx + 4, cy);
             cy += 11;
 
-            const bullets = job.querySelectorAll('li');
-            bullets.forEach(function (li) {
-                const raw = li.textContent.replace(/⊕/g, '').trim();
-                if (!raw) return;
-                setFont(8.5, LIGHT, false);
-                const lines = doc.splitTextToSize('• ' + raw, cw - 12);
-                doc.text(lines, cx + 10, cy);
-                cy += lines.length * 11 + 2;
-            });
+            cy = renderBullets(job, cx + 10, cw - 12, cy, false);
 
             const jLinks = domLinks(job.querySelector('p') || job);
             if (jLinks.length) cy = renderLinks(jLinks, cx + 10, cy, cw - 12);
@@ -629,16 +632,7 @@ async function generateResumePDF() {
             if (years) y = textBlock(years, margin, y, colW, 8, LIGHT, false);
 
             // Bullets
-            const bullets = entry.querySelectorAll('li');
-            bullets.forEach(function (li) {
-                const raw = li.textContent.replace(/⊕/g, '').trim();
-                if (!raw) return;
-                y = checkBreak(y, 16);
-                setFont(8.5, LIGHT, false);
-                const lines = doc.splitTextToSize('• ' + raw, colW - 12);
-                doc.text(lines, margin + 8, y);
-                y += lines.length * 11 + 2;
-            });
+            y = renderBullets(entry, margin + 8, colW - 12, y, true);
 
             y += 10;
         }
@@ -675,16 +669,7 @@ async function generateResumePDF() {
             if (issuer.trim()) y = textBlock(issuer.trim(), margin, y, colW, 9, MID, false);
             if (assoc)         y = textBlock(assoc, margin, y, colW, 8, LIGHT, false);
 
-            const bullets = award.querySelectorAll('li');
-            bullets.forEach(function (li) {
-                const raw = li.textContent.replace(/⊕/g, '').trim();
-                if (!raw) return;
-                y = checkBreak(y, 16);
-                setFont(8.5, LIGHT, false);
-                const lines = doc.splitTextToSize('• ' + raw, colW - 12);
-                doc.text(lines, margin + 8, y);
-                y += lines.length * 11 + 2;
-            });
+            y = renderBullets(award, margin + 8, colW - 12, y, true);
 
             y += 10;
         }

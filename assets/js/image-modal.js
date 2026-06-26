@@ -162,6 +162,14 @@ document.addEventListener('DOMContentLoaded', function () {
         modalImg.classList.remove('hidden');
     }
 
+    // Flip the modal into its open state (shared by image + video opens).
+    function showModal() {
+        modal.classList.remove('is-closing');
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+    }
+
     // Open a card's <video> in the modal (muted, looping, capped at 100%).
     function openModalVideo(src, label, roundClass) {
         if (!modalVideo) return;
@@ -172,10 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
         modalVideo.setAttribute('aria-label', label || '');
         modalVideo.src = src;
 
-        modal.classList.remove('is-closing');
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('modal-open');
+        showModal();
 
         modalVideo.play().catch(function () { /* autoplay may be deferred */ });
         if (modalVideo.videoWidth) fitVideo();
@@ -198,10 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (audio) bindAudio(audio);
         else       unbindAudio();
 
-        modal.classList.remove('is-closing');
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('modal-open');
+        showModal();
 
         if (modalImg.complete && modalImg.naturalWidth) fitImage();
         else modalImg.addEventListener('load', fitImage, { once: true });

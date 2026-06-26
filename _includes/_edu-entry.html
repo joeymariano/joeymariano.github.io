@@ -1,12 +1,7 @@
 {% assign edu = include.entry %}
 <div>
-    {% if edu.color == "blue-500" %}
-    <div class="flex items-center justify-center w-11 bg-[#0a0a0a] mr-4 ring-blue-500 ring-2
-                    rounded-xl p-2">
-    {% else %}
-    <div class="flex items-center justify-center w-11 bg-[#0a0a0a] mr-4 ring-red-500 ring-2
-                rounded-xl p-2">
-    {% endif %}
+    <!-- ring color comes from education.yml (matches _award-entry.html) -->
+    <div class="flex items-center justify-center w-11 bg-[#0a0a0a] mr-4 ring-{{ edu.color }} ring-2 rounded-xl p-2">
         <!-- document icon svg -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges">
             <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>

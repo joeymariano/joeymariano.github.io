@@ -102,7 +102,7 @@
             <div id="skills-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
                 {% assign sorted_skills = page.skills | sort: "name" %}
                 {% for skill in sorted_skills %}
-                    <!-- skill html — color is derived from category (tech=blue, arts=red, misc=amber) -->
+                    {% comment %} skill html; color derived from category: tech=blue, arts=red, misc=amber {% endcomment %}
                     {% case skill.category %}
                         {% when 'tech' %}{% assign skill_color = '#3B82F6' %}
                         {% when 'arts' %}{% assign skill_color = '#EF4444' %}
