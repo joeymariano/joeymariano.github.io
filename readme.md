@@ -16,6 +16,16 @@
 
 ---
 
+### 🛠 Local Development
+
+```sh
+npm ci            # install the PostCSS / Tailwind toolchain
+npm run serve     # build + serve locally with live reload
+npm run build     # one-off production build
+```
+
+Both `serve` and `build` set `JEKYLL_ENV=production`, which runs PostCSS one-shot per file. This deliberately avoids `jekyll-postcss`'s development mode, where it spawns a PostCSS server on `localhost:8124` with a ~10s connection timeout — the first Tailwind compile can exceed that on a cold start and abort a bare `bundle exec jekyll build`. (The only difference in production mode is that `cssnano` minifies the CSS, which is harmless locally.)
+
 ---
 
 ### 🃏 Card System
@@ -26,15 +36,18 @@ Most pages are powered by a shared card component. Cards live in `_cards/` as in
 ---
 title: "Card Title"
 image: filename.jpg          # loaded from /assets/img/
+alt: "Description"           # optional — alt text (defaults to title)
 round_image: true            # true = circular, false = rounded rect
 category: home code music    # space-separated — controls which pages show this card
 size: 1x                     # 1x = single column, 2x = double column
 music: filename.mp3          # optional — enables the inline media player
+video: filename.mp4          # optional — autoplaying muted loop (poster = image)
+link: "https://example.com"  # optional — canonical URL in the card's JSON-LD
 ---
 Card content in markdown.
 ```
 
-The `_card.html` include renders each card with a 4:3 image, a CSS squiggle divider, a ring-badge title, and markdown content. Cards with a `music:` value get an inline audio controller via `_media-controller.html`.
+Layouts render a section by calling `_card-grid.html` with a `categories` list (and optional `reversed`); it loops `site.cards`, filters by category, and passes each whole record to `_card.html`. `_card.html` renders a 4:3 image (or `video`), a CSS squiggle divider, a ring-badge title, and markdown content, and emits JSON-LD (`@type` is `VisualArtwork` for art cards, `MusicRecording` for music, else `CreativeWork`). Cards with a `music:` value get an inline audio controller via `_media-controller.html`.
 
 ---
 
@@ -58,8 +71,11 @@ Renders all cards where `category` contains `code` or `tech` under a "Tech Relat
 
 Layout: `_layouts/music.html` — source: `music.md`
 
-Two sections:
-- **Recordings** — cards with `category: mediaplayer`, each renders with an inline audio player
+Sections, top to bottom:
+- **Upcoming Shows** — `_live-shows.html mode="upcoming"` (hidden when there are none)
+- **Samples** — cards with `category: mediaplayer`, each with an inline audio player
+- **Discography** — Albums and Compilations & Appearances from `_data/discography.yml`, rendered via `_release.html` as horizontal scrollable timelines
+- **Past Shows** — `_live-shows.html mode="past"`
 - **Music Related** — cards with `category: music` or `show`, rendered as standard cards
 
 ---
@@ -108,10 +124,11 @@ Skills are defined in the `resume.markdown` frontmatter with optional wiki links
 ```yaml
 skills:
   - name: "JavaScript"
-    color: "#3B82F6"
-    category: "tech"          # tech | arts | misc
+    category: "tech"          # tech | arts | misc — also sets the pill color (tech=blue, arts=red, misc=amber)
     wiki: "https://en.wikipedia.org/wiki/JavaScript"
 ```
+
+The pill's drop-shadow color is derived from `category` in `_layouts/resume.html` (no per-skill `color:` field).
 
 #### Links System
 
@@ -148,7 +165,7 @@ The PDF export button uses [jsPDF](https://github.com/parallax/jsPDF) loaded fro
 
 ### ✨ Interactions & Animations
 
-Small interactive details run across every page, built in vanilla JS in `assets/js/scripts.js` and styled in `assets/css/style.css`. The image modal and card copy logic live in `_includes/_footer.html`.
+Small interactive details run across every page, built in vanilla JS under `assets/js/` and styled via `assets/css/style.css` (a thin manifest that `@import`s partials from `assets/css/partials/`). The JS is split by concern: `scripts.js` (menu, audio players, skill sort, fades), `image-modal.js` (lightbox), `black-book.js` (sketchbook viewer), `led-tracer.js` (LED border), `footer-utils.js` (card copy + email), and `utils.js` (shared `window.Site` helpers). The modal/copy markup lives in `_includes/_footer.html`; the behavior is in those JS files. Animation timings that mirror CSS (menu collapse, modal close) are read from the stylesheet at runtime rather than hard-coded.
 
 #### Image Modal
 
@@ -202,8 +219,8 @@ The CI build uses `jekyll-postcss` 0.5.0, which shells out the entire CSS payloa
 **Rule of thumb:** keep `assets/css/style.css` 100% ASCII, double-quoted only. After editing, verify with:
 
 ```sh
-grep -nP '[^\x00-\x7F]' assets/css/style.css   # should be empty
-grep -n  "'"             assets/css/style.css   # should be empty
+grep -n $'[^ -~\t]' assets/css/style.css   # non-ASCII — should be empty (portable; macOS grep lacks -P)
+grep -n  "'"        assets/css/style.css   # apostrophes — should be empty
 ```
 
 For glyphs that *need* to appear visually:
