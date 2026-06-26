@@ -10,14 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // M E N U //
     const menuBtn = document.getElementById('menu-btn');
     const menu = document.getElementById('menu');
-    const duration = 400; // must match #menu transition in style.css
 
     menuBtn.addEventListener('click', function() {
         if (menu.classList.contains('show')) {
             menu.classList.remove('show');
             menuBtn.classList.remove('is-open');
-            // Defer `hidden` until the collapse transition finishes.
-            setTimeout(() => menu.classList.add('hidden'), duration);
+            // Defer `hidden` until the collapse transition finishes. The duration
+            // is read from the CSS at click time (it's viewport-dependent — only
+            // the mobile breakpoint animates #menu), so there's no JS-side number
+            // to keep in sync with the stylesheet.
+            const menuMs = parseFloat(getComputedStyle(menu).transitionDuration) * 1000 || 0;
+            setTimeout(() => menu.classList.add('hidden'), menuMs);
         } else {
             menu.classList.remove('hidden');
             menuBtn.classList.add('is-open');
@@ -41,7 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 contactSpan.classList.remove('contact-blink');
                 void contactSpan.offsetWidth; // force reflow to restart animation
                 contactSpan.classList.add('contact-blink');
-                setTimeout(() => contactSpan.classList.remove('contact-blink'), 4000);
+                // Drop the class when the CSS glow finishes — no duration to track.
+                contactSpan.addEventListener('animationend',
+                    () => contactSpan.classList.remove('contact-blink'), { once: true });
             }, { threshold: 0.9 });
         });
     }
@@ -212,16 +217,18 @@ document.addEventListener('DOMContentLoaded', () => {
         categorized.concat(others).forEach(div => container.appendChild(div));
     }
 
-    // Random shuffle that's guaranteed to be a derangement (no element keeps its
-    // original index), so a "Random" click visibly reorders every tile.
+    // "Random" must visibly move every tile, i.e. produce a derangement (no
+    // element keeps its original index). Sattolo's algorithm — a Fisher-Yates
+    // variant whose inner pick is [0, i) instead of [0, i] — yields a uniformly
+    // random single cycle, which by construction has no fixed point. One pass,
+    // unbiased, no retry loop.
     function getDerangement(arr) {
-        let deranged;
-        let attempts = 0;
-        do {
-            deranged = arr.slice().sort(() => Math.random() - 0.5);
-            attempts++;
-        } while (deranged.some((el, idx) => el === arr[idx]) && attempts < 100);
-        return deranged;
+        const out = arr.slice();
+        for (let i = out.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * i);   // 0 ≤ j < i  (note: not ≤ i)
+            [out[i], out[j]] = [out[j], out[i]];
+        }
+        return out;
     }
     
     

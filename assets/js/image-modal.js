@@ -225,17 +225,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (modalVideo) modalVideo.pause(); // stop playback as the modal wipes away
 
-        // After the full X-out + wipe sequence (~0.5s): detach the audio mirror
-        // (music keeps playing in the source card), reset state, clear the src.
-        // unbindAudio is deferred to here so the player bar stays visible and keeps
-        // updating while the modal wipes away, instead of popping out instantly.
+        // After the wipe finishes: detach the audio mirror (music keeps playing in
+        // the source card), reset state, clear the src. Deferred so the player bar
+        // stays visible and updating while the modal wipes away, instead of popping
+        // out instantly. The wait is the CSS close transition itself (duration +
+        // delay), read from the element now that `is-closing` is applied — no
+        // hard-coded ms to keep in sync. Reduced-motion sets transition:none → 0ms.
+        const closeStyle = getComputedStyle(modal);
+        const closeMs = Math.round((parseFloat(closeStyle.transitionDuration) +
+                                    parseFloat(closeStyle.transitionDelay)) * 1000) || 0;
         setTimeout(function () {
             if (modal.classList.contains('is-open')) return; // reopened mid-close
             unbindAudio();
             hideModalVideo();
             modal.classList.remove('is-closing');
             modalImg.src = '';
-        }, 500);
+        }, closeMs);
     }
 
 

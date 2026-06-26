@@ -3,7 +3,7 @@
   #menu {
     max-height: 0;
     overflow: hidden;
-    transition: max-height .4s linear; /* timeout must math the js function */
+    transition: max-height .4s linear; /* scripts.js reads this duration at runtime */
   }
   #menu.show {
     max-height: 500px;

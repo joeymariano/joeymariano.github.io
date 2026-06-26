@@ -36,11 +36,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 ]);
 
                 // Flash the check icon for 1.5s, then revert to the copy icon.
-                btn.querySelector('.copy-icon').classList.add('hidden');
-                btn.querySelector('.check-icon').classList.remove('hidden');
+                const copyIcon  = btn.querySelector('.copy-icon');
+                const checkIcon = btn.querySelector('.check-icon');
+                copyIcon.classList.add('hidden');
+                checkIcon.classList.remove('hidden');
                 setTimeout(function () {
-                    btn.querySelector('.copy-icon').classList.remove('hidden');
-                    btn.querySelector('.check-icon').classList.add('hidden');
+                    copyIcon.classList.remove('hidden');
+                    checkIcon.classList.add('hidden');
                 }, 1500);
             } catch (e) {
                 console.warn('Copy failed', e);

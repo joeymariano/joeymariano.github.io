@@ -27,7 +27,7 @@
   const INSET     = 4;    // centers the strip in the card's transparent lane (p-2 = 8px)
   const RADIUS    = 16;   // matches the lane's Tailwind rounded-2xl (1rem)
   const LAPS      = 1;    // full loops around the border at boot
-  const LAP_MS    = 2667; // time for one lap (a further 25% slower)im
+  const LAP_MS    = 2667; // time for one lap (a further 25% slower)
   const EXIT_MS   = 800;  // tail drain (head-first) after the final lap
   const SVGNS     = 'http://www.w3.org/2000/svg';
 

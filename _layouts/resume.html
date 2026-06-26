@@ -38,8 +38,8 @@
             <div id='job-scroller' class="overflow-x-scroll">
                 <div class="w-max items-top flex p-1 ">
                     <!-- order the jos w/ the most recent first -->
-                    {% assign rev-job = site.jobs | reverse %}
-                    {% for item in rev-job %}
+                    {% assign rev_jobs = site.jobs | reverse %}
+                    {% for item in rev_jobs %}
                         {% include _job.html job=item %}
                     {% endfor %}
                 </div>
