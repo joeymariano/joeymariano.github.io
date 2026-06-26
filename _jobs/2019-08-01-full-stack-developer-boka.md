@@ -5,7 +5,6 @@ client: "BOKA Restaurant Group"
 client_link: "https://www.bokagrp.com"
 date: 2019-08-01
 tags: [developer, full stack, ruby on rails, content management, graybits, tech]
-location: "Remote"
 pdf_include: false
 ---
 

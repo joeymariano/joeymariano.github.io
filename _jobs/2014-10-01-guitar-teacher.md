@@ -5,7 +5,6 @@ client: "Mosaic Music Lessons"
 client_link: "https://www.mosaicmusiclessons.com"
 date: 2014-10-01
 tags: [guitar, teacher, lessons, music]
-location: "Phoenixville, PA"
 pdf_include: false
 ---
 

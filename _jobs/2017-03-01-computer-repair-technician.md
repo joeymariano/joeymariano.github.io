@@ -3,7 +3,6 @@ title: "Computer Repair Technician"
 company: "Wise Guy Tech"
 date: 2017-03-01
 tags: [it, repair, apple, windows, linux, tech]
-location: "Philadelphia, PA"
 link: "https://www.wiseguy.tech"
 pdf_include: false
 ---

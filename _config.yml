@@ -1,16 +1,10 @@
 title: Joey Mariano
-tagline: Creative Technologist, Artist, Educator
 email: joey@joeymariano.com
 description: >- # this means to ignore newlines until "baseurl:"
  Ms. Joey Mariano — creative technologist, artist, and educator with 26 years
  of practice integrating arts and technology across music, visual art, and code.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: https://joeymariano.com
-lang: en
-
-author:
- name: Joey Mariano
- email: joey@joeymariano.com
 
 github_username: joeymariano
 bandcamp_username: nmlstyl

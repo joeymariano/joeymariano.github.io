@@ -3,7 +3,6 @@ title: "Music Instructor"
 company: "Freelance"
 date: 1998-01-01
 tags: [freelance, music, guitar, bass, piano, lessons, instructor]
-location: "Remote and on-site"
 pdf_include: false
 ---
 

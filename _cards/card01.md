@@ -6,7 +6,6 @@ round_image: true
 category: home profile
 size: 1x
 link: https://joeymariano.com
-link_text: HOMEPAGE
 ---
 Ms. Joey Mariano is a Creative Technologist, Artist and Educator with 26 years of experience integrating arts and 
 technology.

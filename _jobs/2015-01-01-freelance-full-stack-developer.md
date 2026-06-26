@@ -3,7 +3,6 @@ title: "Full Stack Developer"
 company: "Self Employed Contractor"
 date: 2015-01-01
 tags: [developer, full stack, css, html, javascript, react.js, ruby on rails, sass, bootstrap, squarespace, tech]
-location: "Remote and on-site"
 pdf_include: true
 ---
 

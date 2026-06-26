@@ -3,7 +3,6 @@ title: "Scoopista"
 company: "Little Baby's Ice Cream"
 date: 2018-03-01
 tags: [ice cream, customer service]
-location: "Philadelphia, PA"
 link: "https://en.wikipedia.org/wiki/Little_Baby%27s_Ice_Cream"
 pdf_include: false
 ---

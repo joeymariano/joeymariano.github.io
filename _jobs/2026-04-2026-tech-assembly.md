@@ -5,7 +5,6 @@ client: "Nike World Cup"
 client_link: "https://www.nike.com/football"
 date: 2026-04-01
 tags: [tech, assembly, soldering, interactive, troubleshooting]
-location: "On Site in Philadelphia"
 link: "https://brdg.co"
 pdf_include: true
 ---

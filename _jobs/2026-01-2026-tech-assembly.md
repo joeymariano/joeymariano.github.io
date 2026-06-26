@@ -5,7 +5,6 @@ client: "Ministry of Awe"
 client_link: "https://moaphilly.org"
 date: 2026-01-01
 tags: [tech, assembly, soldering, interactive, troubleshooting]
-location: "Old City Philadelphia"
 link: "https://knabelabs.com"
 pdf_include: true
 ---

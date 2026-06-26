@@ -22,7 +22,7 @@
   height: 4px;
   border-radius: 2px;
 }
-.seekbar::-ms-fill-lower, #seekbar::-ms-fill-upper {
+.seekbar::-ms-fill-lower, .seekbar::-ms-fill-upper {
   background: #fff;
   height: 4px;
   border-radius: 2px;

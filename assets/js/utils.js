@@ -130,7 +130,6 @@
 
 
     window.Site = {
-        formatTime: formatTime,
         bindAudioControls: bindAudioControls,
         makeActivatable: makeActivatable,
         onceInView: onceInView,

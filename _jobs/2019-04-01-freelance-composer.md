@@ -5,7 +5,6 @@ client: "Twilio"
 client_link: "https://www.twilio.com"
 date: 2019-04-01
 tags: [composer, music, twilioquest]
-location: "New York, NY"
 pdf_include: false
 ---
 

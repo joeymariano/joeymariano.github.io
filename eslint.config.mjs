@@ -9,8 +9,6 @@ export default [
       "vendor/**",
       ".jekyll-cache/**",
       "assets/pico8/**",
-      "assets/js/pdf.mjs",
-      "assets/js/pdf.worker.mjs",
     ],
   },
 

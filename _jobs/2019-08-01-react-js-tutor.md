@@ -3,7 +3,6 @@ title: "React.js Tutor"
 company: "Hey Tutor"
 date: 2019-08-01
 tags: [react.js, tutor, education, programming, tech]
-location: "Remote"
 link: "https://heytutor.com"
 pdf_include: false
 ---

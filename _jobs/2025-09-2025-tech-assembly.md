@@ -3,7 +3,6 @@ title: "AV Installation Tech"
 company: "Pseudonym Productions"
 date: 2025-09-01
 tags: [tech, assembly, soldering, interactive, troubleshooting]
-location: "On-site in Fishtown, Philadelphia"
 link: "https://pseudonymproductions.com"
 pdf_include: false
 ---

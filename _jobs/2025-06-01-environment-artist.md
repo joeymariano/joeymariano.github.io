@@ -5,7 +5,6 @@ client: "Airframe Ultra"
 client_link: "https://store.steampowered.com/app/2522120/Airframe_Ultra/"
 date: 2025-06-01
 tags: [art, visual]
-location: "Remote"
 link: "https://www.akuparagames.com"
 pdf_include: true
 ---

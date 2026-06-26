@@ -5,7 +5,6 @@ client: "Nike Air Max"
 client_link: "https://www.nike.com/air-max"
 date: 2025-02-01
 tags: [soldering, interactive sculptures, troubleshooting, assembly, tech]
-location: "Philadelphia, PA"
 link: "https://brdg.co"
 pdf_include: true
 ---

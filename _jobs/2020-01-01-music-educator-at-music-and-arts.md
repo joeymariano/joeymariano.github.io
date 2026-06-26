@@ -3,7 +3,6 @@ title: "Music Educator"
 company: "Music & Arts"
 date: 2020-01-01
 tags: [music, educator, guitar, bass, piano, teaching]
-location: "Broomall and Ardmore, PA"
 link: "https://www.musicarts.com"
 pdf_include: false
 ---

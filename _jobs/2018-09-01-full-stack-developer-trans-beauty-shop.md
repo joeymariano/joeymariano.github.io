@@ -5,7 +5,6 @@ client: "Trans Beauty Shop"
 client_link: "https://www.transbeautyshop.com"
 date: 2018-09-01
 tags: [developer, full stack, ruby on rails, mailgun, bootstrap, tech]
-location: "Philadelphia, PA"
 pdf_include: false
 ---
 

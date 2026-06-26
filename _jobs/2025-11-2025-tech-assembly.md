@@ -5,7 +5,6 @@ client: "Nike ACG"
 client_link: "https://www.nike.com/ACG"
 date: 2025-11-01
 tags: [tech, assembly, soldering, interactive, troubleshooting]
-location: "On Site in Philadelphia"
 link: "https://brdg.co"
 pdf_include: true
 ---

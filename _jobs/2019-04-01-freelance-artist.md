@@ -5,7 +5,6 @@ client: "Trazacultura"
 client_link: "https://trazacultura.es"
 date: 2019-04-01
 tags: [artist, installation, gameboy, chiptune, obsolete technology, art]
-location: "Laboral, Gijón, Spain"
 pdf_include: false
 ---
 

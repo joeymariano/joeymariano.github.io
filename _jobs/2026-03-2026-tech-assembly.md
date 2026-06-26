@@ -5,7 +5,6 @@ client: "Nike A'Two"
 client_link: "https://www.nike.com/basketball/aja-wilson"
 date: 2026-03-01
 tags: [tech, assembly, soldering, interactive, troubleshooting]
-location: "On Site in Philadelphia"
 link: "https://brdg.co"
 pdf_include: true
 ---

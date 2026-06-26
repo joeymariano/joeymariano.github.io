@@ -3,7 +3,6 @@ title: "National Touring Music Act"
 company: "Self Employed Musician"
 date: 2001-01-01
 tags: [touring, music, performance, events, management]
-location: "United States"
 link: "/music"
 pdf_include: false
 ---

@@ -32,13 +32,10 @@
 .hamburger-inner::before { transform: translateY(-300%); }
 .hamburger-inner::after  { transform: translateY(300%);  }
 
-/* X state: triggered by #menu-btn.is-open (animated) or .is-x modifier (static) */
-#menu-btn.is-open .hamburger-inner,
-.hamburger-inner.is-x          { background: rgba(0,0,0,0); }
-#menu-btn.is-open .hamburger-inner::before,
-.hamburger-inner.is-x::before  { transform: rotate(45deg);  }
-#menu-btn.is-open .hamburger-inner::after,
-.hamburger-inner.is-x::after   { transform: rotate(-45deg); }
+/* X state: triggered by #menu-btn.is-open */
+#menu-btn.is-open .hamburger-inner          { background: rgba(0,0,0,0); }
+#menu-btn.is-open .hamburger-inner::before  { transform: rotate(45deg);  }
+#menu-btn.is-open .hamburger-inner::after   { transform: rotate(-45deg); }
 
 @keyframes nav-hover-cycle {
   0%   { box-shadow: 0 0 0 3px #ef4444; }

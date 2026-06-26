@@ -3,7 +3,6 @@ title: "Canvasser"
 company: "Equality Pennsylvania"
 date: 2016-06-01
 tags: [canvassing, lgbtqia, advocacy]
-location: "Philadelphia, PA"
 link: "https://equalitypa.org"
 pdf_include: false
 ---

@@ -5,7 +5,6 @@ client: "Queen Mary Escape Room"
 client_link: "https://queenmaryescape.com"
 date: 2025-05-01
 tags: [physical computing, esp32, escape room, fabrication, soldering, troubleshooting, tech]
-location: "Ardmore, PA"
 link: "https://knabelabs.com"
 pdf_include: true
 ---

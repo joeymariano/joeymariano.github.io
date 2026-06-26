@@ -5,7 +5,6 @@ client: "Illustration Division Inc."
 client_link: "https://www.illustrationdivision.com"
 date: 2019-05-01
 tags: [front end, developer, html, javascript, sass, json, squarespace, tech]
-location: "New York, NY"
 pdf_include: false
 ---
 
