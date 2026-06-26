@@ -1,5 +1,6 @@
+{% assign edu = include.entry %}
 <div>
-    {% if include.color == "blue-500" %}
+    {% if edu.color == "blue-500" %}
     <div class="flex items-center justify-center w-11 bg-[#0a0a0a] mr-4 ring-blue-500 ring-2
                     rounded-xl p-2">
     {% else %}
@@ -19,16 +20,15 @@
         </svg>
     </div>
 
-    <h3 class="pt-4">{% if include.url %}<a href="{{ include.url }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ include.school }}</a>{% else %}{{ include.school }}{% endif %}</h3>
+    <h3 class="pt-4">{% if edu.url %}<a href="{{ edu.url }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ edu.school }}</a>{% else %}{{ edu.school }}{% endif %}</h3>
 
-    <h2 class="text-gray-400">{{ include.degree }}</h2>
+    <h2 class="text-gray-400">{{ edu.degree }}</h2>
 
-    <p class="text-gray-400 text-sm">{{ include.years }}</p>
+    <p class="text-gray-400 text-sm">{{ edu.years }}</p>
 
     <ul>
-        {% for bullet_point in include.details %}
+        {% for bullet_point in edu.details %}
         <li><span class="text-gray-500">&#8853;</span> {{ bullet_point }}</li>
         {% endfor %}
     </ul>
 </div>
-

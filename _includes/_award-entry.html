@@ -1,20 +1,21 @@
+{% assign award = include.entry %}
 <div>
     <!-- ring accent box with a pixel-art star (each pixel = a square, like the
          education icon); ring color comes from awards.yml -->
-    <div class="flex items-center justify-center w-11 bg-[#0a0a0a] mr-4 ring-{{ include.color }} ring-2 rounded-xl p-2">
+    <div class="flex items-center justify-center w-11 bg-[#0a0a0a] mr-4 ring-{{ award.color }} ring-2 rounded-xl p-2">
         <svg class="award-star w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 14" shape-rendering="crispEdges" aria-hidden="true">
             <path stroke="#ffffff" d="M7 0h2M6 1h4M5 2h6M1 3h14M0 4h16M1 5h14M2 6h12M3 7h10M3 8h10M2 9h12M2 10h5M9 10h5M1 11h5M10 11h5M1 12h4M11 12h4M1 13h3M12 13h3"/>
         </svg>
     </div>
 
-    <h3 class="pt-4">{% if include.url %}<a href="{{ include.url }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ include.title }}</a>{% else %}{{ include.title }}{% endif %}</h3>
+    <h3 class="pt-4">{% if award.url %}<a href="{{ award.url }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ award.title }}</a>{% else %}{{ award.title }}{% endif %}</h3>
 
-    <h2 class="text-gray-400">{{ include.issuer }}{% if include.date %} &middot; {{ include.date }}{% endif %}</h2>
+    <h2 class="text-gray-400">{{ award.issuer }}{% if award.date %} &middot; {{ award.date }}{% endif %}</h2>
 
-    {% if include.associated %}<p class="text-gray-400 text-sm">Associated with {{ include.associated }}</p>{% endif %}
+    {% if award.associated %}<p class="text-gray-400 text-sm">Associated with {{ award.associated }}</p>{% endif %}
 
     <ul>
-        {% for bullet_point in include.details %}
+        {% for bullet_point in award.details %}
         <li><span class="text-gray-500">&#8853;</span> {{ bullet_point }}</li>
         {% endfor %}
     </ul>

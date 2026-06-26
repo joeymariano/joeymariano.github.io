@@ -1,0 +1,22 @@
+{% comment %}
+  Card grid — the one place the card grid markup and the site.cards loop live.
+
+  Params:
+    categories   comma-separated tags; a card is shown if its `category`
+                 string contains ANY of them (e.g. "music,show").
+    reversed     (optional) true to iterate site.cards newest-first.
+    grid_class   (optional) extra classes appended to the grid wrapper
+                 (e.g. "mb-10" on the music Samples grid).
+{% endcomment %}
+{% assign wanted = include.categories | split: "," %}
+{% if include.reversed %}{% assign cards = site.cards | reverse %}{% else %}{% assign cards = site.cards %}{% endif %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense{% if include.grid_class %} {{ include.grid_class }}{% endif %}">
+    {% for item in cards %}
+        {% assign show = false %}
+        {% for cat in wanted %}
+            {% assign tag = cat | strip %}
+            {% if item.category contains tag %}{% assign show = true %}{% endif %}
+        {% endfor %}
+        {% if show %}{% include _card.html item=item %}{% endif %}
+    {% endfor %}
+</div>

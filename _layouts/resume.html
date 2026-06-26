@@ -40,9 +40,7 @@
                     <!-- order the jos w/ the most recent first -->
                     {% assign rev-job = site.jobs | reverse %}
                     {% for item in rev-job %}
-                        {% include _job.html tags=item.tags title=item.title company=item.company date=item.date
-                                             content=item.content link=item.link pdf_include=item.pdf_include
-                                             client=item.client client_link=item.client_link %}
+                        {% include _job.html job=item %}
                     {% endfor %}
                 </div>
             </div>
@@ -57,14 +55,7 @@
             <!-- grid: 3 columns on large screens, collapse to 2 on smaller -->
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {% for entry in site.data.education %}
-                    {% include _edu-entry.html
-                    school=entry.school
-                    degree=entry.degree
-                    years=entry.years
-                    color=entry.color
-                    details=entry.details
-                    url=entry.url
-                    %}
+                    {% include _edu-entry.html entry=entry %}
                 {% endfor %}
             </div>
         </div>
@@ -78,15 +69,7 @@
             <!-- grid: 3 columns on large screens, collapse to 2 on smaller -->
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {% for entry in site.data.awards %}
-                    {% include _award-entry.html
-                    title=entry.title
-                    issuer=entry.issuer
-                    date=entry.date
-                    color=entry.color
-                    url=entry.url
-                    associated=entry.associated
-                    details=entry.details
-                    %}
+                    {% include _award-entry.html entry=entry %}
                 {% endfor %}
             </div>
         </div>
@@ -119,9 +102,14 @@
             <div id="skills-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
                 {% assign sorted_skills = page.skills | sort: "name" %}
                 {% for skill in sorted_skills %}
-                    <!-- skill html -->
+                    <!-- skill html — color is derived from category (tech=blue, arts=red, misc=amber) -->
+                    {% case skill.category %}
+                        {% when 'tech' %}{% assign skill_color = '#3B82F6' %}
+                        {% when 'arts' %}{% assign skill_color = '#EF4444' %}
+                        {% else %}{% assign skill_color = '#FCD34D' %}
+                    {% endcase %}
                     <div class="bg-[#0a0a0a] p-2 text-left rounded-lg"
-                        style="filter: drop-shadow(-2px -2px 0px {{ skill.color }});"
+                        style="filter: drop-shadow(-2px -2px 0px {{ skill_color }});"
                         data-category="{{ skill.category }}">
                         {% if skill.wiki %}<a href="{{ skill.wiki }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ skill.name }}</a>{% else %}{{ skill.name }}{% endif %}
                     </div>

@@ -1,30 +1,31 @@
-<div class="{% if include.size == '1x' %}col-span-1{% elsif include.size == '2x' %}md:col-span-2{% endif %} fade-in-item">
+{% assign card = include.item %}
+<div class="{% if card.size == '1x' %}col-span-1{% elsif card.size == '2x' %}md:col-span-2{% endif %} fade-in-item">
     <!-- S T R U C T U R E D  D A T A — for rich results / AI agents -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "{% if include.music %}MusicRecording{% elsif include.category contains 'art' %}VisualArtwork{% else %}CreativeWork{% endif %}",
-      "name": {{ include.title | jsonify }},
-      "image": {{ '/assets/img/' | append: include.image | absolute_url | jsonify }},
-      "description": {{ include.alt | default: include.title | strip_newlines | jsonify }},
-      {% if include.link %}"url": {{ include.link | jsonify }},
-      {% endif %}{% if include.music %}"byArtist": { "@type": "MusicGroup", "name": "nmlstyl", "url": "https://nmlstyl.art" }{% else %}"creator": { "@type": "Person", "name": "Joey Mariano", "url": "{{ site.url }}" }{% endif %},
+      "@type": "{% if card.music %}MusicRecording{% elsif card.category contains 'art' %}VisualArtwork{% else %}CreativeWork{% endif %}",
+      "name": {{ card.title | jsonify }},
+      "image": {{ '/assets/img/' | append: card.image | absolute_url | jsonify }},
+      "description": {{ card.alt | default: card.title | strip_newlines | jsonify }},
+      {% if card.link %}"url": {{ card.link | jsonify }},
+      {% endif %}{% if card.music %}"byArtist": { "@type": "MusicGroup", "name": "nmlstyl", "url": "https://nmlstyl.art" }{% else %}"creator": { "@type": "Person", "name": "Joey Mariano", "url": "{{ site.url }}" }{% endif %},
       "inLanguage": "en-US"
     }
     </script>
     <!-- container with drop shadow -->
-    <div class="striped-div h-full rounded-3xl bg-black p-4 {% if include.music %}pb-10{% endif %} shadow-[8px_8px_0px_#181818] relative">
+    <div class="striped-div h-full rounded-3xl bg-black p-4 {% if card.music %}pb-10{% endif %} shadow-[8px_8px_0px_#181818] relative">
         <div>
-            {% if include.video %}
-            <video src="/assets/img/{{ include.video }}" poster="/assets/img/{{ include.image }}"
+            {% if card.video %}
+            <video src="/assets/img/{{ card.video }}" poster="/assets/img/{{ card.image }}"
              autoplay loop muted playsinline preload="metadata"
-             aria-label="{{ include.alt | default: include.title }}"
-             class="aspect-[auto_4/3] {% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
+             aria-label="{{ card.alt | default: card.title }}"
+             class="aspect-[auto_4/3] {% if card.round_image == true %}rounded-full{% elsif card.round_image == false %}
              rounded-3xl{% endif %} ring-4 ring-black w-full"></video>
             {% else %}
-            <img src="/assets/img/{{ include.image }}" alt="{{ include.alt | default: include.title }}"
+            <img src="/assets/img/{{ card.image }}" alt="{{ card.alt | default: card.title }}"
              loading="lazy" decoding="async"
-             class="aspect-[auto_4/3] {% if include.round_image == true %}rounded-full{% elsif include.round_image == false %}
+             class="aspect-[auto_4/3] {% if card.round_image == true %}rounded-full{% elsif card.round_image == false %}
              rounded-3xl{% endif %} ring-4 ring-black w-full cursor-zoom-in">
             {% endif %}
         </div>
@@ -33,16 +34,16 @@
         <div class="before-title pt-16 pb-4"></div>
 
         <h2 class="card-title pb-6">
-            <span class="ring-[#222222] ring-2 p-2 uppercase p-2 rounded-xl">{{ include.title }}</span>
+            <span class="ring-[#222222] ring-2 p-2 uppercase p-2 rounded-xl">{{ card.title }}</span>
         </h2>
 
         <!-- script in footer adds tailwind classes to dynamically create markdown in the content -->
         <div class="card-contents text-sm text-justify text-gray-400 font-semibold pb-4 rounded-3xl">
-            {{ include.content }}
+            {{ card.content }}
         </div>
 
-        {% if include.music %}
-            {% include _media-controller.html music=include.music %}
+        {% if card.music %}
+            {% include _media-controller.html music=card.music %}
         {% endif %}
 
         <!-- C O P Y  B U T T O N -->

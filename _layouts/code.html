@@ -12,20 +12,7 @@
         <div class="col-span-1 mb-8">
             <h1><span class="hdr-1-macro">Tech Related</span></h1>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
-            {% for item in site.cards reversed %}
-            {% if item.category contains 'code' or item.category contains 'tech' %}
-            {% include _card.html
-            size=item.size
-            image=item.image
-            video=item.video
-            alt=item.alt
-            round_image=item.round_image
-            content=item.content
-            title=item.title %}
-            {% endif %}
-            {% endfor %}
-        </div>
+        {% include _card-grid.html categories="code,tech" reversed=true %}
     </div>
 
     {% include _footer.html %}

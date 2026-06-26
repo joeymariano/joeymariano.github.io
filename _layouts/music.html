@@ -14,20 +14,7 @@
     <div class="mb-8 ">
        <h1><span class="hdr-1-macro">Samples</span></h1>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense mb-10">
-      {% for item in site.cards %}
-        {% if item.category contains "mediaplayer" %}
-          {% include _card.html
-          size=item.size
-          image=item.image
-          alt=item.alt
-          round_image=item.round_image
-          content=item.content
-          title=item.title
-          music=item.music%}
-        {% endif %}
-      {% endfor %}
-    </div>
+    {% include _card-grid.html categories="mediaplayer" grid_class="mb-10" %}
 
     <!-- D I S C O G R A P H Y -->
     <section class="mb-12 fade-in-item" aria-labelledby="discography-heading">
@@ -64,20 +51,7 @@
        <h1><span class="hdr-1-macro">Music Related</span></h1>
     </div>
     <!-- grid container for cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
-      {% for item in site.cards reversed %}
-        {% if item.category contains "music" or item.category contains "show" %}
-          {% include _card.html
-          size=item.size
-          image=item.image
-          alt=item.alt
-          round_image=item.round_image
-          content=item.content
-          title=item.title
-          music=item.music%}
-        {% endif %}
-      {% endfor %}
-    </div>
+    {% include _card-grid.html categories="music,show" reversed=true %}
   </div>
   {% include _footer.html %}
 </body>

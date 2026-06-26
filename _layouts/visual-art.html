@@ -27,19 +27,7 @@
 
             <!-- A R T  C A R D S -->
             <h1 class="mb-8 fade-in-item"><span class="hdr-1-macro">Visual Work</span></h1>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 grid-flow-row-dense">
-                {% for item in site.cards reversed %}
-                    {% if item.category contains 'art' or item.category contains 'design' %}
-                        {% include _card.html
-                        size=item.size
-                        image=item.image
-                        alt=item.alt
-                        round_image=item.round_image
-                        content=item.content
-                        title=item.title %}
-                    {% endif %}
-                {% endfor %}
-            </div>
+            {% include _card-grid.html categories="art,design" reversed=true %}
         </div>
         {% include _footer.html %}
     </body>
