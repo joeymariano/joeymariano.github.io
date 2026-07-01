@@ -35,9 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const footer = document.querySelector('footer');
             const contactSpan = document.getElementById('contact-blink');
-            // Scroll to the very bottom of the page (where the contact info sits),
-            // not just the footer's top edge. Mirrors the top-button's scrollTo.
-            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+            // Scroll to the very bottom of the page (where the contact info sits).
+            // On narrow layouts the cards stack into one tall column of lazy
+            // images; if we scroll before they load, each one grows the document
+            // mid-flight and the scroll lands short. So first force any pending
+            // images to load (promote lazy → eager) and wait for them, then do a
+            // single smooth scroll to the now-stable bottom. A timeout keeps a
+            // slow/broken image from blocking the scroll forever.
+            const pending = Array.from(document.images).filter(img => !img.complete);
+            pending.forEach(img => { if (img.loading === 'lazy') img.loading = 'eager'; });
+            const loaded = Promise.all(pending.map(img => new Promise(res => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+            })));
+            Promise.race([loaded, new Promise(res => setTimeout(res, 3000))])
+                .then(() => window.scrollTo({
+                    top: document.documentElement.scrollHeight, behavior: 'smooth' }));
 
             // wait until footer is fully in view before triggering animation
             Site.onceInView(footer, () => {
