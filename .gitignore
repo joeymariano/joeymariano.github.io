@@ -5,4 +5,7 @@ _site
 vendor
 .aider*
 node_modules
-assets/img/paintings/
+# Raw recovery material stays out of git; the numbered .webp the flipbook
+# serves are the live assets, so un-ignore those.
+assets/img/paintings/*
+!assets/img/paintings/*.webp

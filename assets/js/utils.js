@@ -3,7 +3,7 @@
  *  ----------------------------------------------------------------------------
  *  Small shared helpers used across the site's scripts. There's no bundler —
  *  files are served raw — so this is a plain global namespace (mirroring the
- *  existing window.blackBookWipeImages bridge). It's loaded in _head.html just
+ *  existing window.flipbookWipeImages bridge). It's loaded in _head.html just
  *  before scripts.js, so every later script (deferred or not) can rely on it.
  *
  *  Consumers alias it once at the top of their scope:  const Site = window.Site;
@@ -17,6 +17,14 @@
     function formatTime(seconds) {
         const s = Math.max(0, Math.floor(seconds || 0));
         return Math.floor(s / 60) + ':' + (s % 60).toString().padStart(2, '0');
+    }
+
+    // Total CSS transition time (duration + delay) of el, in ms. 0 when none.
+    // Lets callers defer a state change until an element's transition has run
+    // without hard-coding a number that has to stay in sync with the stylesheet.
+    function transitionMs(el) {
+        const cs = getComputedStyle(el);
+        return Math.round((parseFloat(cs.transitionDuration) + parseFloat(cs.transitionDelay)) * 1000) || 0;
     }
 
 
@@ -97,6 +105,53 @@
     }
 
 
+    /* ── A 1 1 Y :   F O C U S   T R A P ────────────────────────────────────
+     * Keep keyboard focus inside `container` while it's open. Remembers where
+     * focus was on entry and restores it via the returned release() — so a modal
+     * hands focus back to whatever opened it. opts.initialFocus is focused on
+     * entry; opts.filter(el) can drop focusables that are present but inert
+     * (e.g. a hidden sub-bar), keeping that container-specific rule out of here.
+     * ----------------------------------------------------------------------- */
+
+    function trapFocus(container, opts) {
+        opts = opts || {};
+        const prevFocus = document.activeElement;
+
+        function focusables() {
+            let items = Array.from(container.querySelectorAll(
+                'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            ));
+            if (opts.filter) items = items.filter(opts.filter);
+            return items;
+        }
+
+        function handler(e) {
+            if (e.key !== 'Tab') return;
+            const items = focusables();
+            if (!items.length) return;
+            const first = items[0];
+            const last  = items[items.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+
+        container.addEventListener('keydown', handler);
+        if (opts.initialFocus) { try { opts.initialFocus.focus(); } catch (e) { /* ignore */ } }
+
+        return function release() {
+            container.removeEventListener('keydown', handler);
+            if (prevFocus && typeof prevFocus.focus === 'function') {
+                try { prevFocus.focus(); } catch (e) { /* ignore */ }
+            }
+        };
+    }
+
+
     /* ── O N C E   I N   V I E W ─────────────────────────────────────────────
      * Run callback the first time el scrolls into view, then stop observing.
      * Falls back to running immediately where IntersectionObserver is missing.
@@ -131,7 +186,9 @@
 
     window.Site = {
         bindAudioControls: bindAudioControls,
+        transitionMs: transitionMs,
         makeActivatable: makeActivatable,
+        trapFocus: trapFocus,
         onceInView: onceInView,
         contactEmail: contactEmail,
     };

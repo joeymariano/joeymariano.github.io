@@ -1,0 +1,4 @@
+{% comment %}
+  Renders `text` as a new-tab link when `url` is given, otherwise as plain text.
+  Params: url (optional), text.
+{% endcomment %}{% if include.url %}<a href="{{ include.url }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ include.text }}</a>{% else %}{{ include.text }}{% endif %}

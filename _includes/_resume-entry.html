@@ -1,0 +1,51 @@
+{% comment %}
+  Resume entry card — a ring-accent pixel-art icon over a linked title, an
+  optional subtitle + meta line, and a bullet list. Powers both the Education
+  and Honors sections on /resume (generalized from the old _edu-entry.html and
+  _award-entry.html, which were ~80% identical).
+
+  Params:
+    icon      "doc" (document) or "star" (award). Default "doc".
+    color     ring accent (Tailwind ring-* value, e.g. "yellow-300")
+    title     heading text
+    url       optional link for the title (new tab)
+    subtitle  optional <h2> line (degree, or "issuer · date")
+    meta      optional small line (years, or "Associated with …")
+    details   optional array of bullet strings
+{% endcomment %}
+{% assign icon = include.icon | default: "doc" %}
+<div>
+    <!-- ring accent box with a pixel-art icon; ring color comes from the data file -->
+    <div class="flex items-center justify-center w-11 bg-[#0a0a0a] mr-4 ring-{{ include.color }} ring-2 rounded-xl p-2">
+        {% if icon == "star" %}
+        <svg class="award-star w-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 14" shape-rendering="crispEdges" aria-hidden="true">
+            <path stroke="#ffffff" d="M7 0h2M6 1h4M5 2h6M1 3h14M0 4h16M1 5h14M2 6h12M3 7h10M3 8h10M2 9h12M2 10h5M9 10h5M1 11h5M10 11h5M1 12h4M11 12h4M1 13h3M12 13h3"/>
+        </svg>
+        {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges" aria-hidden="true">
+            <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
+            <path stroke="#ffffff"
+                  d="M6 0h1M5 1h3M4 2h5M3 3h7M2 4h2M5 4h3M9 4h2M1 5h2M4 5h3M8 5h4M0 6h2M3 6h3M7
+                                     6h3M11 6h2M1 7h8M10 7h4M2 8h6M9 8h3M13 8h2M3 9h4M8 9h3M12 9h4M4 10h2M7 10h3M11
+                                     10h4M5 11h4M10 11h4M6 12h2M9 12h4M7 13h5M8 14h3M9 15h1"/>
+            <path stroke="#000000"
+                  d="M4 4h1M8 4h1M3 5h1M7 5h1M2 6h1M6 6h1M10 6h1M9 7h1M8 8h1M12 8h1M7 9h1M11 9h1M6
+                                     10h1M10 10h1M9 11h1M8 12h1"/>
+        </svg>
+        {% endif %}
+    </div>
+
+    <h3 class="pt-4">{% include _link-or-text.html url=include.url text=include.title %}</h3>
+
+    {% if include.subtitle and include.subtitle != "" %}<h2 class="text-gray-400">{{ include.subtitle }}</h2>{% endif %}
+
+    {% if include.meta and include.meta != "" %}<p class="text-gray-400 text-sm">{{ include.meta }}</p>{% endif %}
+
+    {% if include.details %}
+    <ul>
+        {% for bullet_point in include.details %}
+        <li><span class="text-gray-500">&#8853;</span> {{ bullet_point }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>

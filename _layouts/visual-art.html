@@ -5,25 +5,18 @@
         {% include _header.html %}
         <div  id="fadeContent" class="pl-8 pr-8"> <!-- container for fade in -->
 
-            <!-- B L A C K  B O O K -->
-            <div id="black-book" class="lg:w-1/2 w-full mb-9">
-                <!-- heading and buttons fade in first, no image inside so resolves immediately -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 fade-in-item">
-                    <!-- title -->
-                    <div class="w-full mb-8">
-                        <h1><span class="hdr-1-macro">Black Book</span></h1>
-                    </div>
-
-                    <!-- buttons -->
-                    <div class="w-full text-left lg:text-right mb-8">
-                        <button id="prev-page" class="arrow-btn-macro ring-yellow-300 mr-4 disabled:opacity-40"> < - - </button>
-                        <button id="next-page" class="arrow-btn-macro ring-blue-500 disabled:opacity-40"> - - > </button>
-                    </div>
-                </div>
-
-                <!-- viewer has its own skeleton — no fade-in-item needed -->
-                {% include _black-book.html %}
+            <!-- F L I P B O O K S -->
+            <div class="flex flex-col lg:flex-row lg:gap-9">
+                {% include _flipbook.html id="black-book" title="Black Book" folder="black-book"
+                    count=40 start=13 aspect="2500/1817" width="lg:w-1/2"
+                    alt="Page from Joey Mariano's Black Book sketchbook" %}
+                {% comment %} Paintings flipbook temporarily disabled — known issues to resolve.
+                {% include _flipbook.html id="paintings" title="Paintings" folder="paintings"
+                    count=10 start=0 aspect="1/1" fit="contain"
+                    alt="Painting by Joey Mariano" %}
+                {% endcomment %}
             </div>
+            <script defer src="/assets/js/flipbook.js"></script>
 
             <!-- A R T  C A R D S -->
             <h1 class="mb-8 fade-in-item"><span class="hdr-1-macro">Visual Work</span></h1>

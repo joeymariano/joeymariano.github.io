@@ -1,8 +1,8 @@
 /* ============================================================================
  *  I M A G E   M O D A L
  *  ----------------------------------------------------------------------------
- *  Click any card image (or the Black Book page) to open an expanded view
- *  with optional audio mirror and Black-Book page-turn controls.
+ *  Click any card image (or a flipbook page) to open an expanded view with
+ *  optional audio mirror and flipbook page-turn controls (book mode).
  *
  *  Markup lives in _includes/_footer.html (#image-modal and friends).
  * ========================================================================== */
@@ -60,18 +60,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* ── B O O K   M O D E ──────────────────────────────────────────────────
-     * When the Black Book page image opens, temporarily move its prev/next
-     * buttons into the modal's control cluster, then return them on close.
+     * When a flipbook page image opens, temporarily move that flipbook's
+     * prev/next buttons into the modal's control cluster, then return them on
+     * close. `activeFlipbook` tracks which instance (Black Book, Paintings, …)
+     * is open so the wipe mirror and tap zones target the right one.
      * ----------------------------------------------------------------------- */
 
     let bookMode = false;
     let buttonsHome = null;
+    let activeFlipbook = null;
+    let bookAspect = null;   // width/height of the open flipbook's frame
 
-    function enterBookMode() {
-        const prevBtn = document.getElementById('prev-page');
-        const nextBtn = document.getElementById('next-page');
+    // "2500/1817" → 1.3758, "1/1" → 1. Falls back to square on bad input.
+    function parseAspect(str) {
+        const parts = (str || '').split('/');
+        const w = parseFloat(parts[0]);
+        const h = parseFloat(parts[1]);
+        return (w && h) ? w / h : 1;
+    }
+
+    function enterBookMode(flipbookId) {
+        const prevBtn = document.getElementById(flipbookId + '-prev');
+        const nextBtn = document.getElementById(flipbookId + '-next');
+        const pageImg = document.getElementById(flipbookId + '-page');
         if (!prevBtn || !nextBtn || !controls) return;
         bookMode = true;
+        activeFlipbook = flipbookId;
+        bookAspect = parseAspect(pageImg && pageImg.dataset.aspect);
+        // Book mode mirrors the inline viewer: a fixed frame at the flipbook's
+        // aspect ratio with the page letterboxed inside (object-contain). The box
+        // never resizes per page, so turning to a differently-shaped painting
+        // can't snap or distort — it just re-letterboxes. Both image layers fit.
+        modalImg.style.objectFit  = 'contain';
+        if (modalWipe) modalWipe.style.objectFit = 'contain';
         buttonsHome = prevBtn.parentElement;
         // Order in the modal: prev, next, X — insert each before the close button.
         controls.insertBefore(prevBtn, closeBtn);
@@ -80,14 +101,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function exitBookMode() {
         if (!bookMode) return;
-        const prevBtn = document.getElementById('prev-page');
-        const nextBtn = document.getElementById('next-page');
+        const prevBtn = document.getElementById(activeFlipbook + '-prev');
+        const nextBtn = document.getElementById(activeFlipbook + '-next');
         if (buttonsHome && prevBtn && nextBtn) {
             buttonsHome.appendChild(prevBtn);
             buttonsHome.appendChild(nextBtn);
         }
+        // Restore size-to-image behaviour for card images.
+        modalImg.style.objectFit = '';
+        if (modalWipe) modalWipe.style.objectFit = '';
         bookMode = false;
         buttonsHome = null;
+        activeFlipbook = null;
+        bookAspect = null;
     }
 
 
@@ -131,6 +157,14 @@ document.addEventListener('DOMContentLoaded', function () {
               isSvgSrc(modalImg.currentSrc || modalImg.src));
     }
     function fitVideo() { fitTo(modalVideo, modalVideo.videoWidth, modalVideo.videoHeight); }
+
+    // Book mode: size the frame to the flipbook's aspect ratio (not the current
+    // image's), so the box is constant across page turns. `vector: true` lets it
+    // fill the viewport regardless of any single page's pixel size — object-contain
+    // preserves each page's own aspect within the fixed box.
+    function fitBookBox() {
+        fitTo(modalImg, bookAspect, 1, true);
+    }
 
     // Mirror the source image's rounded-X class onto the modal image so the
     // modal matches the card's corner radius (full-round vs 3xl, etc).
@@ -189,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
         trapFocus();
     }
 
-    function openModal(src, alt, roundClass, isBookMode, audio) {
+    function openModal(src, alt, roundClass, flipbookId, audio) {
         hideModalVideo();
         setRoundClass(modalImg, roundClass);
         if (modalWipe) setRoundClass(modalWipe, roundClass);
@@ -197,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
         modalImg.src = src;
         modalImg.alt = alt || '';
 
-        if (isBookMode) enterBookMode();
+        if (flipbookId) enterBookMode(flipbookId);
 
         // Mirror the source card's audio (or hide the bar if none).
         if (audio) bindAudio(audio);
@@ -205,8 +239,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         showModal();
 
-        if (modalImg.complete && modalImg.naturalWidth) fitImage();
-        else modalImg.addEventListener('load', fitImage, { once: true });
+        // Book mode uses a fixed aspect-ratio frame (constant across page turns);
+        // card images size the box to the image itself.
+        if (bookMode) {
+            fitBookBox();
+        } else if (modalImg.complete && modalImg.naturalWidth) {
+            fitImage();
+        } else {
+            modalImg.addEventListener('load', fitImage, { once: true });
+        }
 
         // a11y: capture previous focus, then trap focus inside the modal.
         trapFocus();
@@ -231,9 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // out instantly. The wait is the CSS close transition itself (duration +
         // delay), read from the element now that `is-closing` is applied — no
         // hard-coded ms to keep in sync. Reduced-motion sets transition:none → 0ms.
-        const closeStyle = getComputedStyle(modal);
-        const closeMs = Math.round((parseFloat(closeStyle.transitionDuration) +
-                                    parseFloat(closeStyle.transitionDelay)) * 1000) || 0;
+        const closeMs = Site.transitionMs(modal);
         setTimeout(function () {
             if (modal.classList.contains('is-open')) return; // reopened mid-close
             unbindAudio();
@@ -247,11 +286,11 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ── T R I G G E R S   ( click any card image to open ) ──────────────── */
 
     // `cursor-zoom-in` lives on the image markup; the a11y/click wiring needs JS.
-    document.querySelectorAll('.striped-div img, #black-book-page').forEach(function (img) {
+    document.querySelectorAll('.striped-div img, .flipbook-page').forEach(function (img) {
         Site.makeActivatable(img, 'Open expanded view: ' + (img.alt || 'image'), function () {
             const card = img.closest('.striped-div');
             const cardAudio = card ? card.querySelector('.audio') : null;
-            openModal(img.src, img.alt, getRoundClass(img), img.id === 'black-book-page', cardAudio);
+            openModal(img.src, img.alt, getRoundClass(img), img.dataset.flipbook, cardAudio);
         });
     });
 
@@ -265,81 +304,53 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* ── F O C U S   T R A P ────────────────────────────────────────────────
-     * Keep keyboard focus inside the modal while open; remember where focus
-     * was before we opened so we can restore it on close.
+     * Delegated to the shared Site.trapFocus. The only modal-specific rule is
+     * skipping the music bar's controls while it's hidden — passed as a filter.
      * ----------------------------------------------------------------------- */
 
-    let prevFocus = null;
-    let trapHandler = null;
+    let releaseModalFocus = null;
 
-    function focusablesInModal() {
-        return Array.from(modal.querySelectorAll(
-            'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )).filter(function (el) {
-            const inMusic = el.closest('#image-modal-music');
-            if (inMusic && inMusic.classList.contains('hidden')) return false;
-            return true;
+    function trapFocus() {
+        releaseModalFocus = Site.trapFocus(modal, {
+            initialFocus: closeBtn,
+            filter: function (el) {
+                const inMusic = el.closest('#image-modal-music');
+                return !(inMusic && inMusic.classList.contains('hidden'));
+            },
         });
     }
 
-    function trapFocus() {
-        prevFocus = document.activeElement;
-        trapHandler = function (e) {
-            if (e.key !== 'Tab') return;
-            const items = focusablesInModal();
-            if (!items.length) return;
-            const first = items[0];
-            const last  = items[items.length - 1];
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        };
-        modal.addEventListener('keydown', trapHandler);
-        try { closeBtn.focus(); } catch (e) { /* ignore */ }
-    }
-
     function releaseFocus() {
-        if (trapHandler) {
-            modal.removeEventListener('keydown', trapHandler);
-            trapHandler = null;
-        }
-        const target = prevFocus;
-        prevFocus = null;
-        if (target && typeof target.focus === 'function') {
-            try { target.focus(); } catch (e) { /* ignore */ }
-        }
+        if (releaseModalFocus) { releaseModalFocus(); releaseModalFocus = null; }
     }
 
 
-    /* ── B L A C K - B O O K   W I P E   M I R R O R ─────────────────────────
-     * When the Black Book turns a page, broadcast the wipe so the modal can
-     * play the same animation on its own image.
+    /* ── F L I P B O O K   W I P E   M I R R O R ─────────────────────────────
+     * When the open flipbook turns a page, mirror the wipe on the modal image.
+     * Ignore events from other flipbook instances on the page.
      * ----------------------------------------------------------------------- */
 
-    document.addEventListener('blackbook:wipestart', function (e) {
-        if (!bookMode || !modal.classList.contains('is-open')) return;
-        if (typeof window.blackBookWipeImages === 'function' && modalWipe) {
-            window.blackBookWipeImages(modalImg, modalWipe, e.detail);
+    document.addEventListener('flipbook:wipestart', function (e) {
+        if (!bookMode || e.detail.id !== activeFlipbook) return;
+        if (!modal.classList.contains('is-open')) return;
+        if (typeof window.flipbookWipeImages === 'function' && modalWipe) {
+            window.flipbookWipeImages(modalImg, modalWipe, e.detail);
         }
     });
 
 
     /* ── B O O K - M O D E   T A P   Z O N E S ───────────────────────────────
      * In book mode, the left half of the modal image acts as prev and the right
-     * half as next. We forward to the existing prev/next buttons so the wipe,
-     * click-queue, and all page-turn logic stay exactly as-is. Only active while
-     * the Black Book is open; otherwise clicking the image does nothing.
+     * half as next. We forward to the open flipbook's prev/next buttons so the
+     * wipe, click-queue, and all page-turn logic stay exactly as-is. Only active
+     * while a flipbook is open; otherwise clicking the image does nothing.
      * ----------------------------------------------------------------------- */
 
     modalImg.addEventListener('click', function (e) {
         if (!bookMode) return;
         const rect = modalImg.getBoundingClientRect();
         const onLeft = (e.clientX - rect.left) < rect.width / 2;
-        const btn = document.getElementById(onLeft ? 'prev-page' : 'next-page');
+        const btn = document.getElementById(activeFlipbook + (onLeft ? '-prev' : '-next'));
         if (btn) btn.click();
     });
 
@@ -349,6 +360,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', function () {
         if (!modal.classList.contains('is-open')) return;
         if (modalVideo && !modalVideo.classList.contains('hidden')) fitVideo();
+        else if (bookMode) fitBookBox();
         else fitImage();
     });
 

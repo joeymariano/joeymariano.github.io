@@ -1,0 +1,70 @@
+{% comment %}
+  Flipbook — a two-image page-turn viewer with a clip-path wipe.
+
+  One reusable instance powers both the Black Book and the Paintings viewer on
+  /visual-art. All IDs are namespaced by `id` and the hooks the engine/modal bind
+  to are classes, so multiple flipbooks coexist on one page.
+
+  Params:
+    id        namespaces every element id ({{id}}-page/-wipe/-skeleton/-prev/-next)
+    title     heading text
+    folder    image folder under assets/img/
+    count     number of images (0.{ext} … {count-1}.{ext})
+    start     initial page index (default 0)
+    aspect    frame aspect ratio for `aspect-[…]` (e.g. "2500/1817")
+    fit       object-fit: "cover" (default) fills the frame; "contain" letterboxes
+    ext       file extension (default "webp")
+    alt       alt text for the page image
+    width     lg-screen width class (default "lg:flex-1" — share the row evenly;
+              e.g. "lg:w-1/2" to pin a lone flipbook to half the content width)
+    prev_ring / next_ring   accent ring classes (defaults yellow / blue)
+
+  The page-turn engine loads once per page from _layouts (assets/js/flipbook.js).
+{% endcomment %}
+{% assign start = include.start | default: 0 %}
+{% assign ext = include.ext | default: "webp" %}
+{% assign prev_ring = include.prev_ring | default: "ring-yellow-300" %}
+{% assign next_ring = include.next_ring | default: "ring-blue-500" %}
+{% assign next_index = start | plus: 1 %}
+{% assign width = include.width | default: "lg:flex-1" %}
+<div id="{{ include.id }}" class="w-full {{ width }} mb-9">
+    <!-- heading and buttons fade in first, no image inside so resolves immediately -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 fade-in-item">
+        <!-- title -->
+        <div class="w-full mb-8">
+            <h1><span class="hdr-1-macro">{{ include.title }}</span></h1>
+        </div>
+
+        <!-- buttons -->
+        <div class="w-full text-left lg:text-right mb-8">
+            <button id="{{ include.id }}-prev" class="arrow-btn-macro {{ prev_ring }} mr-4 disabled:opacity-40"> < - - </button>
+            <button id="{{ include.id }}-next" class="arrow-btn-macro {{ next_ring }} disabled:opacity-40"> - - > </button>
+        </div>
+    </div>
+
+    <!-- viewer has its own skeleton — no fade-in-item needed.
+         aspect-ratio is set inline (any ratio) and object-fit comes from
+         flipbook.css, so neither depends on Tailwind seeing a built class. -->
+    <div class="flipbook-frame{% if include.fit == "contain" %} flipbook-contain{% endif %} w-full bg-black relative"
+         style="aspect-ratio: {{ include.aspect }};">
+        <!-- S K E L E T O N -->
+        <div id="{{ include.id }}-skeleton" class="flipbook-skeleton rounded-xl absolute inset-0 z-10"></div>
+        <!-- Current page (visible, underneath) -->
+        <img id="{{ include.id }}-page"
+             class="flipbook-page rounded-xl absolute inset-0 w-full h-full block cursor-zoom-in"
+             data-flipbook="{{ include.id }}"
+             data-folder="{{ include.folder }}"
+             data-count="{{ include.count }}"
+             data-ext="{{ ext }}"
+             data-aspect="{{ include.aspect }}"
+             src="{{ site.url }}/assets/img/{{ include.folder }}/{{ start }}.{{ ext }}"
+             alt="{{ include.alt }}">
+        <!-- Next page (hidden, slides in as the wipe, absolutely positioned above) -->
+        <img id="{{ include.id }}-wipe"
+             class="flipbook-wipe rounded-xl absolute inset-0 w-full h-full block"
+             aria-hidden="true"
+             style="pointer-events:none; clip-path:inset(0 100% 0 0); transition:clip-path 0.4s cubic-bezier(.77,0,.175,1), opacity 0.2s linear; opacity:0;"
+             src="{{ site.url }}/assets/img/{{ include.folder }}/{{ next_index }}.{{ ext }}"
+             alt="">
+    </div>
+</div>

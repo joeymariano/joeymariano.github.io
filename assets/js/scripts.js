@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // is read from the CSS at click time (it's viewport-dependent — only
             // the mobile breakpoint animates #menu), so there's no JS-side number
             // to keep in sync with the stylesheet.
-            const menuMs = parseFloat(getComputedStyle(menu).transitionDuration) * 1000 || 0;
-            setTimeout(() => menu.classList.add('hidden'), menuMs);
+            setTimeout(() => menu.classList.add('hidden'), Site.transitionMs(menu));
         } else {
             menu.classList.remove('hidden');
             menuBtn.classList.add('is-open');
@@ -36,7 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const footer = document.querySelector('footer');
             const contactSpan = document.getElementById('contact-blink');
-            footer.scrollIntoView({ behavior: 'smooth' });
+            // Scroll to the very bottom of the page (where the contact info sits),
+            // not just the footer's top edge. Mirrors the top-button's scrollTo.
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
 
             // wait until footer is fully in view before triggering animation
             Site.onceInView(footer, () => {

@@ -55,7 +55,7 @@
             <!-- grid: 3 columns on large screens, collapse to 2 on smaller -->
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {% for entry in site.data.education %}
-                    {% include _edu-entry.html entry=entry %}
+                    {% include _resume-entry.html icon="doc" color=entry.color title=entry.school url=entry.url subtitle=entry.degree meta=entry.years details=entry.details %}
                 {% endfor %}
             </div>
         </div>
@@ -69,7 +69,9 @@
             <!-- grid: 3 columns on large screens, collapse to 2 on smaller -->
             <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
                 {% for entry in site.data.awards %}
-                    {% include _award-entry.html entry=entry %}
+                    {% capture award_subtitle %}{{ entry.issuer }}{% if entry.date %} &middot; {{ entry.date }}{% endif %}{% endcapture %}
+                    {% capture award_meta %}{% if entry.associated %}Associated with {{ entry.associated }}{% endif %}{% endcapture %}
+                    {% include _resume-entry.html icon="star" color=entry.color title=entry.title url=entry.url subtitle=award_subtitle meta=award_meta details=entry.details %}
                 {% endfor %}
             </div>
         </div>

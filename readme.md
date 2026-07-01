@@ -85,7 +85,7 @@ Sections, top to bottom:
 Layout: `_layouts/visual-art.html` — source: `visual-art.md`
 
 Two sections:
-- **Black Book** — an inline PDF viewer (`_includes/_black-book.html`) with prev/next page buttons, constrained to half-width on large screens
+- **Flipbooks** — two page-turn image viewers side by side (`_includes/_flipbook.html`, driven by `assets/js/flipbook.js`): the **Black Book** sketchbook and a **Paintings** viewer. The include is a reusable instance (params: `id`, `title`, `folder`, `count`, `start`, `aspect`, `fit`, …), so each viewer is one `{% include %}`. Clicking a page opens it fullscreen in the shared image modal's "book mode" with tap-zone page turns.
 - **Visual Work** — cards with `category: art` or `design` in the standard responsive grid
 
 ---
@@ -165,7 +165,7 @@ The PDF export button uses [jsPDF](https://github.com/parallax/jsPDF) loaded fro
 
 ### ✨ Interactions & Animations
 
-Small interactive details run across every page, built in vanilla JS under `assets/js/` and styled via `assets/css/style.css` (a thin manifest that `@import`s partials from `assets/css/partials/`). The JS is split by concern: `scripts.js` (menu, audio players, skill sort, fades), `image-modal.js` (lightbox), `black-book.js` (sketchbook viewer), `led-tracer.js` (LED border), `footer-utils.js` (card copy + email), and `utils.js` (shared `window.Site` helpers). The modal/copy markup lives in `_includes/_footer.html`; the behavior is in those JS files. Animation timings that mirror CSS (menu collapse, modal close) are read from the stylesheet at runtime rather than hard-coded.
+Small interactive details run across every page, built in vanilla JS under `assets/js/` and styled via `assets/css/style.css` (a thin manifest that `@import`s partials from `assets/css/partials/`). The JS is split by concern: `scripts.js` (menu, audio players, skill sort, fades), `image-modal.js` (lightbox), `flipbook.js` (page-turn viewers), `led-tracer.js` (LED border), `footer-utils.js` (card copy + email), and `utils.js` (shared `window.Site` helpers). The modal/copy markup lives in `_includes/_footer.html`; the behavior is in those JS files. Animation timings that mirror CSS (menu collapse, modal close) are read from the stylesheet at runtime rather than hard-coded.
 
 #### Image Modal
 

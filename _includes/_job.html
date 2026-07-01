@@ -32,7 +32,7 @@
         <h3 class="text-white">{{ job.title }}</h3>
 
         {% if job.company %}
-        <h2 class="pt-2 pb-2 text-gray-400">{% if job.link %}<a href="{{ job.link }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ job.company }}</a>{% else %}{{ job.company }}{% endif %}{% if job.client %} <span class="text-gray-500">/</span> {% if job.client_link %}<a href="{{ job.client_link }}" target="_blank" rel="noopener" class="text-inherit no-underline">{{ job.client }}</a>{% else %}{{ job.client }}{% endif %}{% endif %}</h2>
+        <h2 class="pt-2 pb-2 text-gray-400">{% include _link-or-text.html url=job.link text=job.company %}{% if job.client %} <span class="text-gray-500">/</span> {% include _link-or-text.html url=job.client_link text=job.client %}{% endif %}</h2>
 
         {% endif %}
         <time class="block mb-2 text-sm font-normal leading-none text-gray-500">
